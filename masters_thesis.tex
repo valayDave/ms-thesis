@@ -45,28 +45,27 @@
 % Title page, input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \listadd{\titlelines}%
-  {First Line of the Title}             %<Enter the title of the dissertation
+  {Augmenting Academic Research Search And Access With}             %<Enter the title of the dissertation
 \listadd{\titlelines}%
-  {Second Line of the Title}            % If you want to
+  {Richer Context Representations}            % If you want to
                                         %   split the title across lines,
                                         %   use another \listadd command for the
                                         %   second line
-\newcommand*\Author{Your Name}          %<Enter your name; must match official transcript
+\newcommand*\Author{Valay Gaurang Dave}          %<Enter your name; must match official transcript
 \newcommand*{\documentname}%
   {Dissertation}                        %<Enter the type of document (capitalized)
 \newcommand*{\degreename}
-  {Doctor of Philosophy}                %<Enter the type of degree (capitalized)
-\newcommand*\defdate{April 2020}        %<Give month (written out fully) and year of
+  {Master's Of Science In Computer Science}                %<Enter the type of degree (capitalized)
+\newcommand*\defdate{April 2021}        %<Give month (written out fully) and year of
                                         %   the oral defense
-\listadd{\committeechair}{Chair Name}   %<Enter committee chair name; use \listadd for
-%\listadd{\committeechair}{Another name}%   for additional names
-\newcommand*{\chairlabel}{Chair}        %<If you have co-chairs, replace this text with
+\listadd{\committeechair}{Jia Zou}   %<Enter committee chair name; use \listadd for
+\listadd{\committeechair}{Heni Ben Amor}%   for additional names
+\newcommand*{\chairlabel}{Co-Chair}        %<If you have co-chairs, replace this text with
                                         %   'Co-Chair'
-\listadd{\committeemember}{Member Name} %<Enter committee member names; use \listadd for
-\listadd{\committeemember}{Member Name} %   additional names
+\listadd{\committeemember}{Kasim Selcuk Candan} %<Enter committee member names; use \listadd for
 \newcommand*{\gradmonth}{May}           %<Enter the graduation date; month can only be:
                                         %  May, August, or December
-\newcommand*{\gradyear}{2020}           %<Enter the graduation year, e.g. 2014
+\newcommand*{\gradyear}{2021}           %<Enter the graduation year, e.g. 2014
 
 \listadd{\keywords}{keyword 1}          %<Enter keywords; use \listadd for
 \listadd{\keywords}{keyword 2}          %   additional names (up to 6)
@@ -776,7 +775,7 @@
 % Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\bibfilename}{%             %<Enter the name of the *.bib file containing the
-  src/sample/library%                   %   reference information for sources cited in
+  src/thesis/library%                   %   reference information for sources cited in
 }%                                      %   the text. God help you if you're doing
                                         %   citations manually.
 
@@ -1020,17 +1019,13 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Sample settings
+% Counter Settings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\providetoggle{sample}                  % True = demonstration of template
-\settoggle{sample}{true}
-\iftoggle{sample}{%
-  \newcounter{tablecounter}
-  \setcounter{tablecounter}{1}
-  \newcounter{figurecounter}
-  \setcounter{figurecounter}{1}
-}{%
-}
+
+\newcounter{tablecounter}
+\setcounter{tablecounter}{1}
+\newcounter{figurecounter}
+\setcounter{figurecounter}{1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Debugging Help
@@ -1080,7 +1075,7 @@
 \frontmatter
 
 \chapter*{Abstract}                     % Abstract is required
-\input{src/sample/abstract}             %<Enter the name of the .tex file containing your
+\input{src/thesis/abstract}             %<Enter the name of the .tex file containing your
                                         %   your abstract or omit this line and type in
                                         %   your abstract here.
 
@@ -1088,12 +1083,12 @@
 %\clearpage                             %~If you don't wish to display the heading
                                         %   'Dedication', comment out the previous line
                                         %   and use this one instead.
-\input{src/sample/dedication}           %<Enter the name of the .tex file containing your
+\input{src/thesis/dedication}           %<Enter the name of the .tex file containing your
                                         %   your dedication or omit this line and type in
                                         %   your dedication here.
 
 \chapter*{Acknowledgments}              %~Acknowledgments are optional
-\input{src/sample/acknowledgments}      %<Enter the name of the .tex file containing your
+\input{src/thesis/acknowledgments}      %<Enter the name of the .tex file containing your
                                         %   acknowledgments or omit this line and type in
                                         %   your acknowledgments here.
 
@@ -1163,7 +1158,8 @@
 % Body
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
-%\include{chapter1}                     %<Insert your chapters here; I recommend to use
+\include{src/thesis/chapter}                     %<Insert your chapters here; I recommend to use
+\include{src/thesis/introduction}                     %<Insert your chapters here; I recommend to use
 %\include{chapter2}                     %   \include rather than \input for chapters
 %\include{chapter3}% etc.
                                         % Heading commands (in descending order):
@@ -1173,9 +1169,7 @@
                                         % \subsubsection
                                         % \paragraph
                                         % \subparagraph
-\iftoggle{sample}{%
-  \include{src/sample/chapter}%
-}{}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Back matter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1267,9 +1261,8 @@
 %\include{appendix2}                     %   \include rather than \input for appendices.
 %\include{appendix3}% etc.               %   All heading commands are the same as above,
                                          %   e.g., \chapter, \section, etc.
-\iftoggle{sample}{%
-  \include{src/sample/appendix}%
-}{}
+
+\include{src/thesis/appendix}%
 
 \backmatter                             % Start back matter according to documentclass
 \makeatletter                           % Do not clear page after printing title for
