@@ -1,0 +1,10 @@
+stepcounter{tablecounter}
+
+\csvreader[%
+        longtable={|p{7cm}|p{10cm}|},
+        % tabular={|p{7cm}|p{10cm}|},
+        table head = \hline\textbf{Criteria} & \textbf{Meaning} \\\hline,
+        late after line= \\\hline,
+        late after last line=\\\hline %
+    ]{main-sc.csv}{Criteria=\Criteria,Meaning=\Meaning}
+            {\Criteria & \Meaning}

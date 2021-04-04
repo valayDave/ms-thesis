@@ -1,78 +1,130 @@
 \chapter{Problem Motivation}
 
-\lipsum[2]
-
-\section{Introduction}
+\section{Introduction}    
 
 % Test single- and double-spacing around block quotes
-Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor
-lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus. Donec
-aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna, vitae ornare odio
-metus a mi. Morbi ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante.
-Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis parturient montes,
-nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper vestibulum turpis.
-Pellentesque cursus luctus mauris.
-\begin{quote}
-Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat
-at, tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec
-nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin
-fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat
-a, molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend at,
-accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
-Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim. Pellentesque
-tincidunt purus vel magna. Integer non enim. Praesent euismod nunc eu
-purus. Donec bibendum quam in tellus. Nullam cursus pulvinar lectus.
-Donec et mi. Nam vulputate metus eu enim. Vestibulum pellentesque
-felis eu massa.
-\end{quote}
-Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel justo vitae lacus tincidunt
-ultrices. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In hac habitasse
-platea dictumst. Integer tempus convallis augue. Etiam facilisis. Nunc elementum
-fermentum wisi. Aenean placerat. Ut imperdiet, enim sed gravida sollicitudin, felis
-odio placerat quam, ac pulvinar elit purus eget enim. Nunc vitae tortor. Proin tempus
-nibh sit amet nisl. Vivamus quis tortor vitae risus porta vehicula.
+The volume of scientific literature has doubled in the past 20 years\footnote{https://data.worldbank.org/indicator/IP.JRN.ARTC.SC}.  
+The ubiquitous availability of computing and access to free, open-source software has also enabled exponential growth in publishing for fields like computer science.  
+Figure \ref{figure1} shows a plot of the number of papers published on CS ArXiv\footnote{https://arxiv.org} each year 2015 to 2020 on a log scale. 
 
-\subsection{This is the first sub-section-level heading}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/cs-growth-trend-annual.png}
+    \caption{ A time series plotting count of papers every year for across various topics in CS from January 2015 to December 2020}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
 
-% Make sure single- and double-spacing around blocks works with line breaks in the source
-Nam dui ligula, fringilla a, euismod sodales, sollicitudin vel, wisi. Morbi auctor
-lorem non justo. Nam lacus libero, pretium at, lobortis vitae, ultricies et, tellus. Donec
-aliquet, tortor sed accumsan bibendum, erat ligula aliquet magna, vitae ornare odio
-metus a mi. Morbi ac orci et nisl hendrerit mollis. Suspendisse ut massa. Cras nec ante.
-Pellentesque a nulla. Cum sociis natoque penatibus et magnis dis parturient montes,
-nascetur ridiculus mus. Aliquam tincidunt urna. Nulla ullamcorper vestibulum turpis.
-Pellentesque cursus luctus mauris.
+The growth in the volume of research has also led to academic research search engines becoming primary mediums of access for scientific literature. 
+% \parencite{gusenbauer2020academic} showed that Google Scholar hosts more than 389M documents. 
+Academic research search engines are different from traditional search engines like Google because they host specialized content. 
+Academic research publications which are hosted by these search engines generally undergo a process of peer-review or/and get cited by other publications. 
+Being cited/peer-reviewed gives credibility to research documents and hence this metric is used by major search engines such as Google Scholar, Semantic Scholar, Microsoft Academic for ranking search documents etc. Aside the 
 
-\begin{quote}
-Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat
-at, tincidunt tristique, libero. Vivamus viverra fermentum felis. Donec
-nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin
-fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat
-a, molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend at,
-accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna.
-Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim. Pellentesque
-tincidunt purus vel magna. Integer non enim. Praesent euismod nunc eu
-purus. Donec bibendum quam in tellus. Nullam cursus pulvinar lectus.
-Donec et mi. Nam vulputate metus eu enim. Vestibulum pellentesque
-felis eu massa.
-\end{quote}
+The next section aims to provide a motivating example to show the kind of search results displayed by three large proprietary search engines.
+% \textit{The next section will assess the “features” provided by these search engines to improve researcher productivity.}
 
-Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel justo vitae lacus tincidunt
-ultrices. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In hac habitasse
-platea dictumst. Integer tempus convallis augue. Etiam facilisis. Nunc elementum
-fermentum wisi. Aenean placerat. Ut imperdiet, enim sed gravida sollicitudin, felis
-odio placerat quam, ac pulvinar elit purus eget enim. Nunc vitae tortor. Proin tempus
-nibh sit amet nisl. Vivamus quis tortor vitae risus porta vehicula.
+\section{Motivating Example: Search Results From Academic Research Search Engines}
+Machine Learning and deep learning research dominate the majority of CS publications on pre-print servers like ArXiv[\ref{figure2}].
+Taking that information into consideration, consider the use-case of a researcher trying to look for papers where a Transformer\parencite{vaswani2017attention} model written in PyTorch\parencite{paszke2019pytorch} is given adversarial examples. 
+The researcher chooses to use the following search query: \textit{pytorch transformer adversarial examples} on the search engines Google Scholar, Semantic Scholar and Microsoft Academic. 
+Ideally, the experiments of a paper or the appendix of a paper or the methodology section of a paper would consist of information about code/model in a paper. 
+The following subsections will analyze the search results for this query for three large search engines: Google Scholar, Microsoft Academic and Semantic Scholar. 
+\pagebreak
+\subsection{Search Results From Google Scholar}
+\label{sr-g}
 
-\subsubsection{This is the first sub-sub-section-level heading}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/google-scholar-example.png}
+    \caption{Search Results For Google Scholar}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+Although Google scholar found 2000+ search results, the search-result-fragments do not provide any additional context information about where the terms are matching. 
+It highlights links to code-repositories but there is no mention of when and where those links were cited in the document. 
 
-\lipsum[1]
+\pagebreak
+\subsection{Search Results From Microsoft Academic}
+\label{sr-m}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/academic-example.png}
+    \caption{Search Results For Microsoft Academic}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+Microsoft Academic provides additional information around context like topics, analytics on types of publication matches etc,
+It fails to provide information about where the match has taken place in the paper.
 
-\paragraph{This is the first paragraph-level heading}
+\pagebreak
+\subsection{Search Results From Semantic Scholar}
+\label{sr-s}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/ss-example.png}
+    \caption{Search Results For Semantic Scholar}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+Semantic Scholar highlights few search fragments where results would have matched and presents a smaller result set. 
+But all search results do not consist of context about where the match took place. 
 
-\lipsum[1]
+\pagebreak
+\section{Characterizing Missing Traits}
+\label{section:intro:missing_traits}
 
-\subparagraph{This is the first sub-paragraph-level heading}
+\subsection{Sparse Context In Search Results About Where Search Terms Matched Inside A Document}
 
-\lipsum[1]
+All search results shown in section \ref{sr-g}, \ref{sr-m}, \ref{sr-s}, do not provide any additional 
+information about where the match took place inside the research document. The interesting characteristic of research documents is that they 
+possess structure and hierarchy. Research documents have well laid of sections such as “Introduction”, “Related Works”,“Methodology”,“Experiments” etc. 
+which can provide a lot of context at search time and can also end up as essential filters when searching for topics. 
+Previous studies by \parencite{kacem2018analysis} have shown that providing more filters to tends to improve 
+precision in search and hence access to such structure at search time can be beneficial. 
+\pagebreak
+\subsection{Minimal Access To Information When Reading Research}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/gg-plugin.png}
+    \caption{Chrome(Browser) Plugin For Google Scholar}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/ss-plugin.png}
+    \caption{Chrome(Browser) Plugin For Semantic Scholar}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+Many scientific literature search engines also offer features such as forward citation search, but these features are not always accessible outside the website of the search engine. 
+Google Scholar and Semantic Scholar provide browser extensions to help the researchers get more context on a research document as seen from Figure \ref{figure5} and Figure \ref{figure6}. 
+These extensions lead back to the search engine's proprietary websites access more information surrounding the research. 
+They also miss out on many essential aspects of research documents such as tables in the research when surfacing relevant information about the document. 
+They also do not provide information within the browser when the researcher is reading an article online. 
+\pagebreak
+\subsection{No Access To More Fine Grained Information Such as Tables When Reading Research}
+With the recent growth in Machine Learning publications, new platforms such as PapersWithCode\footnote{https://paperswithcode.com} and 
+sotabench\footnote{https://sotabench.com/} help compare State-of-the-art(SOTA) methods from various research papers and link source code 
+to many SOTA ML techniques. 
 
+Many research papers compare methods from other research papers and such information is not directly accessible to the
+researcher when reading a research article online. Even though these platforms 
+host parsed information from raw research, there is no way to intelligently access that information when reading a research paper online. 
+This results in researcher spending valuable time finding the cited comparisons.
+
+\section{Proposed Approach And Overview}
+This dissertation will focus on the solutions which have been developed to tackle these missing characteristics as described in Section \ref{section:intro:missing_traits}. 
+
+Section \ref{background} will provide some preliminary background on inverted index based search engines, open-source search engines and machine learning for tabular data.  
+Section \ref{relatedwork} will discuss previous analysis of different academic search engines and the different techniques
+used to mining academic literature. Section \ref{method} will provide an overview of the proposed solutions i.e. a search engine over
+CS ArXiv and an browser extension to augment research at time of reading 
+
+Section \ref{sci-genie-core} will discuss the core components of the search engine; Section \ref{table_classification} will
+discuss the problem/application/experiments for table classification which is applied to filter tables of comparisons/results from articles cited by a research paper. 
+Section \ref{sci-genie-extension} will discuss the packaged solution which leverages the search engine and the table classification methods mentioned in  
+Section \ref{sci-genie-core},Section \ref{table_classification} to help bring context relevant information when reading research articles. 
+
+Finally, Section \ref{conclusion} will provide some insight into future work applicable to the information augmentation/search for academic literature. 

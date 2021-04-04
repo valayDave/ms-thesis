@@ -24,7 +24,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (Some) Packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{csvsimple} 
+\usepackage{booktabs}
 \usepackage{graphicx}                   % For importing image files
+% \usepackage{pgfplotstable} 
+% \usepackage{longtable}
 \usepackage{etoolbox}                   % For advanced commands throughout preamble
 \usepackage{microtype}                  %~Improves kerning and protrusion (optional);
                                         %   See here for an introduction:
@@ -45,9 +49,9 @@
 % Title page, input
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \listadd{\titlelines}%
-  {Augmenting Academic Research Search And Access With}             %<Enter the title of the dissertation
+  {Augmenting Academic Research Search And Reading With}             %<Enter the title of the dissertation
 \listadd{\titlelines}%
-  {Richer Context Representations}            % If you want to
+  {Rich Context Representations}            % If you want to
                                         %   split the title across lines,
                                         %   use another \listadd command for the
                                         %   second line
@@ -55,20 +59,22 @@
 \newcommand*{\documentname}%
   {Dissertation}                        %<Enter the type of document (capitalized)
 \newcommand*{\degreename}
-  {Master's Of Science In Computer Science}                %<Enter the type of degree (capitalized)
+  {Master Of Science}                %<Enter the type of degree (capitalized)
 \newcommand*\defdate{April 2021}        %<Give month (written out fully) and year of
                                         %   the oral defense
-\listadd{\committeechair}{Jia Zou}   %<Enter committee chair name; use \listadd for
-\listadd{\committeechair}{Heni Ben Amor}%   for additional names
+\listadd{\committeechair}{Dr. Jia Zou}   %<Enter committee chair name; use \listadd for
+\listadd{\committeechair}{Dr. Heni Ben Amor}%   for additional names
 \newcommand*{\chairlabel}{Co-Chair}        %<If you have co-chairs, replace this text with
                                         %   'Co-Chair'
-\listadd{\committeemember}{Kasim Selcuk Candan} %<Enter committee member names; use \listadd for
+\listadd{\committeemember}{Dr. Kasim Selcuk Candan} %<Enter committee member names; use \listadd for
+% \newcommand*{\committeelabel}{Member}
 \newcommand*{\gradmonth}{May}           %<Enter the graduation date; month can only be:
                                         %  May, August, or December
 \newcommand*{\gradyear}{2021}           %<Enter the graduation year, e.g. 2014
 
-\listadd{\keywords}{keyword 1}          %<Enter keywords; use \listadd for
-\listadd{\keywords}{keyword 2}          %   additional names (up to 6)
+\listadd{\keywords}{academic research}          %<Enter keywords; use \listadd for
+\listadd{\keywords}{search engine}          %   additional names (up to 6)
+\listadd{\keywords}{table classification}
 \newcommand*{\graddate}{\gradmonth%     % Compose full graduation date
   \space\gradyear}
 
@@ -775,7 +781,7 @@
 % Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\bibfilename}{%             %<Enter the name of the *.bib file containing the
-  src/thesis/library%                   %   reference information for sources cited in
+  masters_thesis%                   %   reference information for sources cited in
 }%                                      %   the text. God help you if you're doing
                                         %   citations manually.
 
@@ -792,7 +798,7 @@
 %                                       % Settings for 'biblatex' or a version of
 %                                       %   'biblatex'
   \usepackage[authordate,%
-              backend=biber,%           % Recommend to use 'biber' instead of 'bibtex'
+              backend=bibtex,%           % Recommend to use 'biber' instead of 'bibtex'
               doi=only,%                % Avoid printing URLs
               isbn=false]%              % Don't print ISBN numbers
               {biblatex-chicago}        %~Other possibilities include: 'biblatex',
@@ -1031,7 +1037,67 @@
 % Debugging Help
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{lipsum}                     % Outputs dummy text
+\begin{filecontents*}{searching-criteria-0.csv}
+Criteria,Meaning
+Subject coverage, This criteria determines whether a search system is multidisciplinary or not.
+Size, This criteria assesses the number records in the search engine's database.
+Record type, This criteria assesses the types of records offered by a search system like journal papers/books etc. 
+Retrospective coverage, This criteria assesses the timeperiod of the oldest records is the search engine. 
+Open Access, This criteria assesses the usage rights of the records offered. This criteria helps contrast between search engines that offer proprietary content or open access content.
+Controlled Vocabulary, This criteria assesses if controlled search options provided by the search system. 
+Field Code Search: Query Refinement, Field Code Search if a criteria that assesses if the search engine offers additional filters to improve search with high precision and recall. Field Code can be attribute on which search can be targeted like title/abstract/keywords etc.
+Full Text Search, In some cases, reviewers need to search the full texts to identify specific study types. Many search engines may not provide full text search based on content license issues and hence the study considered this as a desirable trait
+\end{filecontents*}
 
+\begin{filecontents*}{searching-criteria-1.csv}
+Criteria,Meaning
+Maximum Search String Length, This criteria assesses the size of the longest search query.
+Search String Language Support, This criteria assesses tested search systems for support of other languages. 
+Boolean Functionality, Boolean operators such as AND/OR/NOT etc. can be useful in improving search precision for many search queries. This criteria assessed weather search engines possessed such functionality or not.
+Literal vs Expanded Queries, This criteria assesses if a search system automatically expands queries impacting on precision and recall.
+Truncation/Wildcards, This criteria assesses if different frequently used truncation or wildcard symbols were functional.
+Exact Phrase Search, This criteria assesses if the use of quotation marks—symbols typically used to deem an expression should be searched literally—would result in fewer results than for terms lacking them.
+Parentheses, This criteria assesses if parentheses can be used to group concepts in queries. 
+\end{filecontents*}
+
+\begin{filecontents*}{searching-criteria-2.csv}
+Criteria,Meaning
+Filtering: Post‐Query Refinement, This criteria assesses a search system's capacity for post‐query refinement through a so‐called faceted search.
+Forward Citation Search,This criteria assesses a search system's capacity for forward citation search. Forward citation search allows search to be constrained to the citations of a paper.
+Advanced Search String Input Field,This criteria assesses if the search engine provide advanced features along with simple string search to filter content. 
+Search Help,This criteria assesses if the search engine offers documented help to support the access to the search engine.
+Maximum Number of Accessible Hits,This criteria assesses the maximum number of hits made accessible by the search system with a single search.
+Bulk Download Supported,This criteria assesses if the search engine allows bulk download. 
+Reproducibility of Search Results at Different Times, This criteria assesses if the search queries show signs of bias.
+Reproducibility of Search Results at Different Locations,This criteria assesses whether the changes in the place from which searches were performed influenced the search results.
+\end{filecontents*}
+
+\begin{filecontents*}{main-sc.csv}
+Criteria,Meaning
+Subject coverage, This criteria determines whether a search system is multidisciplinary or not.
+Size, This criteria assesses the number records in the search engine's database.
+Record type, This criteria assesses the types of records offered by a search system like journal papers/books etc. 
+Retrospective coverage, This criteria assesses the timeperiod of the oldest records is the search engine. 
+Open Access, This criteria assesses the usage rights of the records offered. This criteria helps contrast between search engines that offer proprietary content or open access content.
+Controlled Vocabulary, This criteria assesses if controlled search options provided by the search system. 
+Field Code Search: Query Refinement, Field Code Search if a criteria that assesses if the search engine offers additional filters to improve search with high precision and recall. Field Code can be attribute on which search can be targeted like title/abstract/keywords etc.
+Full Text Search, In some cases, reviewers need to search the full texts to identify specific study types. Many search engines may not provide full text search based on content license issues and hence the study considered this as a desirable trait
+Maximum Search String Length, This criteria assesses the size of the longest search query.
+Search String Language Support, This criteria assesses tested search systems for support of other languages. 
+Boolean Functionality, Boolean operators such as AND/OR/NOT etc. can be useful in improving search precision for many search queries. This criteria assessed weather search engines possessed such functionality or not.
+Literal vs Expanded Queries, This criteria assesses if a search system automatically expands queries impacting on precision and recall.
+Truncation/Wildcards, This criteria assesses if different frequently used truncation or wildcard symbols were functional.
+Exact Phrase Search, This criteria assesses if the use of quotation marks—symbols typically used to deem an expression should be searched literally—would result in fewer results than for terms lacking them.
+Parentheses, This criteria assesses if parentheses can be used to group concepts in queries. 
+Filtering: Post‐Query Refinement, This criteria assesses a search system's capacity for post‐query refinement through a so‐called faceted search.
+Forward Citation Search,This criteria assesses a search system's capacity for forward citation search. Forward citation search allows search to be constrained to the citations of a paper.
+Advanced Search String Input Field,This criteria assesses if the search engine provide advanced features along with simple string search to filter content. 
+Search Help,This criteria assesses if the search engine offers documented help to support the access to the search engine.
+Maximum Number of Accessible Hits,This criteria assesses the maximum number of hits made accessible by the search system with a single search.
+Bulk Download Supported,This criteria assesses if the search engine allows bulk download. 
+Reproducibility of Search Results at Different Times, This criteria assesses if the search queries show signs of bias.
+Reproducibility of Search Results at Different Locations,This criteria assesses whether the changes in the place from which searches were performed influenced the search results.
+\end{filecontents*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1158,8 +1224,16 @@
 % Body
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
-\include{src/thesis/chapter}                     %<Insert your chapters here; I recommend to use
-\include{src/thesis/introduction}                     %<Insert your chapters here; I recommend to use
+% \include{src/thesis/chapter}                     %<Insert your chapters here; I recommend to use
+\include{src/thesis/introduction} 
+% \include{src/thesis/background}                     %<Insert your chapters here; I recommend to use
+\include{src/thesis/relatedworks}
+\include{src/thesis/method}
+\include{src/thesis/sci-genie}
+\include{src/thesis/table-classification}
+\include{src/thesis/sci-genie-extension}
+\include{src/thesis/conclusion}
+
 %\include{chapter2}                     %   \include rather than \input for chapters
 %\include{chapter3}% etc.
                                         % Heading commands (in descending order):

@@ -1,0 +1,120 @@
+\chapter{Related Works}
+\label{relatedwork}
+
+\section{Background Literature}
+\label{relatedwork:background}
+
+\subsection{Inverted Index Based Search Engines}
+Since the late 1990's search engines have been using an inverted index as the core structure and store to access information. 
+
+\subsubsection{Lucene Based Inverted Search Index}
+
+\subsection{Open Source Search Engines}
+
+\subsection{Machine Learning For Tabular Data}
+
+\section{Academic Research Search Engines}
+
+\begin{table*}[h]
+    \label{table\arabic{tablecounter}}
+    \csvreader[%
+     tabular={|p{7cm}|p{10cm}|},
+            table head = \hline\textbf{Criteria} & \textbf{Meaning} \\\hline,
+            late after line= \\\hline,
+            late after last line=\\\hline %
+            ]{searching-criteria-0.csv}{Criteria=\Criteria,Meaning=\Meaning}%
+            {\Criteria & \Meaning}
+            \centering
+            \caption{\label{tablecounter}Table Explaining various criteria proposed by \cite{gusenbauer2020academic}}
+\end{table*}
+\refstepcounter{tablecounter}
+
+\begin{table*}[h]
+    \label{table\arabic{tablecounter}}
+    \csvreader[%
+     tabular={|p{7cm}|p{10cm}|},
+            table head = \hline\textbf{Criteria} & \textbf{Meaning} \\\hline,
+            late after line= \\\hline,
+            late after last line=\\\hline %
+            ]{searching-criteria-1.csv}{Criteria=\Criteria,Meaning=\Meaning}%
+            {\Criteria & \Meaning}
+            \centering
+            \caption{\label{tablecounter}Table Explaining various criteria proposed by \cite{gusenbauer2020academic}}
+\end{table*}
+\refstepcounter{tablecounter}
+
+\begin{table*}[h]
+    \label{table\arabic{tablecounter}}
+    \csvreader[%
+     tabular={|p{7cm}|p{10cm}|},
+            table head = \hline\textbf{Criteria} & \textbf{Meaning} \\\hline,
+            late after line= \\\hline,
+            late after last line=\\\hline %
+            ]{searching-criteria-2.csv}{Criteria=\Criteria,Meaning=\Meaning}%
+            {\Criteria & \Meaning}
+            \centering
+            \caption{\label{tablecounter}Table Explaining various criteria proposed by \cite{gusenbauer2020academic}}
+\end{table*}
+\refstepcounter{tablecounter}
+
+% Recent studies have tried to compare various search engines, finding causes for search failures and 
+% recommend feature to improve search precision. 
+\cite{gusenbauer2020academic} conducted an analysis of search engines based on criteria described in Table \ref{table1}.
+The criteria described by \cite{gusenbauer2020academic} try to objectively evaluate the usefulness of a search engine to do systematic reviews.
+These criteria include search results but not the search 
+
+\cite{li2017investigating} performed a detailed analysis on the patterns and failures in search for academic search. 
+Their analysis concluded that search queries in academic search had substantially more entity based queries than web search and 
+large fraction of failures was attributed to null queries i.e. no search results were found. 
+This analysis is quite useful in correlating the need of a "Controlled Vocabulary"(Table \ref{table1}) in search to improve precision. 
+
+\cite{kacem2018analysis} conducted an analysis to see the improvement of search precision based the usage of \textit{search stratagems}.
+Search stratagems are additional filters along with the search terms. They provide additional context around filtering a search query. 
+Some examples of such filters can Authors of a paper, Forward Citation Search, Footnote Chasing, etc.
+The study by \cite{kacem2018analysis} concluded that search stratagems can help improve search precision for the search queries.
+
+\cite{rovira2019ranking} conducted a study to analyze the impact of citation count on ASEO(Academic Search Engine Optimization). 
+Their study concluded that Microsoft Academic and Google Scholar seem to leverage received citations as a part of the relevance 
+ranking algorithm. This study also noted many unknown attributes in the relevance ranking algorithms for Google Scholar and Microsoft Academic.
+
+% \section{Academic Research Literature Mining}
+
+\section{Transformers and Machine Learning SOTA}
+The Transformer model \parencite{vaswani2017attention} has recently proven to show SOTA performance on various domains ranging from natural language \parencite{brown2020language}, vision(\cite{radford2021learning}, \cite{dosovitskiy2020image}), music \parencite{huang2018music}, image-generation \parencite{ramesh2021zero} and even Web Table mining \parencite{deng2020turl}. These models can be trained with large amounts of data using self supervised training objectives \parencite{chen2020big}, \parencite{kolesnikov2019revisiting}, \parencite{goyal2019scaling}, \parencite{gidaris2018unsupervised}, \parencite{doersch2015unsupervised}. Once trained, these models can transfer their learning to different downstream tasks by making minor adjustments to their weights \parencite{howard2018universal} based on the task.  
+
+Recent studies such as the one by \cite{hernandez2021scaling}, showed that models pretrained on large data with self supervised learning objectives transfer learn better to downstream tasks with much less labeled data. 
+The finetuning step\parencite{howard2018universal} of transfer learning involves adding a new linear layer and the training the model with small learning rates for the task specific optimization.
+
+\subsection{Tranformers For Scientific Literature Mining}
+
+
+\subsection{Academic Research Table Mining}
+
+\cite{beltagy2019scibert} : For scientific corpus mining. 
+
+\cite{milosevic2019framework} : BioMed 
+
+\cite{zha2019mining} : Evolution of a algorithm from literature around it evolving
+
+\cite{cohan2019structural} : Finding Intent behind citations. 
+
+\cite{agarwal2008literature} : 
+
+SCIENTIFIC DOCUMENT SUMMARIZATION
+
+\section{Types Of Tables in Scientific Research}
+\label{relatedwork:table-type}
+Earlier work done by \cite{kim2012scientific} defined the types of tables based on their content and purpose. \cite{kim2012scientific} sampled 25 papers from the domains of CS, Biomedical, Life Science, Chemistry, Material Science, Electrical Engineering and Medicine chose to define the following types of tables for scientific documents:
+\begin{itemize}
+    \item \textbf{Definition Table} : \textit{These tables describe equation definitions or symbol definitions}
+    \item \textbf{Statistics Table} : \textit{These tables describe some statistical distribution which is not related to experiment results}
+    \item \textbf{Survey Table } : \textit{These tables describe questionaire surveys and results }
+    \item \textbf{Example Table } : \textit{These tables provide emphasis of something that needs to be clearly explained }
+    \item \textbf{Procedure Table} : \textit{These tables describe a flow or a process}
+    \item \textbf{Experiments Setting Table } : \textit{These tables describe some experiment parameters}
+    \item \textbf{Experiments Results Table } : \textit{These tables describe the results of some experiments discussed in the paper.}
+\end{itemize}
+
+\cite{kim2012scientific} also found that majority of the tables in scientific documents are describing results from experiments based on the samples they annotated. 
+
+

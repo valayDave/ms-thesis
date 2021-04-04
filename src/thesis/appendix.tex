@@ -1,23 +1,201 @@
-\chapter{This is a chapter-level heading for an appendix}
+\chapter{Appendix}
 
-\lipsum[1]
+\section{Elasticsearch Schema Examples}
+\subsection{Arxiv Parsed Research Index Example}
 
-\section{This is the first section-level heading in the appendix}
+\begin{verbatim}
+ {
+    "identity": {
+      "identity": "2104.00682",
+      "url": "http://arxiv.org/abs/2104.00682v1",
+      "title": "",
+      "abstract": "",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2021-04-01T17:59:48Z",
+      "updated": "2021-04-01T17:59:48Z",
+      "authors": [
+        "Bo Xiong",
+        "Haoqi Fan",
+        "Kristen Grauman",
+        "Christoph Feichtenhofer"
+      ],
+      "affiliation": [],
+      "version": 1,
+      "journal_reference": null,
+      "created_on": "2021-04-02T04:20:33.981856"
+    },
+    "research_object": {
+      "introduction": {
+        "name": "Introduction",
+        "subsections": [],
+        "text": "",
+        "matched": true
+      },
+      "related_works": {
+        "name": "RelatedWorks",
+        "subsections": [],
+        "text": "",
+        "matched": true
+      },
+      "methodology": {
+        "name": "Methodology",
+        "subsections": [],
+        "text": "",
+        "matched": false
+      },
+      "experiments": {
+        "name": "Experiments",
+        "subsections": [],
+        "text": "",
+        "matched": true
+      },
+      "results": {
+        "name": "Results",
+        "subsections": [],
+        "text": "",
+        "matched": false
+      },
+      "dataset": {
+        "name": "Dataset",
+        "subsections": [],
+        "text": "",
+        "matched": false
+      },
+      "conclusion": {
+        "name": "Conclusion",
+        "subsections": [],
+        "text": "",
+        "matched": true
+      },
+      "limitations": {
+        "name": "Limitations",
+        "subsections": [],
+        "text": "",
+        "matched": false
+      },
+      "unknown_sections": [
+        {
+          "name": "",
+          "subsections": [
+            {
+              "name": "",
+              "subsections": [],
+              "text": ""
+            }
+          ],
+          "text": ""
+        }
+      ]
+    },
+    "parsing_stats": {
+      "active": true,
+      "section_matches": [
+        "Introduction",
+        "RelatedWorks",
+        "Experiments",
+        "Conclusion"
+      ],
+      "num_un_matched": 2
+    },
+    "created_on": "2021-04-02T04:20:40.318679",
+    "ontology": {
+      "syntactic": [
+      ],
+      "semantic": [
+      ],
+      "union": [
+      ],
+      "enhanced": [
+      ],
+      "mined": true
+    }
+  }
+\end{verbatim}
 
-\lipsum[1]
+\section{Content Parsing Code/Algorithm}
+\label{appendix:content-parsing-code}
 
-\subsection{This is the first sub-section-level heading in the appendix}
+\section{Heuristic Mapping Values For Serialisation of Research Object}
+\label{appendix:mapping-heuristic}
+\begin{verbatim}
+  INTRODUCTION_SEARCH_CONSTS = [
+    "introduction",
+    "preliminaries",
+    
+]
+RELATED_WORKS_SEARCH_CONSTS = [
+    "problem statement",
+    "background",
+    "related work",
+    "problem definition",
+    "literature review",
 
-\lipsum[1]
+]
+METHODOLOGY_SEARCH_CONST = [
+    "methodology",
+    "method",
+    "problem formulation",
+    "approach",
+    "proposed method"
+    "implementation",
+    "our approach",
+    "proposed algorithm",
+    "system design",
+    "architecture",
 
-\subsubsection{This is the first sub-sub-section-level heading in the appendix}
+]
+DATA_SEARCH_CONST = [
+    "dataset",
+    "data"
+]
 
-\lipsum[1]
+EXPERIMENTS_SEARCH_CONSTS = [
+    "evaluation",
+    "experiment",
+]
+RESULTS_SEARCH_CONSTS = [
+    'result',
+    "analysis"
+]
 
-\paragraph{This is the first paragraph-level heading in the appendix}
+CONCLUSION_SEARCH_CONSTS = [
+    "discussion",
+    "conclusion",
+    "future work",
+    "concluding remarks"
+]
 
-\lipsum[1]
+LIMITATIONS_SEARCH_CONSTS = [
+    "limitations",
+    "ablation study",
 
-\subparagraph{This is the first sub-paragraph-level heading in the appendix}
+]
 
-\lipsum[1] 
+STRICT_CHECK_CONSTS = [
+    "data", # These key words need strict "==" checking to ensure the match name
+    "method",
+    "approach"
+]
+\end{verbatim}
+
+\section{Table Of Comparison Classification}
+\label{appendix:toc}
+
+\subsection{Hyper Parameters For ML Training}
+\begin{table}
+  \label{table\arabic{tablecounter}}
+  \centering
+  \begin{tabular}{|p{2cm}|p{3cm}|p{2cm}|p{2cm}|p{1.5cm}|p{1.5cm}|p{1cm}|p{1cm}|}
+  \hline
+      Model Name & Number Of Layers & Transformer Embedding Size & Batchsize & Learning Rate & Number Of Parameters & Size In MB & \# Epoch\\ \hline
+      Table Cross Channel Transformer Pretained & 4 Per Cross Channel, 4 Per Vanilla Encoder & 64 & 25 & 0.0001 & 3.6M & 15 & 40\\ \hline
+      Table Cross Channel Transformer From Scratch & 4 Per Cross Channel, 4 Per Vanilla Encoder & 64 & 25 & 0.0001 & 3.6M & 15 & 40\\ \hline
+      SciBert Finetuned & 12 Layers & 768 & 14 & 0.0001 & 109 M & 440 & 6 \\ \hline
+  \end{tabular}
+  \caption{\label{tablecounter} Hyper Parameters For Training Table Classification Models. All Learning rates are scheduled using a cosine learning rate scheduler with a warm up of 20 epochs }
+\end{table}
+\refstepcounter{tablecounter}

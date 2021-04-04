@@ -2,4 +2,4 @@
 # Ignore this file if running the template
 #   on your local computer
 compiler: pdflatex
-root_file: dissertation_template_latex_sample.tex
+root_file: masters_thesis.tex
