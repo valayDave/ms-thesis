@@ -36,7 +36,7 @@ The input and target sequences are first tokenized via wordpiece tokenizers. The
 
 The self-attention/cross-attention layers consist of a multiheaded self-attention/cross-attention operation followed by pointwise feedfoward layers with batch normalization \parencite{ioffe2015batch} and residual connections \parencite{he2016deep}. Multiple such layers are stacked togather to create an encoder or decoder of the transformer. 
 
-The encoder layer encodes the sequences into a latent representations using the self attention operation; the decoder layer decodes the latent representation from the encoder with the cross attention for the task of language translation. Figure \ref{figure7} visualises the operation of the encoder and decoder. 
+The encoder layer encodes a sequence into latent representations using the self attention operation; the decoder layer decodes the latent representation from the encoder with the cross attention for the task of language translation. Figure \ref{figure7} visualises the operation of the encoder and decoder. 
 
 Multiple variants of this architecture have been created such as the ones by \cite{radford2019language}, \cite{devlin2018bert}. The key insight behind the attention operation is provided in Section \ref{relatedwork:background:transformer:attention}, Section \ref{relatedwork:background:transformer:cross-attention}, 
 
@@ -66,6 +66,7 @@ Recent studies such as the one by \cite{hernandez2021scaling}, showed that trans
 \cite{deng2020turl} recently applied structurally aware Transformers for self supervised learning of web tables. The learned models possesed rich generalization capabilities for transfer into downstreams tasks such as row filling based on headers, Entity Linking to knowledge base, column type annotation etc. 
 
 \section{Academic Research Search Engines}
+\label{relatedwork:acad-search-engine}
 \cite{gusenbauer2020academic} conducted an analysis of search engines based on criteria described in Table \ref{table1}.
 The criteria described by \cite{gusenbauer2020academic} try to objectively evaluate the usefulness of a search engine to do systematic reviews.
 
@@ -134,6 +135,7 @@ ranking algorithm. This study also noted many unknown attributes in the relevanc
 
 
 \section{Academic Research Literature Mining}
+\label{relatedwork:acad-lit-mining}
 Academic Literature mining has many applications such as document structure analysis, citation analysis, document summarization, table extraction, and more. Deep learning based methods dominate many of the recent SOTA academic literature mining methods. 
 
 \cite{beltagy2019scibert} created Sci-Bert by training a BERT model \parencite{devlin2018bert} using a large corpus of research data. Sci-Bert can be finetuned for downstream tasks such as citation intent detection, relation extraction, and even named entity detection. 

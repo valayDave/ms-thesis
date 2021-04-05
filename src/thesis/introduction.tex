@@ -9,7 +9,7 @@ Figure \ref{figure1} shows a plot of the number of papers published on CS ArXiv\
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/cs-growth-trend-annual.png}
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/num-papers.pdf}
     \caption{ A time series plotting count of papers every year for across various topics in CS from January 2015 to December 2020}
     \label{figure\arabic{figurecounter}}
 \end{figure}
@@ -17,15 +17,18 @@ Figure \ref{figure1} shows a plot of the number of papers published on CS ArXiv\
 
 The growth in the volume of research has also led to academic research search engines becoming primary mediums of access for scientific literature. 
 % \parencite{gusenbauer2020academic} showed that Google Scholar hosts more than 389M documents. 
-Academic research search engines are different from traditional search engines like Google because they host specialized content. 
-Academic research publications which are hosted by these search engines generally undergo a process of peer-review or/and get cited by other publications. 
-Being cited/peer-reviewed gives credibility to research documents and hence this metric is used by major search engines such as Google Scholar, Semantic Scholar, Microsoft Academic for ranking search documents etc. Aside the 
+Academic research search engines are different from traditional search engines like Google because they host content specific to scientific literature. 
+Scientific papers generally undergos a process of peer-review. If a paper does not undergo peer-review it may still get cited by other publications/papers. This relational nature of academic research makes it fairly easy to filter credibility based on citations as a metric. Major academic research search engines such as Google Scholar, Microsoft Academic etc. leverage citations as a metric for ranking documents. Although citations are very useful, the increase in the number of documents can also result in a sea of noise for a particular search query. In such cases, the researcher gets minimal context information around search matches to infer more insight about why the document was surfaced. 
 
-The next section aims to provide a motivating example to show the kind of search results displayed by three large proprietary search engines.
+Researchers also tend to look for information which embedded deeper inside papers. Many papers contain some table of results for some experiments, Or some comparisons to techniques/methods from other papers. This type of tabular information is quite useful to get on the fly context about the results/comparsions being framed in a paper. Such information is generally not easily accessible through normal search engines. Platforms such as PapersWithCode\footnote{https://paperswithcode.com} host/track State-of-the-art leaderboards for ML along with thier papers. There are no currently available tools which augment  more context about a reasearch paper when reading research. 
+
+% Generally reading through a research paper leads the researcher down citation trails, or makes the researcher look for information around the paper for further analysing and doing many such research oriented tasks which involve the understanding and analysis of scientific information. 
+
+The next section aims to provide a motivating example to explain the lack of context in search results displayed by three large proprietary search engines.
 % \textit{The next section will assess the “features” provided by these search engines to improve researcher productivity.}
 
 \section{Motivating Example: Search Results From Academic Research Search Engines}
-Machine Learning and deep learning research dominate the majority of CS publications on pre-print servers like ArXiv[\ref{figure2}].
+Machine Learning and deep learning research dominate the majority of CS publications on pre-print servers like ArXiv (Figure \ref{figure1}).
 Taking that information into consideration, consider the use-case of a researcher trying to look for papers where a Transformer\parencite{vaswani2017attention} model written in PyTorch\parencite{paszke2019pytorch} is given adversarial examples. 
 The researcher chooses to use the following search query: \textit{pytorch transformer adversarial examples} on the search engines Google Scholar, Semantic Scholar and Microsoft Academic. 
 Ideally, the experiments of a paper or the appendix of a paper or the methodology section of a paper would consist of information about code/model in a paper. 
@@ -115,16 +118,16 @@ host parsed information from raw research, there is no way to intelligently acce
 This results in researcher spending valuable time finding the cited comparisons.
 
 \section{Proposed Approach And Overview}
-This dissertation will focus on the solutions which have been developed to tackle these missing characteristics as described in Section \ref{section:intro:missing_traits}. 
+This dissertation focuses on the solutions developed to tackle the missing characteristics described in Section \ref{section:intro:missing_traits}. 
 
-Section \ref{background} will provide some preliminary background on inverted index based search engines, open-source search engines and machine learning for tabular data.  
-Section \ref{relatedwork} will discuss previous analysis of different academic search engines and the different techniques
-used to mining academic literature. Section \ref{method} will provide an overview of the proposed solutions i.e. a search engine over
-CS ArXiv and an browser extension to augment research at time of reading 
+Section \ref{relatedwork:background} provides some preliminary background on inverted index based search engines, open-source search engines and state-of-the-art machine learning techniques.
+Section \ref{relatedwork:acad-search-engine} discusses the different studies conducted about academic search engines; Section \ref{relatedwork:acad-lit-mining} discusses the different techniques used for mining academic literature; Section \ref{relatedwork:table-type} will discuss previous research to pertaining to classification of tables. 
 
-Section \ref{sci-genie-core} will discuss the core components of the search engine; Section \ref{table_classification} will
-discuss the problem/application/experiments for table classification which is applied to filter tables of comparisons/results from articles cited by a research paper. 
-Section \ref{sci-genie-extension} will discuss the packaged solution which leverages the search engine and the table classification methods mentioned in  
-Section \ref{sci-genie-core},Section \ref{table_classification} to help bring context relevant information when reading research articles. 
+Section \ref{method} provides an overview of the proposed solutions i.e. a search engine over CS ArXiv and a browser extension to augment research at time of reading 
+
+Section \ref{sci-genie-core} discusses the core components of the search engine and the chrome extension; Section \ref{table_classification}
+discusses the problem/application/experiments for table of comparison classification task.
+% Section \ref{sci-genie-extension} discusses the packaged solution which leverages the search engine and the table classification methods mentioned in  
+% Section \ref{sci-genie-core},Section \ref{table_classification} to help bring context relevant information when reading research articles. 
 
 Finally, Section \ref{conclusion} will provide some insight into future work applicable to the information augmentation/search for academic literature. 

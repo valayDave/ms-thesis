@@ -149,9 +149,11 @@ A structured \nameref{sci-genie-core:data-layer:researchobj} is parsed from raw 
     \item Step 2 : Correlate the children in the Fragment Object with predefined sections to create the \nameref{sci-genie-core:data-layer:researchobj} 
 \end{itemize} 
 \subsubsection{Fragment Creation}
+\label{sci-genie-core:scraping:source-frag}
 Each LaTeX source repository is parsed to create a "Structure Tree" of the research document. The Structure tree\footnote{https://github.com/alvinwan/tex2py} helps correlate the structure of latex document. The structure tree is then used to create Fragment objects which are described in Section \ref{sci-genie-core:data-layer:researchobj}. The text within each Fragment populated by using the opendetex library\footnote{https://github.com/pkubowicz/opendetex}. The opendex library helps filter text information from individual tex files. The code to match the structure tree is given in the Appendex. 
 
 \subsubsection{ResearchObject Creation From Fragment}
+\label{sci-genie-core:scraping:frag-to-rs}
 The initial Fragment object create via the parsing described earlier will contain the entire research document stored in a single Fragment. This Fragment then undergoes a "heuristic" serialization to the ResearchObject. Meaning the title of the children within the Fragment are matched to predefined sections/classes as given in Section \ref{sci-genie-core:data-layer:researchobj}. The matching process uses heuristics to match the content. More details on the section name matching strings and algorithm are given in the Appendix \ref{appendix:content-parsing-code} and \ref{appendix:mapping-heuristic} respectively. 
 
 \subsection{Ontology Mining}

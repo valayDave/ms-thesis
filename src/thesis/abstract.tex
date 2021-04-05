@@ -1,29 +1,10 @@
-The volume of scientific research is growing at an exponential rate since the past 100 years. 
-With the advent of the internet and ubiquitous access to the web, academic research search engines such as Google Scholar, Microsoft Academic etc.
-have become the go to platforms for systemic reviews and search. 
-% TODO : FIX BELOW LINES : 
-% Although many of these search engines host a large volume of content, they lack leveraging certain intrinsic characteristics of scientific research articles to.
-
-Although many of these search engines host large volumes of content, they provide minimal context around where the search terms matched. 
+The volume of scientific research is growing at an exponential rate over the past 100 years. 
+With the advent of the internet and ubiquitous access to the web, academic research search engines such as Google Scholar, Microsoft Academic, etc., have become the go-to platforms for systemic reviews and search.  Although many academic search engines host lots of content, they provide minimal context about where the search terms matched. 
 Many of these search engines also fail to provide additional tools which can help enhance a researcher's understanding of research content outside their respective websites.
-An example of such a tool can be a browser extension/plugin which surfaces context relevant information about a research article the user maybe reading. 
+An example of such a tool can be a browser extension/plugin that surfaces context-relevant information about a research article when the user reads a research article.   
 
-This dissertation, discusses a solution developed to bring more intrinsic characteristics of research documents such as the structure of the research document, tables in the document,  
-the keywords associated to the document to improve search capabilities and augment the information being read by a researcher.
-The prototype solution named Sci-Genie(https://sci-genie.com/), is a search engine over scientific articles from CS ArXiv.
-Sci-Genie hosts papers that have been parsed to index the structure of the document, so it can be later used for filtering and providing contextual information about the matched search fragments. 
-The same search engine also powers a browser extension to augment the information about a research article the user maybe reading. 
-The browser extension augment's the user's interface with information about \textit{tables from the cited papers}, \textit{other papers by the same authors} and even \textit{the citations to and from the current paper}. 
-The browser extension is further powered with API's that leverage a machine learning model to filter tables that are comparing various entities. 
-The dissertation further discusses these machine learning models and some baselines that help classify weather a table is comparing various entities or not.  
-The dissertation finally concludes discussing current short-comings of Sci-Genie and possible future improvements/enhancements to Sci-Genie.
+This dissertation discusses a solution developed to bring more intrinsic characteristics of research documents such as the structure of the research document, tables in the document,  the keywords associated with the document to improve search capabilities and augment the information a researcher may read.  The prototype solution named Sci-Genie(https://sci-genie.com/) is a search engine over scientific articles from CS ArXiv.
 
-% to enhance the understanding of a researcher by providing contextual information around the research document. 
-
-% to augment the user's access to information relating to the currently viewing a research article.
-
-% What do I waanna say
-%   Search results donot provide enough context about where the match took place in search. 
-%   This results in lots of time spent in reading a particular research article. 
-%   creating filters which provide direct hooks to structure in the research article can be extreamely useful as they can help improve precision
-%   
+Sci-Genie parses research papers and indexes research documents’ structure to provide context-relevant information about the matched search fragments. The same search engine also powers a browser extension to augment the information about a research article the user may be reading. The browser extension augments the user's interface with information about \textit{tables from the cited papers}, \textit{other papers by the same authors} and even \textit{the citations to and from the current article}. The browser extension is further powered with APIs that leverage a machine learning model to filter tables comparing various entities. 
+The dissertation further discusses these machine learning models and some baselines that help classify whether a table is comparing various entities or not.  
+The dissertation finally concludes by discussing the current shortcomings of Sci-Genie and possible future research scope based on learnings after building Sci-Genie.

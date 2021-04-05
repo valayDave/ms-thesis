@@ -17,6 +17,7 @@ The structure of the tables in scientific research can fluctuate based on the in
         $Y$ & Labels & Discrete : $\{0,1\}$ \\ \hline
         $X_T$ & Cell Embedding & $\mathbb{R}^{T_l \times d}$\\ \hline
         $X_C$ & Caption Embedding & $\mathbb{R}^{C_l \times d}$ \\ \hline
+        $P_C$ & Positional Embedding & $\mathbb{R}^{C_l \times d}$ \\ \hline
         $E_r$ & Row Embedding & $\mathbb{R}^{T_l \times d}$ \\ \hline
         $E_c$ & Column Embedding & $\mathbb{R}^{T_l \times d}$ \\ \hline
         $T_l$ & Number Of Cells & $\mathbb{N}$ \\ \hline
@@ -140,7 +141,7 @@ As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) 
         Table Cross Channel Transformer From Scratch & 79.23 & 0.79 & 0.53 \\ \hline
         SciBert Finetuned & 92.624 & 0.92 & 0.14 \\ \hline
     \end{tabular}
-    \caption{\label{tablecounter} Test set results of the table classification models using SOTA Transformer and baselines. Average Results from 5 Training runs is reported}
+    \caption{\label{tablecounter} Test set results of the table classification models using SOTA Transformer and baselines. Average Results from 4 Training runs is reported}
 \end{table}
 \refstepcounter{tablecounter}
 The following are the experiement and thier conditions for ML model training:
@@ -151,7 +152,7 @@ The following are the experiement and thier conditions for ML model training:
     \item Naive Bayes \& SVM
 \end{itemize}
 More details on the hyper parameters for the experiments are found in the Appendix \ref{appendix:toc}.
-All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. Table \ref{table5} describes the results of the experiments. The pretrained cross channel model when performs better than the model trained from scratch and even the baseline models. SciBert out performs all other models. The reasons's for Sci-Bert's better success can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model that was trained on a much bigger corpus, it's performance would tend to be better than the baseline and the developed model. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared training the model from scratch. 
+All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. Table \ref{table5} describes the results of the experiments. The pretrained cross channel model when performs better than the model trained from scratch and even the baseline models. SciBert out performs all other models. The reason for Sci-Bert's better success can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model that was trained on a much bigger corpus consisting of data from a similar distribution, it's performance would tend to be better than the baseline and the developed model. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared training the model from scratch. 
 
 
 As the SciBert model is much larger, the realtime classfication of tables describing comparsions is not done using Sci-Bert. The pretrained cross channel transformer model is used in the API Layer for filtering tables of comparison as it's much faster in inference. 
