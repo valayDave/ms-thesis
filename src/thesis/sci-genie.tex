@@ -19,7 +19,7 @@ Sci-Genie Core comprises four key architectural components which help power info
     \item \textbf{Semantic Scholar Citation Graph Mining Engine}
 \end{itemize}
 
-Paper Scraping And Mining Engine helps extract papers From ArXiv in LaTeX format and then parses the structure, mines the ontology, and extracts the tables. This processed information is store in the Data Layer. 
+Paper Scraping And Mining Engine helps extract papers From ArXiv in LaTeX format and then parses the structure, mines the ontology, and extracts the tables. This processed information is stored in the Data Layer. 
 
 The Data Layer hosts the information which is used by the website or the browser extension. 
 
@@ -131,7 +131,7 @@ This index holds references of in and out citations for each ArXiv article prese
         "arxiv_id": "",
 }
 \end{verbatim}
-The \textit{arxiv\_id} is the identifier unique ArXiv identifier, The \textit{in\_citn\_arxiv} correspond to the unique ArXiv ids of papers that cited a paper. The \textit{out\_citn\_arxiv} correspond to the unique ArXiv ids of papers that are cited by a paper. This information comes of great use when filtering out tables as seen in Figure \ref{figure9}. The construction of this index is discussed in Section \ref{sci-genie-core:citation-mining}
+The \textit{arxiv\_id} is the unique ArXiv identifier, The \textit{in\_citn\_arxiv} correspond to the unique ArXiv ids of papers that cited a paper. The \textit{out\_citn\_arxiv} correspond to the unique ArXiv ids of papers that are cited by a paper. This information comes of great use when filtering out tables as seen in Figure \ref{figure9}. The construction of this index is discussed in Section \ref{sci-genie-core:citation-mining}
 % The ontology of research papers is stored in the same form as provided by the 
 \section{Paper Scraping And Mining Engine}
 \label{sci-genie-core:scraping}
