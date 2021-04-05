@@ -2,9 +2,8 @@
 
 \section{Introduction}    
 
-% Test single- and double-spacing around block quotes
 The volume of scientific literature has doubled in the past 20 years\footnote{https://data.worldbank.org/indicator/IP.JRN.ARTC.SC}.  
-The ubiquitous availability of computing and access to free, open-source software has also enabled exponential growth in publishing for fields like computer science.  
+The ubiquity of computing and access to free, open-source software has also enabled exponential growth in publishing for computer science fields.  
 Figure \ref{figure1} shows a plot of the number of papers published on CS ArXiv\footnote{https://arxiv.org} each year 2015 to 2020 on a log scale. 
 
 \begin{figure}[h]
@@ -15,24 +14,22 @@ Figure \ref{figure1} shows a plot of the number of papers published on CS ArXiv\
 \end{figure}
 \refstepcounter{figurecounter}
 
-The growth in the volume of research has also led to academic research search engines becoming primary mediums of access for scientific literature. 
-% \parencite{gusenbauer2020academic} showed that Google Scholar hosts more than 389M documents. 
+The growth in the research volume has also led to academic research search engines becoming primary mediums of access for scientific literature. 
+
 Academic research search engines are different from traditional search engines like Google because they host content specific to scientific literature. 
-Scientific papers generally undergos a process of peer-review. If a paper does not undergo peer-review it may still get cited by other publications/papers. This relational nature of academic research makes it fairly easy to filter credibility based on citations as a metric. Major academic research search engines such as Google Scholar, Microsoft Academic etc. leverage citations as a metric for ranking documents. Although citations are very useful, the increase in the number of documents can also result in a sea of noise for a particular search query. In such cases, the researcher gets minimal context information around search matches to infer more insight about why the document was surfaced. 
+Scientific papers generally undergo a process of peer-review. If a paper does not undergo peer review, it may still get cited by other publications/articles. This relational nature of academic research makes it relatively easy to filter credibility based on citations as a metric; Major academic research search engines such as Google Scholar, Microsoft Academic, etc., leverage citations as a metric for ranking documents. Although citations are beneficial, a search query may match many records during the search process. The increase in the number of documents can also result in a sea of noise for a particular search query. In such cases, the researcher gets minimal context information around search matches to infer why the search engine surfaced the document. 
 
-Researchers also tend to look for information which embedded deeper inside papers. Many papers contain some table of results for some experiments, Or some comparisons to techniques/methods from other papers. This type of tabular information is quite useful to get on the fly context about the results/comparsions being framed in a paper. Such information is generally not easily accessible through normal search engines. Platforms such as PapersWithCode\footnote{https://paperswithcode.com} host/track State-of-the-art leaderboards for ML along with thier papers. There are no currently available tools which augment  more context about a reasearch paper when reading research. 
+Researchers also tend to look for information embedded deep inside papers. Many papers contain table/s of results for some experiments or comparisons to techniques/methods from other papers. This tabular information can help get on the fly context about the results/comparisons mentioned in a research paper. Such information is generally not easily accessible through normal search engines. Platforms such as PapersWithCode\footnote{https://paperswithcode.com} host/track State-of-the-art leaderboards for ML along with their papers. There are no currently available tools that augment more context about a reasearch paper when reading research. 
 
-% Generally reading through a research paper leads the researcher down citation trails, or makes the researcher look for information around the paper for further analysing and doing many such research oriented tasks which involve the understanding and analysis of scientific information. 
 
 The next section aims to provide a motivating example to explain the lack of context in search results displayed by three large proprietary search engines.
-% \textit{The next section will assess the “features” provided by these search engines to improve researcher productivity.}
 
 \section{Motivating Example: Search Results From Academic Research Search Engines}
-Machine Learning and deep learning research dominate the majority of CS publications on pre-print servers like ArXiv (Figure \ref{figure1}).
-Taking that information into consideration, consider the use-case of a researcher trying to look for papers where a Transformer\parencite{vaswani2017attention} model written in PyTorch\parencite{paszke2019pytorch} is given adversarial examples. 
-The researcher chooses to use the following search query: \textit{pytorch transformer adversarial examples} on the search engines Google Scholar, Semantic Scholar and Microsoft Academic. 
-Ideally, the experiments of a paper or the appendix of a paper or the methodology section of a paper would consist of information about code/model in a paper. 
-The following subsections will analyze the search results for this query for three large search engines: Google Scholar, Microsoft Academic and Semantic Scholar. 
+Machine Learning and deep learning research dominate most CS publications on pre-print servers like ArXiv (Figure \ref{figure1}).
+Based on this information, consider the use-case of a researcher trying to look for papers where a Transformer\parencite{vaswani2017attention} model written in PyTorch\parencite{paszke2019pytorch} is given adversarial examples. 
+The researcher chooses to use the following search query: \textit{pytorch transformer adversarial examples} on the search engines Google Scholar, Semantic Scholar, and Microsoft Academic. 
+Ideally, the experiments or the appendix or the methodology section of a paper would consist of information about code/model in a paper. 
+The following subsections will analyze the search results for this query for three large search engines: Google Scholar, Microsoft Academic, and Semantic Scholar. 
 \pagebreak
 \subsection{Search Results From Google Scholar}
 \label{sr-g}
@@ -44,8 +41,7 @@ The following subsections will analyze the search results for this query for thr
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-Although Google scholar found 2000+ search results, the search-result-fragments do not provide any additional context information about where the terms are matching. 
-It highlights links to code-repositories but there is no mention of when and where those links were cited in the document. 
+Although Google scholar found 2000+ search results, the search-result-fragments do not provide any additional context information about where the terms are matching.  There is no other context information except for links highlighted in the search results i.e., No mention of why the fragment matched. 
 
 \pagebreak
 \subsection{Search Results From Microsoft Academic}
@@ -57,6 +53,7 @@ It highlights links to code-repositories but there is no mention of when and whe
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
+
 Microsoft Academic provides additional information around context like topics, analytics on types of publication matches etc,
 It fails to provide information about where the match has taken place in the paper.
 
@@ -70,7 +67,7 @@ It fails to provide information about where the match has taken place in the pap
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-Semantic Scholar highlights few search fragments where results would have matched and presents a smaller result set. 
+Semantic Scholar highlights few search fragments where results would have matched and presented a smaller result set. 
 But all search results do not consist of context about where the match took place. 
 
 \pagebreak
@@ -81,8 +78,8 @@ But all search results do not consist of context about where the match took plac
 
 All search results shown in section \ref{sr-g}, \ref{sr-m}, \ref{sr-s}, do not provide any additional 
 information about where the match took place inside the research document. The interesting characteristic of research documents is that they 
-possess structure and hierarchy. Research documents have well laid of sections such as “Introduction”, “Related Works”,“Methodology”,“Experiments” etc. 
-which can provide a lot of context at search time and can also end up as essential filters when searching for topics. 
+possess structure and hierarchy. Research documents have well-laid out sections such as “Introduction,” “Related Works,” “Methodology,” “Experiments,” etc. 
+Which can provide a lot of context at search time and can also end up as essential filters when searching for topics. 
 Previous studies by \parencite{kacem2018analysis} have shown that providing more filters to tends to improve 
 precision in search and hence access to such structure at search time can be beneficial. 
 \pagebreak
@@ -101,33 +98,31 @@ precision in search and hence access to such structure at search time can be ben
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-Many scientific literature search engines also offer features such as forward citation search, but these features are not always accessible outside the website of the search engine. 
-Google Scholar and Semantic Scholar provide browser extensions to help the researchers get more context on a research document as seen from Figure \ref{figure5} and Figure \ref{figure6}. 
+Many scientific literature search engines also offer forward citation search features, but these features are not always accessible outside the search engine’s website. 
+Google Scholar and Semantic Scholar provide browser extensions to help the researchers get more context on a research document, as seen from Figure \ref{figure5} and Figure \ref{figure6}. 
 These extensions lead back to the search engine's proprietary websites access more information surrounding the research. 
-They also miss out on many essential aspects of research documents such as tables in the research when surfacing relevant information about the document. 
+They also miss out on many essential aspects of research documents, such as tables in the research when surfacing relevant information about the document. 
 They also do not provide information within the browser when the researcher is reading an article online. 
 \pagebreak
-\subsection{No Access To More Fine Grained Information Such as Tables When Reading Research}
+\subsection{No Access To More Fine-Grained Information Such as Tables When Reading Research}
 With the recent growth in Machine Learning publications, new platforms such as PapersWithCode\footnote{https://paperswithcode.com} and 
 sotabench\footnote{https://sotabench.com/} help compare State-of-the-art(SOTA) methods from various research papers and link source code 
 to many SOTA ML techniques. 
 
-Many research papers compare methods from other research papers and such information is not directly accessible to the
+Many research papers compare methods from other research papers, and such information is not directly accessible to the
 researcher when reading a research article online. Even though these platforms 
-host parsed information from raw research, there is no way to intelligently access that information when reading a research paper online. 
-This results in researcher spending valuable time finding the cited comparisons.
+host parsed information from raw research, there is no way to access that information when reading a research paper online. 
+This lack of information results in the researcher spending valuable time finding the cited comparisons.
 
 \section{Proposed Approach And Overview}
 This dissertation focuses on the solutions developed to tackle the missing characteristics described in Section \ref{section:intro:missing_traits}. 
 
-Section \ref{relatedwork:background} provides some preliminary background on inverted index based search engines, open-source search engines and state-of-the-art machine learning techniques.
+Section \ref{relatedwork:background} provides some preliminary background on inverted-index based search engines, open-source search engines, and state-of-the-art machine learning techniques.
 Section \ref{relatedwork:acad-search-engine} discusses the different studies conducted about academic search engines; Section \ref{relatedwork:acad-lit-mining} discusses the different techniques used for mining academic literature; Section \ref{relatedwork:table-type} will discuss previous research to pertaining to classification of tables. 
 
-Section \ref{method} provides an overview of the proposed solutions i.e. a search engine over CS ArXiv and a browser extension to augment research at time of reading 
+Section \ref{method} provides an overview of the proposed solutions i.e., a search engine over CS ArXiv and a browser extension to augment research at the time of reading 
 
 Section \ref{sci-genie-core} discusses the core components of the search engine and the chrome extension; Section \ref{table_classification}
 discusses the problem/application/experiments for table of comparison classification task.
-% Section \ref{sci-genie-extension} discusses the packaged solution which leverages the search engine and the table classification methods mentioned in  
-% Section \ref{sci-genie-core},Section \ref{table_classification} to help bring context relevant information when reading research articles. 
 
-Finally, Section \ref{conclusion} will provide some insight into future work applicable to the information augmentation/search for academic literature. 
+Finally, Section \ref{conclusion} will provide some insight into future work applicable to the information augmentation/search for academic literature.
