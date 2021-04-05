@@ -68,6 +68,4 @@ having to dig up the information on their own.
 \refstepcounter{figurecounter}
 
 \subsection{Design Choices}
-TODO : Why Do we choose ArXiv
-TODO : Why do we use LateX 
-TODO : We explicitly consider PDF to be out of scope.  
+Sci-Genie uses ArXiv as a source for papers because ArXiv provides the availability of LaTeX source from documents. LaTeX based sources are easier to parse compared to PDF documents because of LaTeX's compilability. As LaTeX is turing complete, the parse tree of the compiled content is much easily accessible compared to PDFs. Hence, Sci-Genie parses LaTeX source of the papers from ArXiv and doesn't index information from papers which don't have a LaTeX source. 
