@@ -76,12 +76,10 @@ But all search results do not consist of context about where the match took plac
 
 \subsection{Sparse Context In Search Results About Where Search Terms Matched Inside A Document}
 
-All search results shown in section \ref{sr-g}, \ref{sr-m}, \ref{sr-s}, do not provide any additional 
-information about where the match took place inside the research document. The interesting characteristic of research documents is that they 
-possess structure and hierarchy. Research documents have well-laid out sections such as “Introduction,” “Related Works,” “Methodology,” “Experiments,” etc. 
-Which can provide a lot of context at search time and can also end up as essential filters when searching for topics. 
-Previous studies by \parencite{kacem2018analysis} have shown that providing more filters to tends to improve 
-precision in search and hence access to such structure at search time can be beneficial. 
+All search results shown in section \ref{sr-g}, \ref{sr-m}, \ref{sr-s}, do not provide any additional information about where the match took place inside the research document. The interesting characteristic of research documents is that they possess structure and hierarchy. Research documents have well-laid out sections such as “Introduction,” “Related Works,” “Methodology,” “Experiments,” etc. that can provide context about the matched search terms. Such information can provide insights to the researcher about the context around which the search match took place. 
+
+Previous studies by \parencite{kacem2018analysis} have shown that providing more filters to tend to improve precision in search. Access to the structure of the document can help the search engine provide filters to limit search within particular sections of a paper.
+
 \pagebreak
 \subsection{Minimal Access To Information When Reading Research}
 \begin{figure}[h]
@@ -100,19 +98,12 @@ precision in search and hence access to such structure at search time can be ben
 \refstepcounter{figurecounter}
 Many scientific literature search engines also offer forward citation search features, but these features are not always accessible outside the search engine’s website. 
 Google Scholar and Semantic Scholar provide browser extensions to help the researchers get more context on a research document, as seen from Figure \ref{figure5} and Figure \ref{figure6}. 
-These extensions lead back to the search engine's proprietary websites for further access to more information surrounding the research. 
-They also miss out on many essential aspects of research documents, such as tables in the research when surfacing relevant information about the document. 
-They also do not provide information within the browser when the researcher is reading an article online. 
+These extensions lead back to the search engine's proprietary websites for further access to more information surrounding the research. They also do not provide information within the browser when the researcher is reading an article online. 
+% They also miss out on many essential aspects of research documents, such as tables in the research when surfacing relevant information about the document. 
 \pagebreak
 \subsection{No Access To More Fine-Grained Information Such as Tables When Reading Research}
-With the recent growth in Machine Learning publications, new platforms such as PapersWithCode\footnote{https://paperswithcode.com} and 
-sotabench\footnote{https://sotabench.com/} help compare State-of-the-art(SOTA) methods from various research papers and link source code 
-to many SOTA ML techniques. 
 
-Many research papers compare methods from other research papers, and such information is not directly accessible to the
-researcher when reading a research article online. Even though these platforms 
-host parsed information from raw research, there is no way to access that information when reading a research paper online. 
-This lack of information results in the researcher spending valuable time finding the cited comparisons.
+Many research papers compare methods from other research papers, and such information is not directly accessible to the researcher when reading a research article online. With the recent growth in Machine Learning publications, new platforms such as PapersWithCode\footnote{https://paperswithcode.com} and sotabench\footnote{https://sotabench.com/} help compare State-of-the-art(SOTA) methods from various research papers and link source code to many SOTA ML techniques. Even though these platforms host parsed information from raw research, there is no way to access that information when reading a research paper online. This lack of access to information results in the researcher spending valuable time finding and correlating the cited comparisons.
 
 \section{Proposed Approach And Overview}
 This dissertation focuses on the solutions developed to tackle the missing characteristics described in Section \ref{section:intro:missing_traits}. 
@@ -125,4 +116,4 @@ Section \ref{method} provides an overview of the proposed solutions i.e., a sear
 Section \ref{sci-genie-core} discusses the core components of the search engine and the chrome extension; Section \ref{table_classification}
 discusses the problem/application/experiments for table of comparison classification task.
 
-Finally, Section \ref{conclusion} will provide some insight into future work applicable to the information augmentation/search for academic literature.
+Finally, Section \ref{conclusion} will provide some insight to the current shortcomings of Sci-Genie and highlight some future directions based on the shortcomings of Sci-Genie 
