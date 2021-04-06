@@ -1,8 +1,8 @@
 \chapter{Classifying Tables Describing Comparisons}
 \label{table_classification}
-Scientific Research contains a lot of information presented in a tabular structure. These tables hold a lot of relevant information pertaining individual research papers. Since the recent growth of papers on Machine Learning paper and  Neural networks, lots of papers tend to make comparisons with some baselines and other research. Researchers tend to spend a lot of valuable time finding the citations and the table of results from those citations. Sci-Genie via the use of Citation Graph and the Machine Learning models helps filter table describing comparisons at the time of reading research. 
+Scientific Research contains information presented in a tabular structure. These tables hold much relevant information pertaining to individual research papers. Since the recent growth of papers on Machine Learning paper and  Neural networks, many papers tend to make comparisons with some baselines and other research. Researchers tend to spend much valuable time finding the citations and the table of results from those citations. Sci-Genie via Citation Graph and the Machine Learning models helps filter tables describing comparisons at the time of reading research. 
 
-This chapter will cover the problem of classifying tables which describe as comparison of entities and propose approaches to tackle the problem of table type classification. 
+This chapter will cover classifying tables that describe as comparison of entities and propose approaches to tackle the problem of table type classification. 
 
 \section{Problem Formulation}
 
@@ -62,7 +62,9 @@ The cell sequence tokens $T_{cell}$ and caption $C$ are created using a word-pie
 
 \subsubsection{Model Description}
 The table cell sequence $T_{cell}$ and the Caption $C$ are first converted to embeddings $X_T, X_C$ respectively. Post creation of the embeddings,  the caption embedding  $X_C$ is added with the position embedding $P_C$; The cell embeddings $X_T$ are added with $E_r,E_c$. After the additions of the respective embeddings, differentiable CLS tokens are concatenated to $X_T,X_C$.
-These embeddings are passed to separate cross channel attention transformer layers \parencite{tsai2019multimodal} after which they are passed to the vanilla transformer encoder attention layers \parencite{vaswani2017attention}. For the table of comparison classification task embeddings at the position of the CLS token are pooled from the sequences and concatenated. Once concatenated, this joint embedding is passed to feed forward layers for classification using Cross Entropy Loss. For the pretaining task, the output from the last vanilla encoder layer will be used for predicting the masked tokens of the input table cells $T_{cell}$ and the caption $C$.
+These embeddings are passed to separate cross channel attention transformer layers \parencite{tsai2019multimodal} after which they are passed to the vanilla transformer encoder attention layers \parencite{vaswani2017attention}. Different strategies are chosen for handling the output of the vanilla tranformer encoder based on the type of task. 
+
+Embeddings at the CLS token position, are pooled from the sequences and concatenated for the table of comparison classification task. Once concatenated, this joint embedding is passed to feed forward layers for classification using Cross Entropy Loss. For the pretaining task, the last vanilla encoder layer’s output will be used for predicting the masked tokens of the input table cells $T_{cell}$ and the caption $C$.
 
 
 \subsubsection{Pretraining Task}
@@ -102,7 +104,7 @@ For the finetuning of SciBert, The Table $T$ and caption $C$ are serialized to s
 \end{verbatim}
 
 \subsubsection{Model Description}
-The input representation string is converted to a sequence of integer tokens which are capped to the length of 512 tokens because of SciBert's constraint on maximum sequence length. A class token is added at the start of the sequence and the sequence is passed to the Scibert Model. The class token is pooled from after the final layer and is passed to a feed forward neural network for binary classification using cross entropy loss. 
+The input representation string is converted to a sequence of integer tokens which are capped to the length of 512 tokens because of SciBert's constraint on maximum sequence length. A class token is added at the start of the sequence; the sequence is then passed to the Scibert Model. The class token is pooled from after the final layer and is passed to a feed forward neural network for binary classification using cross entropy loss. 
 
 \subsubsection{Model Training}
 The model is trained using the for 6 epochs with a linear learning rate warm up schedule of 20 epochs.
@@ -144,15 +146,16 @@ As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) 
     \caption{\label{tablecounter} Test set results of the table classification models using SOTA Transformer and baselines. Average Results from 4 Training runs is reported}
 \end{table}
 \refstepcounter{tablecounter}
-The following are the experiement and thier conditions for ML model training:
+The following are the experiment and their conditions for ML model training:
 \begin{itemize}
-    \item Table Cross Channel Transformer : Pretrained with 70K Tables and finetuned on classification task
-    \item Table Cross Channel Transformer : Direct trained from scratch on classification task 
-    \item SciBert : Finetuned on classification task.
+    \item Table Cross Channel Transformer: Pretrained with 70K Tables and finetuned on the classification task
+    \item Table Cross Channel Transformer: Directly trained from scratch on the classification task 
+    \item SciBert: Finetuned on the classification task.
     \item Naive Bayes \& SVM
 \end{itemize}
-More details on the hyper parameters for the experiments are found in the Appendix \ref{appendix:toc}.
-All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. Table \ref{table5} describes the results of the experiments. The pretrained cross channel model when performs better than the model trained from scratch and even the baseline models. SciBert out performs all other models. The reason for Sci-Bert's better success can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model that was trained on a much bigger corpus consisting of data from a similar distribution, it's performance would tend to be better than the baseline and the developed model. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared training the model from scratch. 
+More details on the hyperparameters for the experiments are found in the Appendix \ref{appendix:toc}.
+All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. Table \ref{table5} describes the results of the experiments. The pretrained cross channel model performs better than the model trained from scratch and even the baseline models. SciBert outperforms all other models. The reason for Sci-Bert's better success can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model trained on a much bigger corpus consisting of data from a similar distribution, its performance would be better than the baseline and the developed model. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared to training the model from scratch. 
 
 
-As the SciBert model is much larger, the realtime classfication of tables describing comparsions is not done using Sci-Bert. The pretrained cross channel transformer model is used in the API Layer for filtering tables of comparison as it's much faster in inference. 
+As the SciBert model is much larger, the real-time classification of tables describing comparisons is not done using Sci-Bert. The pretrained cross channel transformer model is used in the API Layer for filtering tables of comparison as it's much faster in inference. 
+
