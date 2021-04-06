@@ -2,13 +2,24 @@
 \label{conclusion}
 
 \section{Sci-Genie: Technical Debts and Shortcomings}
-main points : 
-\begin{itemize}
-    \item Incomplte data as only 25-30K papers are currently correlated
-    \item Parsing is heuristic and can be improved several folds using more intelligently methods using ML. The current structure used to index documents can provide context around CS research at search time. For other domains much more grannular 
-    \item Sci-Genie doesn't parse PDF and uses Latex which allows for much grannular access to the parsed strcuture and intercompilability to HTML. A lot research in other fields is present in PDF and Sci-Genie doesn't have PDF mining capabilities. 
-    \item Lucene based indexes are not the best choices when 
-\end{itemize}
+Although Sci-Genie provides a more context rich access to research, the components that help enrich context during search and parsing/indexing can be further improved. This section details the limitations of some components. Based on some of these limitations, future works is described in Section \ref{conclusion:future-scope}
+
+\subsection{Heuristic Parsing}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/parsing-stats.pdf}
+    \caption{ A bar plot of number of documents where a section got parsed by the heuristic parser from 158K papers}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+As Sci-Genie uses a heuristic parser for parsing research documents. The heuristic parser correlates the Fragment object to the appropriate keys in the \nameref{sci-genie-core:data-layer:researchobj}. Figure \ref{figure18} shows the statistics of parsing using the heuristic parser from a total corpus of 158K papers. As the parser misses out many sections it can be further improved using better methods. The parser also considers the sections based on ones observed in CS papers. Future research directions can include identifying common patterns in the structure of research documents for fields outside CS; the identified structure can be used for providing additional context to search results. 
+
+
+\subsection{LaTeX only Parsing}
+Sci-Genie doesn't parse PDF and uses Latex instead. A lot of research in other fields is present in PDF and Sci-Genie doesn't have PDF mining capabilities. 
+
+\subsection{CS ArXiv Only Access}
+While ArXiv can be a source of freely availability well cited research, it also remains a preprint server where all documents are not gauranteed to be cited. Sci-Genie only supports CS ArXiv articles and its ontology is specialized for CS research. Future versions can extend the search engine to support more fields of research and use ontology for those fields. 
 
 \section{Future Research Scope}
 \label{conclusion:future-scope}
