@@ -2,7 +2,7 @@
 \label{conclusion}
 
 \section{Sci-Genie: Technical Debts and Shortcomings}
-Although Sci-Genie provides a more context rich access to research, the components that help enrich context during search and parsing/indexing can be further improved. This section details the limitations of some components. Based on some of these limitations, future works is described in Section \ref{conclusion:future-scope}
+Although Sci-Genie provides a more context rich access to search results, the components that help enrich context during search i.e., the parsing/indexing can be further improved. This section details the limitations of some components. Based on some of these limitations, future work is described in Section \ref{conclusion:future-scope}
 
 \subsection{Heuristic Parsing}
 \begin{figure}[h]
@@ -12,14 +12,14 @@ Although Sci-Genie provides a more context rich access to research, the componen
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-As Sci-Genie uses a heuristic parser for parsing research documents. The heuristic parser correlates the Fragment object to the appropriate keys in the \nameref{sci-genie-core:data-layer:researchobj}. Figure \ref{figure18} shows the statistics of parsing using the heuristic parser from a total corpus of 158K papers. As the parser misses out many sections it can be further improved using better methods. The parser also considers the sections based on ones observed in CS papers. Future research directions can include identifying common patterns in the structure of research documents for fields outside CS; the identified structure can be used for providing additional context to search results. 
+Sci-Genie uses a heuristic parser for parsing research documents. The heuristic parser correlates the Fragment object to the appropriate keys in the \nameref{sci-genie-core:data-layer:researchobj}. Figure \ref{figure18} shows the statistics of parsing using the heuristic parser from a total corpus of 158K papers. As the parser misses out many sections it can be further improved using better methods. The parser also considers the sections based on ones observed in CS papers. Future research directions can include identifying common patterns in the structure of research documents for fields outside CS; Research directions can include identifying domain specific document structural patterns to create a taxonomy that can be used as a part of parsing.
 
 
 \subsection{LaTeX only Parsing}
-Sci-Genie doesn't parse PDF and uses Latex instead. A lot of research in other fields is present in PDF and Sci-Genie doesn't have PDF mining capabilities. 
+Sci-Genie doesn't parse PDF and only works if LaTeX source is available. Majority of research on the web is present in PDF and Sci-Genie doesn't have PDF mining capabilities. 
 
 \subsection{CS ArXiv Only Access}
-While ArXiv can be a source of freely availability well cited research, it also remains a preprint server where all documents are not gauranteed to be cited. Sci-Genie only supports CS ArXiv articles and its ontology is specialized for CS research. Future versions can extend the search engine to support more fields of research and use ontology for those fields. 
+While ArXiv can be a source of freely available well cited research, it also remains a preprint server where lots documents are not gauranteed to be cited. Sci-Genie only supports CS ArXiv articles with a CS domain specific ontology. Future versions can extend the search engine to support more fields of research and use ontology for those fields. 
 
 \section{Future Research Scope}
 \label{conclusion:future-scope}
@@ -38,16 +38,16 @@ Multiple grannular table types such as Ablation Study, Dataset Descriptions, can
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-Organisations such as PapersWithCode(PwC) have developed tools to collate information about SOTA ML methods from papers on ArXiv. PwC after parsing these tables either correlate some metrics manually and some intelligently via the use of libraries like Axcell\footnote{https://github.com/paperswithcode/axcell}. This task can become more intelligent and automated where ML models can be developed to correlated tables from research documents from diverse domains outside CS. Discovering related tables using a citation graph and machine learning techniques can be a great direction for future research. 
+Organisations such as PapersWithCode(PwC) have developed tools to correlate information about SOTA ML methods from papers on ArXiv. PwC parses LaTeX based tables and correlates the benchamark metrics manually or via the use of libraries like AxCell\footnote{https://github.com/paperswithcode/axcell}. 
+
+The benchmark correlation methods used by PwC are specific to ML SOTA benchmarks, Future research directions can include the automated extraction, corellation, and storage of tables from research papers into strict relational databases for domains outside ML and CS. 
 
 \subsection{Scientific Research Document Parsing For Search Context}
-Google search pivoted to ranking results for search using BERT.\footnote{https://blog.google/products/search/search-language-understanding-bert/} since 2019. This trend of using language models to help rank search results has lead to creation of opensource tools\footnote{https://github.com/deepset-ai/haystack} over off the shelf search engines like Elasticsearch. Although the models help improve search ranking, more nuanced search context result information is yet not accessible via academic research search engines. 
+Google search pivoted to ranking results for search using BERT\footnote{https://blog.google/products/search/search-language-understanding-bert/} since 2019. The trend of using language models to help rank search results has lead to creation of opensource tools\footnote{https://github.com/deepset-ai/haystack} that rerank documents over off the shelf search engines like Elasticsearch. But search ranking alone would not solve the context problem because web search and scientific search differ because of citations and peer-review.
 
 Intelligent parsing maybe one part of the solution. Sci-Genie are uses domain sepecific content parser which is heuristically derived (Chapter \ref{sci-genie-core:scraping:frag-to-rs}) to help bring context relevant information in search results. This parser may not be extensible to various other domains or document types.
 
-\cite{kashyap2020sciwing}, introduced deep learning based techniques for scientific document parsing. But parsing can also be posed a domain specific problem where each domain generally follows a different parse structure. For example, recent papers in Machine Learning explicitly discuss datasets as a section in the paper.
-
-Every domain's specific nuances requires more intelligent systems that can learn to identify such traits on their own. Intelligent techniques of parsing and indexing data to provide sufficient context to the users seems a rich direction of research in the future.
+\cite{kashyap2020sciwing}, introduced deep learning based techniques for scientific document parsing. \cite{kashyap2020sciwing}'s model generates a general purpose parsing structure. Although very useful, Every domain's document parse structure also has domain specific characteristics; For example, recent papers in Machine Learning explicitly discuss datasets as a section in the paper. Identifying such patterns for generate domain specific parse structures for indexing can be a useful future direction of research for improving search context in academic search.  
 
 \section{Conclusion}
 The fast rate of growth in technological progress will dramatically increase the growth in the volume of research in the future. Figure \ref{figure1}, is the best proof of that insight. The growing volume of research would also require more nuanced search tools which can help surface enough context around search terms and futher aid the researcher when reading research. This dissertation described a search engine and browser app based prototype solution to help remediate this problem. This dissertation covered the formulation of different aspects of the search engine and the ML models powering its table of comparison filtering algorithm. 
