@@ -99,7 +99,7 @@ The study conducted by \cite{li2017investigating} gave a great indicator regardi
 
 \subsection{Semantic Scholar Index}
 \label{sci-genie-core:data-layer:ss-index}
-This index hosts information filtered from the Semantic Scholar Open Research Corpus\parencite{ammar-etal-2018-construction} post Citation Graph Mining. More details on how it is filtered is described in Section \ref{sci-genie-core:citation-mining}. This index’s core purpose is to help correlate citation to and from papers on ArXiv. The Sci-Genie extension further uses this citation information for finding tables from the neighborhood of papers as seen in Figure \ref{figure9}. 
+This index hosts information filtered from the Semantic Scholar Open Research Corpus\parencite{ammar-etal-2018-construction} post Citation Graph Mining. More details on how it is filtered is described in Section \ref{sci-genie-core:citation-mining}. This index’s core purpose is to help correlate citation to and from papers on ArXiv. The Sci-Genie extension further uses this citation information for finding tables from the neighborhood of papers as seen in Figure \ref{figure11}.
 
 
 \subsection{Arxiv Table Index}
@@ -130,7 +130,7 @@ This index holds references of in and out citations for each ArXiv article prese
         "arxiv_id": "",
 }
 \end{verbatim}
-The \textit{arxiv\_id} is the unique ArXiv identifier, The \textit{in\_citn\_arxiv} correspond to the unique ArXiv ids of papers that cited a paper. The \textit{out\_citn\_arxiv} correspond to the unique ArXiv ids of papers cited by a paper. This information comes of great use when filtering out tables as seen in Figure \ref{figure9}. The construction of this index is discussed in Section \ref{sci-genie-core:citation-mining}
+The \textit{arxiv\_id} is the unique ArXiv identifier, The \textit{in\_citn\_arxiv} correspond to the unique ArXiv ids of papers that cited a paper. The \textit{out\_citn\_arxiv} correspond to the unique ArXiv ids of papers cited by a paper. This information comes of great use when filtering out tables as seen in Figure \ref{figure11}. The construction of this index is discussed in Section \ref{sci-genie-core:citation-mining}
 % The ontology of research papers is stored in the same form as provided by the 
 \section{Paper Scraping And Mining Engine}
 \label{sci-genie-core:scraping}
@@ -172,7 +172,7 @@ The pipeline further correlates the citations of papers which are present on ArX
 % The Semani .
 
 \section{API Layer}
-The API leverages the general-purpose abstractions built over the DataLayer to access and process information for various apps such as the search engine website, the chrome plugin and the table labeling interface. 
+The API Layer leverages the general-purpose abstractions built over the DataLayer to access and process information for various apps such as the search engine website, the chrome plugin and the table labeling interface. 
 
 \subsection{Scientific Table Correlation Via Citation Graphs}
 With the access to distinctly processed and correlated information about research papers on ArXiv and their associated tables, the API Layer leverages these traits to filter tables from papers that cited the paper the user is reading (as seen in Figure \ref{figure11} and \ref{figure12}). 

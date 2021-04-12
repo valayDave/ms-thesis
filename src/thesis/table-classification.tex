@@ -30,19 +30,17 @@ The structure of the tables in scientific research can fluctuate based on the in
     \caption{\label{tablecounter} Table Of Symbols for Equations}
 \end{table}
 \refstepcounter{tablecounter}
-The problem of classifying a table $T$ as a table describing a comparison can be framed as a binary classification problem. Given a table $T$ and its caption $C$, the classifier $f_\theta(T,C) \rightarrow Y$ predicts a binary label $Y \in \{0,1\}$ to denote weather the table is describing a comparison of entities. 
+The problem of classifying a table $T$ as a table describing a comparison can be framed as a binary classification problem. Given a table $T$ and its caption $C$, the classifier $f_\theta(T,C) \rightarrow Y$ predicts a binary label $Y \in \{0,1\}$ to denote weather the table is describing a comparison of entities\footnote{Both the table and caption are used because human labeleling discovered that these two variables are the most prominant indicators of a table describing a comparison.}. 
 
-Based on this formulation, this dissertation analyzes 3 different types of ML models and the representations they use for the table $T$ and caption $C$ for the problem:
+Based on this formulation, this dissertation analyzes 4 different types of ML models and the representations they use for the table $T$ and caption $C$ for the problem:
 \begin{itemize}
     \item Cross Channel Transformers With/Without Pretraining
-    \item Encoder Only Multi-Channel Transformer With/Without Pretraining
+    \item Encoder Only Multi-Channel Transformer With Pretraining
     \item Finetuning Pretrained Scibert
     \item SVM and Naive Bayes (Baselines)
 \end{itemize}
 
 Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable based on the model. Cross Channel Transformer, Encoder Only Multi-Channel Transformer treats $T$ and $C$ as seperate representations, Scibert, SVM and Naive Bayes treats $T$ and $C$ as one joint representation. 
-
-The Encoder Only Multi-Channel Transformer uses encoder style self-attention individually to $T$ and $C$ for the masked language modeling tasks. The losses for the $T$ and $C$ are added. 
 
 Section \ref{table_classification:models} describes the models developed/trained for the input representations of table $T$ and caption $C$. The data collection and labeling for the machine learning models is described in Section \ref{table_classification:data-coll}. The experiment results for different models is described in Section \ref{table_classification:experiement-result}
 
@@ -58,7 +56,7 @@ Section \ref{table_classification:models} describes the models developed/trained
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-Based on the models developed by \cite{deng2020turl}. a structurally-aware cross channel Transformer model is adapted to fit the function $f_\theta$.
+Based on the models developed by \cite{deng2020turl}. A structurally-aware encoder only Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure17} visualises the model and its input representations.
 
 \subsubsection{Input Representation}
 \label{table_classification:models:encoder-model:input-rep}
@@ -73,6 +71,7 @@ These embeddings are passed to individual encoder self-attention transformers. T
 
 
 \subsection{Cross Channel Transformer}
+\label{table_classification:models:cross-channel}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/tablemodel.pdf}
@@ -84,7 +83,7 @@ These embeddings are passed to individual encoder self-attention transformers. T
 Based on the models developed by \cite{tsai2019multimodal} and \cite{deng2020turl}, a structurally-aware cross channel Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure18} shows the outline of the model. This model is chosen to validate wheather cross attention will have an influence on the performance of the model if intermediate presentations for Table $T$ and Caption $C$ are generated from the cross attention operation. 
 
 \subsubsection{Input Representation}
-The input representations for $T$ and $C$ are the same as given in Section \ref{table_classification:models:encoder-mode:input-rep}
+The input representations for $T$ and $C$ are the same as given in Section \ref{table_classification:models:encoder-model:input-rep}
 
 
 \subsubsection{Model Description}
@@ -138,10 +137,12 @@ The input representation for the SVM and the NB model are the same as the string
 
 \subsection{Pretraining Transformers}
 \label{table_classification:models:encoder-model:pre-train}
-Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, the cross-channel transformer model is pretrained with 70K tables from papers from ArXiv. A masked language modeling pretraining objective is used to train the Transformer model given in Figure \ref{figure18}, and \ref{figure17}. The pretraining follows the procedures described by \cite{deng2020turl} where the task is of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the word token where a MASK token is inserted in the sequence.  This objective allows training the model with Large number of tables instead of using classifiers trained on small amounts of data. The pretraining task is run for 35K steps in 5 Epochs. The learning rate is set to 0.0001 for the pretraining task. Both the cross-attention transformer and self-attetnion based transformer model are pretrained using the same MLM objective. 
+Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, the cross-channel transformer model is pretrained with 70K tables from papers from ArXiv. A masked language modeling pretraining objective is used to train the Transformer model given in Figure \ref{figure18}, and \ref{figure17}. The pretraining follows the procedures described by \cite{deng2020turl} where the task is of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the word token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entrop loss from MLM prediction is added and backpropagated. 
+
+This objective allows training the model with Large number of tables instead of using classifiers trained on small amounts of data. The pretraining task is run for 35K steps in 5 Epochs. The learning rate is set to 0.0001 for the pretraining task with an AdamW optimizer. Both the transformer models described in Section \ref{table_classification:models:encoder-model}, \ref{table_classification:models:cross-channel} are pretrained using the same MLM objective. 
 
 \subsection{Finetuning Transformers}
-After the Cross Channel Transformer and the Encoder Only Multi-Channel Transformer undergo the pretrainig task; the models are finetuned with a learning rate of 2e-05 scheduled with a cosine learning rate scheduler for 20 epochs on the finetuning task.
+After the Cross Channel Transformer and the Encoder Only Multi-Channel Transformer undergo the pretrainig task; the models are finetuned on the classification task with a learning rate of 2e-05, scheduled with a linear learning rate scheduler for 20 epochs.
 
 \section{Data Collection And Labeling}
 \label{table_classification:data-coll}
@@ -177,7 +178,7 @@ As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) 
         Cross Channel Transformer From Scratch (31M) & $73.95 \pm 10.5 $ & $0.739 \pm 0.107$ & $0.53 \pm 0.08$ \\ \hline
         Encoder Only Multi-Channel Pretained (25M) & $88.33 \pm 0.29$ & $0.8883 \pm 0.002$ & $0.423 \pm 0.007$ \\ \hline
         Cross Channel Transformer Pretained (31M) & $87.5 \pm 1.8$ & $0.875 \pm 0.018$ & $0.34 \pm 0.016$ \\ \hline
-        SciBert Finetuned & $92.23 \pm 1.60$ & $0.923 \pm 0.016$ & $0.21 \pm 0.04$ \\ \hline
+        SciBert Finetuned (112M) & $92.23 \pm 1.60$ & $0.923 \pm 0.016$ & $0.21 \pm 0.04$ \\ \hline
     \end{tabular}
     \caption{\label{tablecounter} Test set results of the table classification models using SOTA Transformer and baselines. Average Results from 4 Training runs is reported}
 \end{table}
@@ -190,10 +191,8 @@ The following are the experiment and their conditions for ML model training:
     \item SciBert: Finetuned on the classification task.
     \item Naive Bayes \& SVM
 \end{itemize}
-More details on the hyperparameters for the experiments are found in the Appendix \ref{appendix:toc}. All experiments are conducted on the same frozen test set. Numbers are reported after averaging several training runs.
+More details on the hyperparameters for the experiments are found in the Appendix \ref{appendix:toc}. All experiments are conducted on the same frozen test set with evenly balanced samples. Numbers are reported after averaging 4 training runs.
 
-All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. Table \ref{table5} describes the results of the experiments. The pretrained cross channel model performs better than the model trained from scratch and even the baseline models. SciBert outperforms all other models. 
+All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. Table \ref{table5} describes the results of the experiments. 
 
-The reason for Sci-Bert's better performance can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model trained on a much bigger corpus consisting of data from a similar distribution, its performance would be better than the baseline and the developed models. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared to training the model from scratch. 
-
-As the SciBert model is much larger, the real-time classification of tables describing comparisons is not done using Sci-Bert. The pretrained cross channel transformer model is used in the API Layer for filtering tables of comparison as it's much faster in inference. 
+The pretrained models perform substantially better than the baselines. The Cross-Channel Tranformer when pretrained from scratch performs substantially better than the model trained from scratch. The Encoder Only Multi-Channel Transformer performs the best among all the models pretrained on ArXiv Tables. SciBert outperforms all models. The reason for Sci-Bert's better performance can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model, trained on a very large corpus consisting of data from a similar distribution, its performance would be better than the baseline and the developed models. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared to training the model from scratch. 

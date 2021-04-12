@@ -33,7 +33,12 @@
 \usepackage{microtype}                  %~Improves kerning and protrusion (optional);
                                         %   See here for an introduction:
                                         %   http://www.khirevich.com/latex/microtype/
-
+\usepackage{listings}                                        
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
 \providetoggle{usemicrotype}            % TRUE = microtype is being used
 \makeatletter                           %   (Used to turn of microtype protrusion in the
 \@ifpackageloaded{microtype}%           %   table of contents.)
