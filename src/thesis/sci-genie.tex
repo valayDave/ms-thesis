@@ -35,7 +35,7 @@ Elasticsearch hosts the following indexes\footnote{Index is similar to Database 
 \begin{itemize}
     \item \textbf{Arxiv Parsed Research Index}:\textit{Contains research documents whose structure is explicitly parsed and stored}
     \item \textbf{Semantic Scholar Index}:\textit{Contains documents from the CS Domains mined and filtered from semantic scholar open research corpus}
-    \item \textbf{Arxiv Table Index}:\textit{Stored the tables from research papers which can be later used for information augmentation.}
+    \item \textbf{Arxiv Table Index}:\textit{stores the tables from research papers. These can be later used for extending context during reading.}
     \item \textbf{Arxiv Semantic Scholar Join Index}:\textit{Stores the citation information filtered from semantic scholar index to map papers in ArXiv} 
 \end{itemize} 
 
@@ -84,7 +84,7 @@ The \textit{children} in the Fragment hold the information about the child notes
 Due to the search engine’s scope being limited to CS research on ArXiv, the predefined sections are created based on a statistical analysis of the content after scraping. Section \ref{sci-genie-core:scraping} provides more details on the creation of the Fragment and ResearchObject. 
 
 \paragraph{Advantages Of Indexing ResearchObject}
-The ResearchObject is a key value-based object, and each key allows indexing the text according to its corresponding section. This object schema helps provide more context about the search match within each section, as seen from Figure \ref{figure7}. 
+The ResearchObject is a key value-based object, and each key allows indexing the text according to its corresponding section. This object schema helps provide more context about the search match within each section, as seen from Figure \ref{figure9}. 
 
 \subsubsection{Ontology}
 \begin{figure}[h]
@@ -172,10 +172,10 @@ The pipeline further correlates the citations of papers which are present on ArX
 % The Semani .
 
 \section{API Layer}
-The API layer is Sci-Genie, which leverages the general-purpose abstractions built over the DataLayer to access and process information for various apps such as the search engine website, the chrome plugin and the table labeling interface. 
+The API leverages the general-purpose abstractions built over the DataLayer to access and process information for various apps such as the search engine website, the chrome plugin and the table labeling interface. 
 
 \subsection{Scientific Table Correlation Via Citation Graphs}
-With the access to distinctly processed and correlated information about research papers on ArXiv and their associated tables, the API Layer leverages these traits to filter tables from papers that cited the paper the user is reading (as seen in Figure \ref{figure14} and \ref{figure9}). 
+With the access to distinctly processed and correlated information about research papers on ArXiv and their associated tables, the API Layer leverages these traits to filter tables from papers that cited the paper the user is reading (as seen in Figure \ref{figure11} and \ref{figure12}). 
 
 
 \subsection{Table Of Comparison Classification}
@@ -187,7 +187,7 @@ With the access to distinctly processed and correlated information about researc
 \end{figure}
 \refstepcounter{figurecounter}
 
-The tables extracted from the papers that were cited also undergo a binary classification via a machine learning model to label the tables describing a comparison. This information is useful to provide context based filters at the time of reading, as seen Figure \ref{figure14}. Chapter \ref{table_classification} provides more details on the table of comparison classification and the choice of model for the API-Layer.
+The tables extracted from the papers that were cited also undergo a binary classification via a machine learning model to label the tables describing a comparison. This information is useful to provide filters at the time of reading, as seen Figure \ref{figure11}. Chapter \ref{table_classification} provides more details on the table of comparison classification and the choice of model for the API-Layer.
  
 \subsection{Table Intent Labeling API}
 The API Layer also provides API's for table annotation and labeling as seen in Figure \ref{figure15}. These annotations and labels help provide labeled data for the machine learning task which is discussed in Chapter \ref{table_classification}.

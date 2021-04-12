@@ -192,8 +192,8 @@ STRICT_CHECK_CONSTS = [
   \begin{tabular}{|p{2cm}|p{3cm}|p{2cm}|p{2cm}|p{1.5cm}|p{1.5cm}|p{1cm}|p{1cm}|}
   \hline
       Model Name & Number Of Layers & Transformer Embedding Size & Batchsize & Learning Rate & Number Of Parameters & Size In MB & \# Epoch\\ \hline
-      Table Cross Channel Transformer Pretained & 4 Per Cross Channel, 4 Per Vanilla Encoder & 64 & 25 & 0.0001 & 3.6M & 15 & 40\\ \hline
-      Table Cross Channel Transformer From Scratch & 4 Per Cross Channel, 4 Per Vanilla Encoder & 64 & 25 & 0.0001 & 3.6M & 15 & 40\\ \hline
+      Table Cross Channel Transformer (31M) & 6 Per Cross Channel, 6 Per Vanilla Encoder & 256 & 8 & 0.0001 & 31M & 15 & 20\\ \hline
+      Table Encoder Style Transformer (25M) & 8 Per Vanilla Encoder & 256 & 25 & 0.0001 & 25M & 8 & 20\\ \hline
       SciBert Finetuned & 12 Layers & 768 & 14 & 0.0001 & 109 M & 440 & 6 \\ \hline
   \end{tabular}
   \caption{\label{tablecounter} Hyper Parameters For Training Table Classification Models. All Learning rates are scheduled using a cosine learning rate scheduler with a warm up of 20 epochs }

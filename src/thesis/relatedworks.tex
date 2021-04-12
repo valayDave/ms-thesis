@@ -5,7 +5,7 @@
 \label{relatedwork:background}
 
 \subsection{Lucene Based Inverted Search Index}
-An inverted index lists every unique word in any document and identifies all the documents each word occurs in. Since the late 1990s, search engines have been using an inverted index as the core structure to store and access information; Even Google, in its earlier stages, leveraged inverted indexes as means of accessing text documents for search\parencite{brin1998anatomy}. Sergey Brin and Larry Page partitioned web search engines to perform three critical tasks: Parsing, Indexing, and Ranking.
+An inverted index lists every unique word in any document and identifies all the documents each word occurs in. Since the late 1990s, search engines have been using an inverted index as the core structure to store and access information; Even Google, in its earlier stages, leveraged inverted indexes as means of accessing text documents for search\parencite{brin1998anatomy}. Sergey Brin and Larry Page identified three critical tasks for web search: Parsing, Indexing, and Ranking.
 
 Opensource search engines such as the Apache Lucene\parencite{lucene2010apache} help provide hooks to index and rank documents for search. Lucene has become a popular search engine as many open-source search engines are built on top of Lucene to help simplify the access of the features of Lucene. Solr\footnote{https://solr.apache.org/}, Elasticsearch\footnote{https://www.elastic.co/elasticsearch/} as some opensource search engines built on top of Lucene. 
 
@@ -30,11 +30,11 @@ The Transformer model \parencite{vaswani2017attention} has recently proven to sh
 \end{figure}
 \refstepcounter{figurecounter}
 
-The vanilla Transformer architecture \parencite{vaswani2017attention} was created for machine translation. The model consisted of an Encoder-Decoder Architecture using self-attention/cross-attention layers. The input to the transformer requires a sequence of symbols. The sequence of input and target symbols are created via a word piece tokenizer. The tokenized sequences are transformed into sequences of embeddings. Positional embeddings are added to the sequences, and then they are passed through either the encoder or decoder layer.
+The vanilla Transformer architecture \parencite{vaswani2017attention} was created for machine translation. The model consists of an Encoder-Decoder Architecture using self-attention/cross-attention layers. The input to the transformer requires a sequence of input and target symbols. The sequence of input and target symbols are created via a word piece tokenizer. The tokenized sequences are transformed into sequences of embeddings. Positional embeddings are added to the sequences, and then they are passed through either the encoder or decoder layer.
 
 The self-attention/cross-attention layers consist of a multiheaded self-attention/cross-attention operation followed by pointwise feedforward layers with batch normalization \parencite{ioffe2015batch} and residual connections \parencite{he2016deep}. Multiple such layers are stacked together to create an encoder or decoder of the transformer. 
 
-The encoder layer encodes a sequence into latent representations using the self-attention operation; the decoder layer decodes the latent representation from the encoder with the cross attention for language translation. Figure \ref{figure7} visualizes the operation of the encoder and decoder. 
+The encoder layer encodes a sequence into latent representations using the self-attention operation; the decoder layer decodes the latent representation from the encoder with the cross attention for language translation. Figure \ref{figure7} visualizes the Transformer architecture. 
 
 Multiple variants of this architecture have been created such as the ones by \cite{radford2019language}, \cite{devlin2018bert}. The key insight behind the attention operation is provided in Section \ref{relatedwork:background:transformer:attention}, Section \ref{relatedwork:background:transformer:cross-attention}, 
 
@@ -43,15 +43,15 @@ Multiple variants of this architecture have been created such as the ones by \ci
 The self attention operation operates on a sequence $S \in \mathbb{R}^{s \times d}$ of $s$ length and $d$ dimensions. The self attention operation comprises three key components. A key matrix $K$, A query matrix $Q$, and value matrix $V$;each created from a linear transformation of $S$. 
 $$A = softmax(\frac{QK^T}{\sqrt{d}})V$$
 
-The $softmax(\frac{QK^T}{\sqrt{d}})$ operation creates a $s \times s$ dimensional matrix. Element ${i,j}$ in the matrix correspond to the weight of index $i$ in the sequence $S$ to index $j$ in sequence $S$. The operation is called self attention because the key matrix and the query matrix are derived from same sequence.
+The $softmax(\frac{QK^T}{\sqrt{d}})$ operation creates a $s \times s$ dimensional matrix. Element ${i,j}$ in the matrix correspond to the weight of index $i$ in the sequence $S$ to index $j$ in sequence $S$. The operation is called self attention because the key matrix and the query matrix are derived from same sequence. The operation helps derive relationships between items in the sequences at each attention head in each layer. 
 
 \paragraph{Cross Attention}
 \label{relatedwork:background:transformer:cross-attention}
-Self attention operation applies the attention opperation over the same sequence; Cross attention applies the attention operation over different sequences. The cross attention operates on a sequence $S_\alpha \in \mathbb{R}^{s \times d}$ and $S_\beta \in \mathbb{R}^{k \times d}$ where $S_\alpha$ is of $s$ length and $d$ dimensions and $S_\beta$ is of $k$ length and $d$ dimensions. The query matrix $Q_\alpha$ is created from a linear transformation of $S_\alpha$ and key matrix $K_\beta$, value matrix $V_\beta$ are created from a linear transformation of $S_\beta$. 
+Self attention operation applies the attention operation over the same sequence; Cross attention \parencite{tsai2019multimodal} operation applies the attention operation over different sequences. The cross attention operation operates on sequences $S_\alpha \in \mathbb{R}^{s \times d}$ and $S_\beta \in \mathbb{R}^{k \times d}$ where $S_\alpha$ is of $s$ length and $d$ dimensions and $S_\beta$ is of $k$ length and $d$ dimensions. The query matrix $Q_\alpha$ is created from a linear transformation of $S_\alpha$ and key matrix $K_\beta$, value matrix $V_\beta$ are created from a linear transformation of $S_\beta$. 
 
 $$A_\alpha=softmax(\frac{Q_{\alpha}K_{\beta}^{T}}{\sqrt{d}})V_{\beta}$$
 
-The $softmax(\frac{Q_{\alpha}K_{\beta}^{T}}{\sqrt{d}})$ operation creates a $s \times k$ dimensional matrix. Element ${i,j}$ in the matrix correspond to the weight of index $i$ in the sequence $S_\alpha$ to index $j$ in sequence $S_\beta$. This operation is useful in tasks such as language translation where the $S_\alpha$ can be a source language sentence and $S_\beta$ can be the target language sentence for translation.  
+The $softmax(\frac{Q_{\alpha}K_{\beta}^{T}}{\sqrt{d}})$ operation creates a $s \times k$ dimensional matrix. Element ${i,j}$ in the matrix correspond to the weight of index $i$ in the sequence $S_\alpha$ to index $j$ in sequence $S_\beta$. This operation is useful in the decoder layer for language translatation where the attention operation is helping correlate relationships between source language $S_\alpha$ with target language $S_\beta$. 
 
 \subsubsection{Pretraining and Self Supervised Learning}
 In NLP, Transformer models possess properties to scale and learn with massive amounts of data using generalized tasks such as language modeling or masked language modeling. The objective of language modeling is to predict the token $n+1$ given $n$ tokens in the sequence. The masked language modeling objective is to predict a masked out token in the sequence correctly given the other tokens. These training objectives allow the usage of large amounts of data from the web without going through the effort to clean the data. Recent State-of-the-art Language models such as GPT-3 \parencite{brown2020language} are trained using such self-supervised training objectives. 
@@ -61,17 +61,30 @@ Recent studies such as the one by \cite{hernandez2021scaling}, showed that trans
 
 
 \subsubsection{Machine Learning For Tabular Data}
-\cite{deng2020turl} recently applied structurally aware Transformers for self-supervised learning of web tables. The learned models possessed rich generalization capabilities for transfer into downstream tasks such as row filling based on headers, Entity Linking to the knowledge base, column type annotation etc. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/TURL-model-exp.pdf}
+    \legend{\emph{Source}: From \cite{deng2020turl}}
+    \caption{TURL Architecture and Input Representations correlated}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+\cite{deng2020turl} applied structurally aware Transformers with self-supervised learning for web table data. The model is structurally aware because of the usage of cell specific entities and row/column specific embeddings in the pretraining and finetuning tasks. Figure \ref{figure8} shows the input representation and the structural embeddings for the representations from the model by \cite{deng2020turl}. The structural embeddings include cell specific type, and row/column positional embeddings. 
+
+\cite{deng2020turl} is also the first application of pretraining/finetuning based transfer learning paradigm in the domain of Web Tables. 
+
+The learned models possessed rich generalization capabilities for transfer into downstream tasks such as row filling based on headers, Entity Linking to the knowledge base, column type annotation etc. 
+
 
 \section{Academic Research Search Engines}
 \label{relatedwork:acad-search-engine}
-\cite{gusenbauer2020academic} conducted an analysis of search engines based on criteria described in Table \ref{table1}.
+\cite{gusenbauer2020academic} conducted an analysis of search engines based on criteria described in Table \ref{table1}, Table \ref{table2}, Table \ref{table3}.
 The criteria described by \cite{gusenbauer2020academic} try to objectively evaluate the usefulness of a search engine to do systematic reviews.
 
 \begin{table*}[h]
     \label{table\arabic{tablecounter}}
     \csvreader[%
-     tabular={|p{7cm}|p{10cm}|},
+     tabular={|p{5cm}|p{9cm}|},
             table head = \hline\textbf{Criteria} & \textbf{Meaning} \\\hline,
             late after line= \\\hline,
             late after last line=\\\hline %
@@ -86,7 +99,7 @@ The criteria described by \cite{gusenbauer2020academic} try to objectively evalu
 \begin{table*}[h]
     \label{table\arabic{tablecounter}}
     \csvreader[%
-     tabular={|p{7cm}|p{10cm}|},
+     tabular={|p{5cm}|p{9cm}|},
             table head = \hline\textbf{Criteria} & \textbf{Meaning} \\\hline,
             late after line= \\\hline,
             late after last line=\\\hline %
@@ -101,7 +114,7 @@ The criteria described by \cite{gusenbauer2020academic} try to objectively evalu
 \begin{table*}[h]
     \label{table\arabic{tablecounter}}
     \csvreader[%
-     tabular={|p{7cm}|p{10cm}|},
+     tabular={|p{5cm}|p{9cm}|},
             table head = \hline\textbf{Criteria} & \textbf{Meaning} \\\hline,
             late after line= \\\hline,
             late after last line=\\\hline %
@@ -120,7 +133,7 @@ The criteria described by \cite{gusenbauer2020academic} try to objectively evalu
 \cite{li2017investigating} performed a detailed analysis on the patterns and failures in search for academic search. 
 Their analysis concluded that search queries in academic search had substantially more entity-based queries than web search and 
 null queries attributed to a significant fraction of failures, i.e., search engine found no search results. 
-This analysis is quite helpful in correlating the need for a "Controlled Vocabulary"(Table \ref{table1}) in search to improve precision. 
+This analysis is quite helpful in correlating the need for a "Controlled Vocabulary" (Table \ref{table1}) in search to improve precision. 
 
 \cite{kacem2018analysis} analyzed the improvement of search precision based on the usage of \textit{search stratagems}.
 Search stratagems are additional filters along with the search terms. They provide further context around filtering a search query. 
@@ -147,7 +160,9 @@ All of these advances are because of curation and opensource availability to man
 
 \section{Types Of Tables in Scientific Research}
 \label{relatedwork:table-type}
-Earlier work done by \cite{kim2012scientific} defined the types of tables based on their content and purpose. \cite{kim2012scientific} sampled 25 papers from the domains of CS, Biomedical, Life Science, Chemistry, Material Science, Electrical Engineering and Medicine chose to define the following types of tables for scientific documents:
+Tables in scientific research are different from web tables. Web-Tables can generally have well defined entities and type of information being described by a table can have a much broader scope. Scientific research tables on the other hand can be categorized under specific types. 
+
+Earlier work done by \cite{kim2012scientific} defined the types of tables based on their content and purpose. \cite{kim2012scientific} sampled 25 papers from the domains of CS, Biomedical, Life Science, Chemistry, Material Science, Electrical Engineering and Medicine. From these domains, \cite{kim2012scientific} classified the following types of tables for scientific documents:
 \begin{itemize}
     \item \textbf{Definition Table} : \textit{These tables describe equation definitions or symbol definitions}
     \item \textbf{Statistics Table} : \textit{These tables describe some statistical distribution which is not related to experiment results}

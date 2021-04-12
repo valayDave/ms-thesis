@@ -32,8 +32,8 @@ The Semantic Scholar Open Research Corpus helps create a citation graph supporti
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/sci-genie-ext-table-exp.png}
-    \caption{Sci-Genie Browser Plugin surfacing context information about tables from cited papers }
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/sci-genie-ext-table-comp-exp.pdf}
+    \caption{Sci-Genie Browser Plugin surfacing information about tables comparing entities from cited papers.}
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -53,10 +53,10 @@ The citation graph helps surface context-relevant tables from papers cited by th
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/sci-genie-ext-authors-exp.png}
-    \caption{ Sci-Genie Browser Plugin surfacing context information about other papers from the authors of the paper the user is reading}
+    \caption{ Sci-Genie Browser Plugin surfacing information about other papers from the authors of the paper the user is reading}
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
 
 \subsection{Design Choices}
-Sci-Genie uses ArXiv as a source for papers because ArXiv provides the availability of LaTeX sources for documents. LaTeX based sources are easier to parse compared to PDF documents because of LaTeX's compilability. As LaTeX is Turing complete, the compiled content’s parse tree is easily accessible compared to PDFs. Hence, Sci-Genie parses LaTeX source of the papers from ArXiv and doesn't index information from papers which don't have a LaTeX source.
+Sci-Genie uses ArXiv as a source for papers because ArXiv provides the availability of LaTeX sources. LaTeX based sources are easier to parse compared to PDF documents because of LaTeX's compilability. As LaTeX is Turing complete, the compiled content’s parse tree is easily accessible compared to PDFs. Due to this, Sci-Genie doesn't parse PDF documents. 

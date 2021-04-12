@@ -4,7 +4,7 @@
 
 The volume of scientific literature has doubled in the past 20 years\footnote{https://data.worldbank.org/indicator/IP.JRN.ARTC.SC}.  
 The ubiquity of computing and access to free, open-source software has also enabled exponential growth in publishing for computer science fields.  
-Figure \ref{figure1} shows a plot of the number of papers published on CS ArXiv\footnote{https://arxiv.org} each year 2015 to 2020 on a log scale. 
+Figure \ref{figure1} shows a plot of the number of papers published annually on computer science(CS) ArXiv\footnote{https://arxiv.org} each year 2015 to 2020 on a log scale. 
 
 \begin{figure}[h]
     \centering
@@ -17,10 +17,9 @@ Figure \ref{figure1} shows a plot of the number of papers published on CS ArXiv\
 The growth in the research volume has also led to academic research search engines becoming primary mediums of access for scientific literature. 
 
 Academic research search engines are different from traditional search engines like Google because they host content specific to scientific literature. 
-Scientific papers generally undergo a process of peer-review. If a paper does not undergo peer review, it may still get cited by other publications/articles. This relational nature of academic research makes it relatively easy to filter credibility based on citations as a metric; Major academic research search engines such as Google Scholar, Microsoft Academic, etc., leverage citations as a metric for ranking documents. Although citations are beneficial, a search query may match many records during the search process. The increase in the number of documents can also result in a sea of noise for a particular search query. In such cases, the researcher gets minimal context information around search matches to infer why the search engine surfaced the document. 
+Scientific papers generally undergo a process of peer-review. If a paper does not undergo peer review, it may still get cited by other publications/articles. This relational nature of academic research makes it relatively easy to filter credibility based on citations as a metric; Major academic research search engines such as Google Scholar, Microsoft Academic, etc., leverage citations as a metric for ranking documents. Although citations are beneficial, a search query may match many records during the search process. The increase in the number of documents can also result in a sea of noise for a particular search query. In such cases, the researcher gets minimal context information around search matches to infer the usefulness of a search result. 
 
-Researchers also tend to look for information embedded deep inside papers. Many papers contain table/s of results for some experiments or comparisons to techniques/methods from other papers. This tabular information can help get on the fly context about the results/comparisons mentioned in a research paper. Such information is generally not easily accessible through normal search engines. Platforms such as PapersWithCode\footnote{https://paperswithcode.com} host/track State-of-the-art leaderboards for ML along with their papers. There are no currently available tools that augment more context about a reasearch paper when reading research. 
-
+Researchers also tend to look for information embedded deep inside papers. Many papers contain table/s of results for some experiments or comparisons to techniques/methods from other papers. The methods/techniques that are compared are generally cited; But the access to thier information requires researchers to manually hunt for the information to drive context behind the comparison. This type of tabular information is not easily accessible through normal search engines. It is also not readily available at the time of reading research. A platform like PapersWithCode\footnote{https://paperswithcode.com} hosts/tracks State-of-the-art(SOTA) leaderboards for Machine Learning(ML) along with their papers. The access to information within this platform is constrained to ML and doesn't provide information outside papers in Machine Learning papers. 
 
 The next section aims to provide a motivating example to explain the lack of context in search results displayed by three large proprietary search engines.
 
@@ -55,7 +54,7 @@ Although Google scholar found 2000+ search results, the search-result-fragments 
 \refstepcounter{figurecounter}
 
 Microsoft Academic provides additional information around context like topics, analytics on types of publication matches etc,
-It fails to provide information about where the match has taken place in the paper.
+It fails to provide information about where the match took place in the paper.
 
 \pagebreak
 \subsection{Search Results From Semantic Scholar}
@@ -82,28 +81,31 @@ Previous studies by \parencite{kacem2018analysis} have shown that providing more
 
 \pagebreak
 \subsection{Minimal Access To Information When Reading Research}
+
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/gg-plugin.png}
-    \caption{Chrome(Browser) Plugin For Google Scholar}
+    \includegraphics[width=0.475\textwidth]{src/images/gg-plugin.png}
+    \hfill
+    \includegraphics[width=0.475\textwidth]{src/images/ss-plugin.png}
+    \caption{ Google Scholar and Semantic Scholar Plugins }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/ss-plugin.png}
-    \caption{Chrome(Browser) Plugin For Semantic Scholar}
-    \label{figure\arabic{figurecounter}}
-\end{figure}
-\refstepcounter{figurecounter}
-Many scientific literature search engines also offer forward citation search features, but these features are not always accessible outside the search engine’s website. 
-Google Scholar and Semantic Scholar provide browser extensions to help the researchers get more context on a research document, as seen from Figure \ref{figure5} and Figure \ref{figure6}. 
+Quite a few scientific literature search engines also offer forward citation search features \parencite{gusenbauer2020academic}, but these features are not always accessible outside the search engine’s website. 
+Google Scholar and Semantic Scholar provide browser extensions to help the researchers get more context on a research document, as seen from Figure \ref{figure5}. 
 These extensions lead back to the search engine's proprietary websites for further access to more information surrounding the research. They also do not provide information within the browser when the researcher is reading an article online. 
 % They also miss out on many essential aspects of research documents, such as tables in the research when surfacing relevant information about the document. 
-\pagebreak
 \subsection{No Access To More Fine-Grained Information Such as Tables When Reading Research}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/table-example.pdf}
+    \legend{\emph{Source}: From \cite{messina2020transformer}}
+    \caption{A table showing comparison of methods}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+Many research papers compare methods from other research papers, and such information is not directly accessible to the researcher when reading a research article online. Figure \ref{figure7} is a good example of a table showing comparison of methods. This table is derived from \cite{messina2020transformer}, and it describes comparisons with various methods; One of the method(VSRN) comes from \cite{li2019visual}. As comparisons are on the MS-COCO dataset \parencite{lin2014microsoft}, the user has to manually hunt for VSRN's performance from its original paper to understand variance in the method's performance from what was initially reported. This task of discovering tables with comparisons is a time-consuming task in research which requires a lot of mannual effort by a researcher.  
 
-Many research papers compare methods from other research papers, and such information is not directly accessible to the researcher when reading a research article online. With the recent growth in Machine Learning publications, new platforms such as PapersWithCode\footnote{https://paperswithcode.com} and sotabench\footnote{https://sotabench.com/} help compare State-of-the-art(SOTA) methods from various research papers and link source code to many SOTA ML techniques. Even though these platforms host parsed information from raw research, there is no way to access that information when reading a research paper online. This lack of access to information results in the researcher spending valuable time finding and correlating the cited comparisons.
+With the recent growth in Machine Learning publications, new platforms such as PapersWithCode\footnote{https://paperswithcode.com} and sotabench\footnote{https://sotabench.com/} help compare State-of-the-art(SOTA) methods from various research papers and link source code to many SOTA ML techniques. Even though these platforms host parsed information from raw research about comparsions with SOTA methods, there is no way to access that information when reading a research paper online. 
 
 \section{Proposed Approach And Overview}
 This dissertation focuses on the solutions developed to tackle the missing characteristics described in Section \ref{section:intro:missing_traits}. 
