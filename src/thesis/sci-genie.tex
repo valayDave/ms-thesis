@@ -2,8 +2,8 @@
 \label{sci-genie-core}
 \begin{figure}[p]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/Sci-Genie-Arch.pdf}
-    \caption{Sci-Genie System Architecture}
+    \resizebox{\textwidth}{!}{\includegraphics[width=\maxwidth{\textwidth}]{src/images/Sci-Genie-Full-Arch.pdf}}
+    \caption{Sci-Genie System Architecture. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -19,7 +19,7 @@ Sci-Genie Core comprises four key architectural components which help power info
     \item \textbf{Semantic Scholar Citation Graph Mining Engine}
 \end{itemize}
 
-Paper Scraping And Mining Engine help extract papers From ArXiv in LaTeX format and then parses the structure, mines the ontology, and extracts the tables. The processed information gets stored in the Data Layer. 
+Paper Scraping And Mining Engine help extract papers from ArXiv in LaTeX format and then parses the structure, mines the ontology, and extracts the tables. The processed information gets stored in the Data Layer. 
 
 The Data Layer hosts the information used by the website or the browser extension. 
 
@@ -90,7 +90,7 @@ The ResearchObject is a key value-based object, and each key allows indexing the
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/sci-genie-autocomp-example.png}
-    \caption{Sci-Genie auto-completing the search terms using the ontology}
+    \caption{Sci-Genie auto-completing the search terms using the ontology. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -130,7 +130,7 @@ This index holds references of in and out citations for each ArXiv article prese
         "arxiv_id": "",
 }
 \end{verbatim}
-The \textit{arxiv\_id} is the unique ArXiv identifier, The \textit{in\_citn\_arxiv} correspond to the unique ArXiv ids of papers that cited a paper. The \textit{out\_citn\_arxiv} correspond to the unique ArXiv ids of papers cited by a paper. This information comes of great use when filtering out tables as seen in Figure \ref{figure11}. The construction of this index is discussed in Section \ref{sci-genie-core:citation-mining}
+The \textit{arxiv\_id} is the unique ArXiv identifier, The \textit{in\_citn\_arxiv} correspond to the unique ArXiv ids of papers that cited a paper. The \textit{out\_citn\_arxiv} correspond to the unique ArXiv ids of papers cited by a paper. This information comes of great use when filtering out tables as seen in Figure \ref{figure11}. The construction of this index is discussed in Section \ref{sci-genie-core:citation-mining}.
 % The ontology of research papers is stored in the same form as provided by the 
 \section{Paper Scraping And Mining Engine}
 \label{sci-genie-core:scraping}
@@ -182,7 +182,7 @@ With the access to distinctly processed and correlated information about researc
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/classification_exp.png}
-    \caption{Tables describing comparisons filtered via API-Layer}
+    \caption{Tables describing comparisons filtered via API-Layer. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}

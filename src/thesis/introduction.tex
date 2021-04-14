@@ -1,18 +1,18 @@
 \chapter{Problem Motivation}
 
 \section{Introduction}    
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/Paper-Publishing-Trend.pdf}
+    \caption{ A time series plotting count of papers every year for across various topics in CS from January 2015 to December 2020. }
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
 
 The volume of scientific literature has doubled in the past 20 years\footnote{https://data.worldbank.org/indicator/IP.JRN.ARTC.SC}.  
 The ubiquity of computing and access to free, open-source software has also enabled exponential growth in publishing for computer science fields.  
 Figure \ref{figure1} shows a plot of the number of papers published annually on computer science(CS) ArXiv\footnote{https://arxiv.org} each year 2015 to 2020 on a log scale. 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/num-papers.pdf}
-    \caption{ A time series plotting count of papers every year for across various topics in CS from January 2015 to December 2020}
-    \label{figure\arabic{figurecounter}}
-\end{figure}
-\refstepcounter{figurecounter}
 
 The growth in the research volume has also led to academic research search engines becoming primary mediums of access for scientific literature. 
 
@@ -36,7 +36,7 @@ The following subsections will analyze the search results for this query for thr
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/google-scholar-example.png}
-    \caption{Search Results For Google Scholar}
+    \caption{Search Results For Google Scholar. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -48,7 +48,7 @@ Although Google scholar found 2000+ search results, the search-result-fragments 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/academic-example.png}
-    \caption{Search Results For Microsoft Academic}
+    \caption{Search Results For Microsoft Academic. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -57,12 +57,12 @@ Microsoft Academic provides additional information around context like topics, a
 It fails to provide information about where the match took place in the paper.
 
 \pagebreak
-\subsection{Search Results From Semantic Scholar}
+\subsection{Search Results From Semantic Scholar. }
 \label{sr-s}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/ss-example.png}
-    \caption{Search Results For Semantic Scholar}
+    \caption{Search Results For Semantic Scholar. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -86,7 +86,7 @@ Previous studies by \parencite{kacem2018analysis} have shown that providing more
     \includegraphics[width=0.475\textwidth]{src/images/gg-plugin.png}
     \hfill
     \includegraphics[width=0.475\textwidth]{src/images/ss-plugin.png}
-    \caption{ Google Scholar and Semantic Scholar Plugins }
+    \caption{ Google Scholar and Semantic Scholar Plugins. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -99,7 +99,7 @@ These extensions lead back to the search engine's proprietary websites for furth
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/table-example.pdf}
     \legend{\emph{Source}: From \cite{messina2020transformer}}
-    \caption{A table showing comparison of methods}
+    \caption{A table showing comparison of methods.}
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -113,9 +113,8 @@ This dissertation focuses on the solutions developed to tackle the missing chara
 Section \ref{relatedwork:background} provides some preliminary background on inverted-index based search engines, open-source search engines, and state-of-the-art machine learning techniques.
 Section \ref{relatedwork:acad-search-engine} discusses the different studies conducted about academic search engines; Section \ref{relatedwork:acad-lit-mining} discusses the different techniques used for mining academic literature; Section \ref{relatedwork:table-type} will discuss previous research to pertaining to classification of tables. 
 
-Section \ref{method} provides an overview of the proposed solutions i.e., a search engine over CS ArXiv and a browser extension to augment research at the time of reading 
+Section \ref{method} provides an overview of the proposed solutions i.e., a search engine over CS ArXiv and a browser extension to augment research at the time of reading. 
 
-Section \ref{sci-genie-core} discusses the core components of the search engine and the browser extension; Section \ref{table_classification}
-discusses the problem, solution and experiments for the machine learning task of classifying table of comparisons.
+Section \ref{sci-genie-core} discusses the core components of the search engine and the browser extension;Section \ref{table_classification} discusses the problem, solution and experiments for the machine learning task of classifying table of comparisons.
 
 Finally, Section \ref{conclusion} will provide some insight to the current shortcomings of Sci-Genie, highlight some future directions of research based on the shortcomings of Sci-Genie. 

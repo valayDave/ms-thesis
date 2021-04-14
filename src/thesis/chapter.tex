@@ -114,7 +114,7 @@ Place macros inside captions using \string\macrocapwrap.
 See table \ref{table\arabic{tablecounter}} for a demonstration.
 
 \begin{table}[h] % Table float
-\caption{Here is a table caption that is especially long to show what happens when it extends to more than one line in the table of contents}
+\caption{Here is a table caption that is especially long to show what happens when it extends to more than one line in the table of contents. }
 \label{table\arabic{tablecounter}}
 \begin{tabu}{l c c} \\ \hline
 Column1 & Column2 & Column3 \\ \hline
@@ -128,7 +128,7 @@ Row3 & 7.0 & 8.0 \\ \hline
 \refstepcounter{tablecounter}
 
 \begin{table}[h] % Table float
-\caption{This table caption refers to another caption: see figure \macrocapwrap{\ref{figure1}} }
+\caption{This table caption refers to another caption: see figure \macrocapwrap{\ref{figure1}}.  }
 \label{table\arabic{tablecounter}}
 \begin{tabu}{l c c} \\ \hline
 Column1 & Column2 & Column3 \\ \hline

@@ -6,7 +6,7 @@ This chapter will cover classifying tables that describe a comparison of entitie
 
 \section{Problem Formulation}
 
-The structure of the tables in scientific research can fluctuate based on the information presented by the tables. The tables may also contain information whose context cannot be exactly inferred without the caption underneath the table. Tables occurring in scientific research can also be segregated into well-defined types such as the ones described in Chapter \ref{relatedwork:table-type}. These tables may also not contain a directly linkable entity from a knowledge base(KB) as entities defined in the research may not be present in the KB. Due to such different intrinsic characteristics, models trained using knowledge bases along with web tables such as the one by \cite{deng2020turl} cannot be directly fit to solve this problem. 
+The structure of the tables in scientific research can fluctuate based on the information presented by the tables. The tables may also contain information whose context cannot be exactly inferred without the caption underneath the table. Tables occurring in scientific research can also be segregated into well-defined types such as the ones described in Chapter \ref{relatedwork:table-type}. These tables may also not contain a directly linkable entity from a knowledge base(KB) as entities defined in the research may not be present in the KB. Due to such different intrinsic characteristics, models trained using knowledge bases along with web tables such as the one by \cite{deng2020turl} cannot be directly fit to solve this problem.
 
 \begin{table}
     \label{table\arabic{tablecounter}}
@@ -27,7 +27,7 @@ The structure of the tables in scientific research can fluctuate based on the in
         $T_{cell}$ & Sequnces of Cells & $\mathbb{N}^{T_l}$ \\ \hline
         $f_\theta$ & Neural Network & - \\ \hline
     \end{tabular}
-    \caption{\label{tablecounter} Table Of Symbols for Equations}
+    \caption{\label{tablecounter} Table Of Symbols for Equations. }
 \end{table}
 \refstepcounter{tablecounter}
 The problem of classifying a table $T$ as a table describing a comparison can be framed as a binary classification problem. Given a table $T$ and its caption $C$, the classifier $f_\theta(T,C) \rightarrow Y$ predicts a binary label $Y \in \{0,1\}$ to denote weather the table is describing a comparison of entities\footnote{Both the table and caption are used because human labeling discovered that these two variables are the most prominant indicators of a table describing a comparison.}. 
@@ -40,7 +40,16 @@ Based on this formulation, this dissertation analyzes 4 different types of ML mo
     \item SVM and Naive Bayes (Baselines)
 \end{itemize}
 
-Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable based on the model. Cross Channel Transformer, Encoder Only Multi-Channel Transformer treats $T$ and $C$ as seperate representations, Scibert, SVM and Naive Bayes treats $T$ and $C$ as one joint representation. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/table-structure.pdf}
+    \caption{An example representation of Table $T$ and Caption $C$. Each Table $T$ consists of sequence of $cell$'s. }
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+Figure \ref{figure17} visualises the representation of $T$ and $C$. Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable based on the model. Cross Channel Transformer, Encoder Only Multi-Channel Transformer treats $T$ and $C$ as seperate representations, Scibert, SVM and Naive Bayes treats $T$ and $C$ as one joint representation. 
+
 
 Section \ref{table_classification:models} describes the models developed/trained for the input representations of table $T$ and caption $C$. The data collection and labeling for the machine learning models is described in Section \ref{table_classification:data-coll}. The experiment results for different models is described in Section \ref{table_classification:experiement-result}
 
@@ -51,12 +60,12 @@ Section \ref{table_classification:models} describes the models developed/trained
 \label{table_classification:models:encoder-model}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/tabmod-enconly.pdf}
-    \caption{Encoder Attention Transformer For Table Classification}
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/Pic-Export-Enc-Trans-Thesis.pdf}
+    \caption{Encoder Only Multi-Channel Transformer For Table Classification. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-Based on the models developed by \cite{deng2020turl}. A structurally-aware encoder only Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure17} visualises the model and its input representations.
+Based on the models developed by \cite{deng2020turl}. A structurally-aware encoder only Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure18} visualises the model and its input representations.
 
 \subsubsection{Input Representation}
 \label{table_classification:models:encoder-model:input-rep}
@@ -67,20 +76,20 @@ The cell sequence tokens $T_{cell}$ and caption $C$ are created using a word-pie
 \subsubsection{Model Description}
 The table cell sequence $T_{cell}$ and the Caption $C$ are first converted to embeddings $X_T, X_C$ respectively. Post creation of the embeddings, the caption embedding  $X_C$ is added with the position embedding $P_C$; The cell embeddings $X_T$ are added with $E_r,E_c$. After the additions of the respective embeddings, differentiable CLS tokens are concatenated to $X_T,X_C$.
 
-These embeddings are passed to individual encoder self-attention transformers. The class tokens from the final layer is pooled and sent for classification using a linear feed forward layer and a cross entropy loss is applied on the predictions. Figure \ref{figure17} visualizes the model. 
+These embeddings are passed to individual encoder self-attention transformers. The class tokens from the final layer is pooled and sent for classification using a linear feed forward layer and a cross entropy loss is applied on the predictions. Figure \ref{figure18} visualizes the model. 
 
 
 \subsection{Cross Channel Transformer}
 \label{table_classification:models:cross-channel}
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/tablemodel.pdf}
-    \caption{Cross Channel Transformer For Table Classification}
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/Pic-Export-CC-Trans-Thesis.pdf}
+    \caption{Cross Channel Transformer For Table Classification. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
 
-Based on the models developed by \cite{tsai2019multimodal} and \cite{deng2020turl}, a structurally-aware cross channel Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure18} shows the outline of the model. This model is chosen to validate wheather cross attention will have an influence on the performance of the model if intermediate presentations for Table $T$ and Caption $C$ are generated from the cross attention operation. 
+Based on the models developed by \cite{tsai2019multimodal} and \cite{deng2020turl}, a structurally-aware cross channel Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure19} shows the outline of the model. This model is chosen to validate wheather cross attention will have an influence on the performance of the model if intermediate presentations for Table $T$ and Caption $C$ are generated from the cross attention operation. 
 
 \subsubsection{Input Representation}
 The input representations for $T$ and $C$ are the same as given in Section \ref{table_classification:models:encoder-model:input-rep}
@@ -137,7 +146,7 @@ The input representation for the SVM and the NB model are the same as the string
 
 \subsection{Pretraining Transformers}
 \label{table_classification:models:encoder-model:pre-train}
-Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, the cross-channel transformer model is pretrained with 70K tables from papers from ArXiv. A masked language modeling pretraining objective is used to train the Transformer model given in Figure \ref{figure18}, and \ref{figure17}. The pretraining follows the procedures described by \cite{deng2020turl} where the task is of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the word token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM predictions of the Table and Caption is added and backpropagated. 
+Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, the cross-channel transformer model is pretrained with 70K tables from papers from ArXiv. A masked language modeling pretraining objective is used to train the Transformer model given in Figure \ref{figure18}, and \ref{figure19}. The pretraining follows the procedures described by \cite{deng2020turl} where the task is of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the word token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM predictions of the Table and Caption is added and backpropagated. 
 
 This objective allows training the model with large number of tables instead of using classifiers trained on small amounts of data. The pretraining task is run for 35K steps in 5 epochs. The learning rate is set to 0.0001 for the pretraining task with an AdamW optimizer. Both the transformer models described in Section \ref{table_classification:models:encoder-model}, \ref{table_classification:models:cross-channel} are pretrained using the same MLM objective. 
 
@@ -150,7 +159,7 @@ After the Cross Channel Transformer and the Encoder Only Multi-Channel Transform
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/table-lable-exp.pdf}
-    \caption{Table Labeling Interface For Table Relation and Intent Annotation}
+    \caption{Table Labeling Interface For Table Relation and Type Annotation. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -162,7 +171,7 @@ As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/mlm-loss-comparison.pdf}
-    \caption{Masked Language Modeling(MLM) Loss For Encoder Style Attention VS Cross Attention. The MLM losses for $T$ and $C$ are summed}
+    \caption{Masked Language Modeling(MLM) Loss For Encoder Style Attention VS Cross Attention. The MLM losses for $T$ and $C$ are summed. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -180,7 +189,7 @@ As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) 
         Cross Channel Transformer Pretained (31M) & $87.5 \pm 1.8$ & $0.875 \pm 0.018$ & $0.34 \pm 0.016$ \\ \hline
         SciBert Finetuned (112M) & $92.23 \pm 1.60$ & $0.923 \pm 0.016$ & $0.21 \pm 0.04$ \\ \hline
     \end{tabular}
-    \caption{\label{tablecounter} Test set results of the table classification models using SOTA Transformer and baselines. Average Results from 4 Training runs is reported}
+    \caption{\label{tablecounter} Test set results of the table classification models using SOTA Transformer and baselines. Average Results from 4 Training runs is reported. }
 \end{table}
 \refstepcounter{tablecounter}
 The following are the experiment and their conditions for ML model training:

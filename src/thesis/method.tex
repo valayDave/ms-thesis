@@ -1,22 +1,18 @@
 \chapter{Proposed Solutions}
 \label{method}
 
-\section{Sci-Genie : Search Engine Harnessing Structure Of Scientific Research}
+\section{Sci-Genie : Search Engine Harnessing Structure Of Scientific Research. }
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/sci-genie-context-exp.png}
-    \caption{Search Results With Context For Query \textit{pytorch, transformer, adversarial examples} Using Sci-Genie}
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/sci-genie-context-exp.jpeg}
+    \caption{Search Results With Context For Query \textit{pytorch, transformer, adversarial examples} Using Sci-Genie. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
 
-Sci-Genie is a prototype search engine over CS ArXiv. 
-Sci-Genie indexes the hierarchical structure of Computer Science research papers 
-to provide more context to search results fragments. 
-Sci-Genie's content mining engine also classifies a paper's ontology using a SOTA ontology classification model
-developed by \cite{salatino2020ontology}. The mined ontology helps create a "Controlled Vocabulary" for filtering search results. 
+Sci-Genie is a prototype search engine over CS ArXiv. Sci-Genie indexes the hierarchical structure of Computer Science research papers to provide more context to search results fragments. Sci-Genie's content mining engine also classifies a paper's ontology using a SOTA ontology classification model developed by \cite{salatino2020ontology}. The mined ontology helps create a "Controlled Vocabulary" for filtering search results. 
 
-\section{Sci-Genie-Extension: In-Browser Extension To Augment Information About Research }
+\section{Sci-Genie-Extension: In-Browser Extension To Augment Information About Research. }
 
 \begin{figure}[h]
     \centering
@@ -26,9 +22,7 @@ developed by \cite{salatino2020ontology}. The mined ontology helps create a "Con
 \end{figure}
 \refstepcounter{figurecounter}
 
-Sci-Genie, at its core, holds research from CS ArXiv, Tables from the paper mined from CS ArXiv and 
-6.5M papers filtered from the Semantic Scholar Open Research Corpus\parencite{ammar-etal-2018-construction}.
-The Semantic Scholar Open Research Corpus helps create a citation graph supporting information augmentation for the browser plugin. 
+Sci-Genie, at its core, holds research from CS ArXiv, Tables from the paper mined from CS ArXiv and 6.5M papers filtered from the Semantic Scholar Open Research Corpus\parencite{ammar-etal-2018-construction}. The Semantic Scholar Open Research Corpus helps create a citation graph supporting information augmentation for the browser plugin. 
 
 \begin{figure}[h]
     \centering
@@ -43,7 +37,7 @@ The Semantic Scholar Open Research Corpus helps create a citation graph supporti
     \includegraphics[width=0.475\textwidth]{src/images/sci-genie-ext-cite-out-exp.png}
     \hfill
     \includegraphics[width=0.475\textwidth]{src/images/sci-genie-ext-cite-exp.png}
-    \caption{ Sci-Genie Browser Plugin surfacing context information about papers citing/cited-by the current paper }
+    \caption{ Sci-Genie Browser Plugin surfacing context information about papers citing/cited-by the current paper. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -53,7 +47,7 @@ The citation graph helps surface context-relevant tables from papers cited by th
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/sci-genie-ext-authors-exp.png}
-    \caption{ Sci-Genie Browser Plugin surfacing information about other papers from the authors of the paper the user is reading}
+    \caption{ Sci-Genie Browser Plugin surfacing information about other papers from the authors of the paper the user is reading. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
