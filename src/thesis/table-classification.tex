@@ -76,7 +76,7 @@ The cell sequence tokens $T_{cell}$ and caption $C$ are created using a word-pie
 \subsubsection{Model Description}
 The table cell sequence $T_{cell}$ and the Caption $C$ are first converted to embeddings $X_T, X_C$ respectively. Post creation of the embeddings, the caption embedding  $X_C$ is summed with the position embedding $P_C$; The cell embeddings $X_T$ are summed with $E_r,E_c$. After the summings of the respective embeddings,  differentiable CLS tokens are concatenated to $X_T,X_C$.
 
-These embeddings are passed to individual encoder self-attention transformers. The class tokens from the final layer is pooled and sent for classification using a linear feed forward layer and a cross entropy loss is applied on the predictions. Figure \ref{figure18} visualizes the model. 
+These embeddings are passed to individual encoder self-attention transformers. The class tokens from the final layer is pooled and sent for classification using a linear feed forward layer and a cross entropy loss is applied on the predictions. Figure \ref{figure18} visualizes the model for classification. 
 
 
 \subsection{Cross Channel Transformer}
@@ -89,8 +89,7 @@ These embeddings are passed to individual encoder self-attention transformers. T
 \end{figure}
 \refstepcounter{figurecounter}
 
-Based on the models developed by \cite{tsai2019multimodal} and \cite{deng2020turl}, a structurally-aware cross channel Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure19} shows the outline of the model. This model is chosen to validate wheather cross attention will have an influence on the performance of the model if intermediate presentations for Table $T$ and Caption $C$ are generated from the cross attention operation. 
-
+Based on the models developed by \cite{tsai2019multimodal} and \cite{deng2020turl}, a structurally-aware cross channel Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure19} shows the outline of the model for classification. This model is chosen to validate wheather cross attention based intermediate representations have an influence on the performance of the model or not. 
 \subsubsection{Input Representation}
 The input representations for $T$ and $C$ are the same as given in Section \ref{table_classification:models:encoder-model:input-rep}
 
