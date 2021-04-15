@@ -4,7 +4,7 @@
 \section{Sci-Genie : Search Engine Harnessing Structure Of Scientific Research. }
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/sci-genie-context-exp.jpeg}
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/genie-search-exp.pdf}
     \caption{Search Results With Context For Query \textit{pytorch, transformer, adversarial examples} Using Sci-Genie. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
@@ -42,7 +42,7 @@ Sci-Genie, at its core, holds research from CS ArXiv, Tables from the paper mine
 \end{figure}
 \refstepcounter{figurecounter}
 
-The citation graph helps surface context-relevant tables from papers cited by the paper the user is reading.  The search engine and the citation graph help extract other papers by the same authors and papers citing/cited by the paper the user reads. Figure \ref{figure10}, \ref{figure11},\ref{figure12}, shows an example of Sci-Genie extension in action. The browser extension also contains filters for filtering tables comparing entities using a machine learning model. All information provided by the browser extension helps enhance the researcher’s understanding without the researcher having to dig up the information independently. 
+The citation graph helps surface context-relevant tables from papers cited by the paper the user is reading.  The search engine and the citation graph help extract other papers by the same authors and papers citing/cited by the paper the user reads. Figure \ref{figure10},\ref{figure12}, shows an example of Sci-Genie extension in action. The browser extension also contains filters for filtering tables comparing entities using a machine learning model. All information provided by the browser extension helps enhance the researcher’s understanding without the researcher having to dig up the information independently. Figure \ref{figure11} is am example of the Sci-Genie extension filtering tables of comparisons. The filtered tables in Figure \ref{figure11} are dervied from citations of \cite{messina2020transformer}. 
 
 \begin{figure}[h]
     \centering
@@ -53,4 +53,4 @@ The citation graph helps surface context-relevant tables from papers cited by th
 \refstepcounter{figurecounter}
 
 \subsection{Design Choices}
-Sci-Genie uses ArXiv as a source for papers because ArXiv provides the availability of LaTeX sources. LaTeX based sources are easier to parse compared to PDF documents because of LaTeX's compilability. As LaTeX is Turing complete, the compiled content’s parse tree is easily accessible compared to PDFs. Parsing PDFs is beyond the scope of this dissertation. 
+Sci-Genie uses ArXiv as a source for papers because ArXiv provides the availability of LaTeX sources. LaTeX based sources are easier to parse compared to PDF documents because of LaTeX's compilability. As LaTeX is Turing complete, the compiled content’s parse tree is easily accessible for further downstream processing. Parsing PDFs is beyond the scope of this dissertation. 

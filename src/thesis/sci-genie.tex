@@ -33,10 +33,10 @@ The Data Layer comprises the open-source search engine named Elasticsearch\paren
 The data layer aims to host processed information after scraping, mining, and parsing research documents and tables. 
 Elasticsearch hosts the following indexes\footnote{Index is similar to Database in the language of RDBMS}\footnote{https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html} to filter access of content:
 \begin{itemize}
-    \item \textbf{Arxiv Parsed Research Index}:\textit{Contains research documents whose structure is explicitly parsed and stored}
-    \item \textbf{Semantic Scholar Index}:\textit{Contains documents from the CS Domains mined and filtered from semantic scholar open research corpus}
+    \item \textbf{Arxiv Parsed Research Index}:\textit{Contains research documents whose structure is explicitly parsed and stored.}
+    \item \textbf{Semantic Scholar Index}:\textit{Contains documents from the CS Domains mined and filtered from semantic scholar open research corpus.}
     \item \textbf{Arxiv Table Index}:\textit{stores the tables from research papers. These can be later used for extending context during reading.}
-    \item \textbf{Arxiv Semantic Scholar Join Index}:\textit{Stores the citation information filtered from semantic scholar index to map papers in ArXiv} 
+    \item \textbf{Arxiv Semantic Scholar Join Index}:\textit{Stores the citation information filtered from semantic scholar index to map papers in ArXiv.} 
 \end{itemize} 
 
 \subsection{Arxiv Parsed Research Index}
@@ -45,8 +45,8 @@ Documents in the Arxiv Parsed Research Index helps power the search for the Sci-
 the construction of these documents is discussed in Section \ref{sci-genie-core:scraping}. Each document consists of three 
 key pieces of information:
 \begin{itemize}
-    \item \textbf{ArxivIdentity} \textit{ArXiv associated meta-data information}
-    \item \textbf{ResearchObject} \textit{Parsed Research structure}
+    \item \textbf{ArxivIdentity} \textit{ArXiv associated meta-data information.}
+    \item \textbf{ResearchObject} \textit{Parsed Research structure.}
     \item \textbf{Ontology} \textit{Ontology belonging to the article.}
 \end{itemize}
 
@@ -81,7 +81,7 @@ Fragment is a tree-like data structure that holds hierarchical information. Frag
 
 The \textit{children} in the Fragment hold the information about the child notes of that Fragment. The Fragment object helps capture a research paper’s hierarchy before it gets parsed into a key-value-based ResearchObject. The Fragment object can also be serialized to JSON making it indexable in the Lucene search index.  
 
-Due to the search engine’s scope being limited to CS research on ArXiv, the predefined sections are created based on a statistical analysis of the content after scraping. Section \ref{sci-genie-core:scraping} provides more details on the creation of the Fragment and ResearchObject. 
+Due to the search engine’s scope being limited to CS research on ArXiv, the predefined sections are created from observing writing patterns of research in the CS domain. Section \ref{sci-genie-core:scraping} provides more details on the creation of the Fragment and ResearchObject. 
 
 \paragraph{Advantages Of Indexing ResearchObject}
 The ResearchObject is a key value-based object, and each key allows indexing the text according to its corresponding section. This object schema helps provide more context about the search match within each section, as seen from Figure \ref{figure9}. 
@@ -130,22 +130,22 @@ This index holds references of in and out citations for each ArXiv article prese
         "arxiv_id": "",
 }
 \end{verbatim}
-The \textit{arxiv\_id} is the unique ArXiv identifier, The \textit{in\_citn\_arxiv} correspond to the unique ArXiv ids of papers that cited a paper. The \textit{out\_citn\_arxiv} correspond to the unique ArXiv ids of papers cited by a paper. This information comes of great use when filtering out tables as seen in Figure \ref{figure11}. The construction of this index is discussed in Section \ref{sci-genie-core:citation-mining}.
+The \textit{arxiv\_id} is the unique ArXiv identifier, The \textit{in\_citn\_arxiv} correspond to the unique ArXiv ids of papers that cited a paper. The \textit{out\_citn\_arxiv} correspond to the unique ArXiv ids of papers cited by a paper. This information is useful when filtering out tables as seen in Figure \ref{figure11}. The construction of this index is discussed in Section \ref{sci-genie-core:citation-mining}.
 % The ontology of research papers is stored in the same form as provided by the 
 \section{Paper Scraping And Mining Engine}
 \label{sci-genie-core:scraping}
 The Paper Scraping And Mining Engine connects with ArXiv to extract LaTeX source data. The LaTeX source data undergoes three parallel processing steps:
 \begin{itemize}
-    \item Content Hierarchy Parsing : The extraction of content based on document structure for storage
-    \item Ontology Mining : Correlating the ontology of the paper from ArXiv
+    \item Content Hierarchy Parsing : The extraction of content based on document structure for storage.
+    \item Ontology Mining : Correlating the ontology of the paper from ArXiv.
     \item Table Extraction : Leveraging tools to extract tables from the ArXiv document's LaTeX source.
 \end{itemize}
 
 \subsection{Content Hierarchy Parsing}
 A structured \nameref{sci-genie-core:data-layer:researchobj} is parsed from raw LateX content in two steps:
 \begin{itemize}
-    \item Step 1 : Extract the structure of the research document and create a Fragment object
-    \item Step 2 : Correlate the children in the Fragment Object with predefined sections to create the \nameref{sci-genie-core:data-layer:researchobj} 
+    \item Step 1 : Extract the structure of the research document and create a Fragment object.
+    \item Step 2 : Correlate the children in the Fragment Object with predefined sections to create the \nameref{sci-genie-core:data-layer:researchobj}.
 \end{itemize} 
 \subsubsection{Fragment Creation}
 \label{sci-genie-core:scraping:source-frag}
@@ -153,10 +153,10 @@ Each LaTeX source repository is parsed to create a "Structure Tree" of the resea
 
 \subsubsection{ResearchObject Creation From Fragment}
 \label{sci-genie-core:scraping:frag-to-rs}
-The initial Fragment object created via the parsing described earlier will contain the entire research document stored in a single Fragment. This Fragment then undergoes a "heuristic" serialization to the ResearchObject. Meaning the title of the children within the Fragment is matched to predefined sections/classes given in Section \ref{sci-genie-core:data-layer:researchobj}. The matching process uses heuristics to match the content. More details on the section name matching strings and algorithm are given in the Appendix \ref{appendix:content-parsing-code} and \ref{appendix:mapping-heuristic} respectively. 
+The initial Fragment object created via the parsing described earlier will contain the entire research document stored in a single Fragment. This Fragment then undergoes a "heuristic" serialization to the ResearchObject. Meaning the title of the children within the Fragment is matched to predefined sections/classes given in Section \ref{sci-genie-core:data-layer:researchobj}. The matching process uses heuristics to match the title content. More details on the section name matching strings and algorithm are given in the Appendix \ref{appendix:content-parsing-code} and \ref{appendix:mapping-heuristic} respectively. 
 
 \subsection{Ontology Mining}
-Sci-Genie leverages the ontology mining method described by the \cite{salatino2020ontology}. The research document's abstract and title are only needed for ontology mining. 
+Sci-Genie leverages the ontology mining method described by the \cite{salatino2020ontology}. The research document's abstract and title are only needed for ontology mining. This ontology further helps provide realtime autocomplete filters around searching for research.
 
 \subsection{Table Extraction and Storage}
 To extract tables from papers on ArXiv, Sci-Genie uses arxiv-vanity/engrafo\footnote{https://github.com/arxiv-vanity/engrafo} to convert LaTeX to HTML and then employ table serialization methods created by \cite{kardas2020axcell}. The parsed tables are stored in the \nameref{sci-genie-core:data-layer:table-index}. 
@@ -164,7 +164,7 @@ To extract tables from papers on ArXiv, Sci-Genie uses arxiv-vanity/engrafo\foot
 
 \section{Semantic Scholar Citation Graph Mining.}
 \label{sci-genie-core:citation-mining}
-A rich source of context and metadata about the tables cited by a paper comes via the access to citations in a paper and leveraging the citation graph. The Semantic Scholar\footnote{http://s2-public-api-prod.us-west-2.elasticbeanstalk.com/corpus/} corpus consists of 136M research papers from various domains with their citations. This corpus event consists of all urls to a research paper, including the ones on ArXiv.  
+A rich source of context and metadata about the tables cited by a paper comes via the access to citations in a paper and leveraging the citation graph. The Semantic Scholar\footnote{http://s2-public-api-prod.us-west-2.elasticbeanstalk.com/corpus/} corpus consists of 136M research papers from various domains along with their citations. This corpus event consists of all urls to a research paper, including the ones on ArXiv.  
 
 Metaflow\footnote{https://metaflow.org/} is used to create a data processing pipeline\footnote{https://github.com/valayDave/semantic-scholar-data-pipeline} for filtering the subset of CS papers from the Semantic Scholar corpus. The filtered CS papers are stored in the \nameref{sci-genie-core:data-layer:ss-index}. 
 

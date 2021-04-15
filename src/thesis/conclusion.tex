@@ -27,13 +27,13 @@ Future versions can extend the search engine to support more fields of research 
 
 The table types defined by \cite{kim2012scientific} are general purpose descriptions which can apply to various domains. Although they are quite useful, tables in recent CS literature have more grannular sub-classifications. For example a "Statistics Table" could be describing a Dataset for Machine Learning experiments. The tables which may seem as Experiments Results can also be describing an Ablation Study conducted on a ML model. Due to a very nuanced distinction between a lot of these tables, The task of machine learning to classify table types needs more grannular sub-types within the classes defined by \cite{kim2012scientific}. 
 
-Multiple grannular table types such as Ablation Study, Dataset Descriptions, can also be further described based on the field of research the tables belong to. The interface shown in Figure \ref{figure17}, was developed to annotated tables from scientific research. This interface can be extended for many fields outside CS for the effort of curation and benchmarking of ML models for indentification of various types of tables from different avenues of research. 
+Multiple grannular table types such as Ablation Study, Dataset Descriptions, can also be further described based on the field of research the tables belong to. The interface shown in Figure \ref{figure17}, was developed to annotated tables from scientific research. This interface can be extended for many fields outside CS; This inturn can aid the effort of curation and indentification of various types of tables from different avenues of research. 
 
 \subsection{Discovering Related Tables}
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/pwc-table-exp.pdf}
-    \caption{ Viewing Tables From SOTA benchmarks.  }
+    \caption{ Viewing Tables For State of the art benchmarks using https://paperswithcode.com. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
@@ -42,11 +42,11 @@ Organisations such as PapersWithCode(PwC) have developed tools to correlate info
 The benchmark correlation methods used by PwC are specific to ML SOTA benchmarks, Future research directions can include the automated extraction, corellation, and storage of tables from research papers into strict relational databases for domains outside ML and CS. 
 
 \subsection{Scientific Research Document Parsing For Search Context}
-Google search pivoted to ranking results for search using BERT\footnote{https://blog.google/products/search/search-language-understanding-bert/} since 2019. The trend of using language models to help rank search results has lead to creation of opensource tools\footnote{https://github.com/deepset-ai/haystack} that rerank documents over off the shelf search engines like Elasticsearch. But search ranking alone would not solve the search problem as described in Chapter \ref{section:intro:missing_traits}.
+Google search pivoted to ranking results for search using BERT\footnote{https://blog.google/products/search/search-language-understanding-bert/} since 2019. The trend of using language models to help rank search results has lead to creation of opensource tools\footnote{https://github.com/deepset-ai/haystack} that rerank documents over off the shelf search engines like Elasticsearch. But search ranking alone would not solve the search context problem as described in Chapter \ref{section:intro:missing_traits}.
 
-Intelligent parsing maybe one part of the solution. Sci-Genie are uses domain sepecific content parser which is heuristically derived (Chapter \ref{sci-genie-core:scraping:frag-to-rs}) to help bring context relevant information in search results. This parser may not be extensible to various other domains or document types.
+Intelligent parsing maybe one part of the solution. Sci-Genie are uses domain specific content parser which is heuristically derived (Chapter \ref{sci-genie-core:scraping:frag-to-rs}) to help bring context relevant information in search results. This parser may not be applicable to other domains or document types.
 
-\cite{kashyap2020sciwing}, introduced deep learning based techniques for scientific document parsing. \cite{kashyap2020sciwing}'s model generates a general purpose parsing structure. Although very useful, Every domain's document parse structure also has domain specific characteristics; For example, papers in Machine Learning explicitly have sections describing datasets in the paper. Identifying such patterns for generate domain specific parse structures for indexing can be a useful future direction of research for improving search context in academic search.  
+\cite{kashyap2020sciwing}, introduced deep learning based techniques for scientific document parsing. \cite{kashyap2020sciwing}'s model generates a general purpose parsing structure. Although very useful, Every domain's document parse structure also have domain specific characteristics; For example, papers in Machine Learning explicitly have sections describing datasets in the paper. Identifying such patterns for generate domain specific parse structures for indexing can be a useful future direction of research for improving search context in academic search.
 
 \section{Conclusion}
 The fast rate of growth in technological progress will dramatically increase the growth in the volume of research in the future. Figure \ref{figure1}, is the best proof of that insight. The growing volume of research would also require more nuanced search tools which can help surface enough context around search terms and futher aid the researcher when reading research. This dissertation described a search engine and browser app based prototype solution to help remediate this problem. This dissertation covered the formulation of different aspects of the search engine and the ML models powering its table of comparison filtering algorithm. 

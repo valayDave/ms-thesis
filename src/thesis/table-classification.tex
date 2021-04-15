@@ -1,6 +1,6 @@
 \chapter{Classifying Tables Describing Comparisons}
 \label{table_classification}
-A lot of valuable information about comparisons with some baselines and other research is present in the tables of academic research. Researchers tend to spend much valuable time finding the citations and the table of results from those citations. Sci-Genie via Citation Graph and the Machine Learning models helps filter tables describing comparisons at the time of reading research. 
+A lot of valuable information about comparisons with some baselines and other research is present in the tables of academic research. Researchers tend to spend much valuable time finding the citations and the table of results from those citations. Sci-Genie via Citation Graph and the Machine Learning models filters tables describing comparisons at the time of reading research. 
 
 This chapter will cover classifying tables that describe a comparison of entities and propose approaches to tackle the problem of classifying such types of tables. 
 
@@ -30,7 +30,7 @@ The structure of the tables in scientific research can fluctuate based on the in
     \caption{\label{tablecounter} Table Of Symbols for Equations. }
 \end{table}
 \refstepcounter{tablecounter}
-The problem of classifying a table $T$ as a table describing a comparison can be framed as a binary classification problem. Given a table $T$ and its caption $C$, the classifier $f_\theta(T,C) \rightarrow Y$ predicts a binary label $Y \in \{0,1\}$ to denote weather the table is describing a comparison of entities\footnote{Both the table and caption are used because human labeling discovered that these two variables are the most prominant indicators of a table describing a comparison.}. 
+The problem of classifying a table $T$ as a table describing a comparison can be framed as a binary classification problem. Given a table $T$ and its caption $C$, the classifier $f_\theta(T,C) \rightarrow Y$ predicts a binary label $Y \in \{0,1\}$ to denote weather the table is describing a comparison of entities\footnote{Both the table and caption are used because human labeling discovered that these two variables combined are the most prominant indicators of a table describing a comparison.}. 
 
 Based on this formulation, this dissertation analyzes 4 different types of ML models and the representations they use for the table $T$ and caption $C$ for the problem:
 \begin{itemize}
@@ -48,7 +48,7 @@ Based on this formulation, this dissertation analyzes 4 different types of ML mo
 \end{figure}
 \refstepcounter{figurecounter}
 
-Figure \ref{figure17} visualises the representation of $T$ and $C$. Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable based on the model. Cross Channel Transformer, Encoder Only Multi-Channel Transformer treats $T$ and $C$ as seperate representations, Scibert, SVM and Naive Bayes treats $T$ and $C$ as one joint representation. 
+Figure \ref{figure17} visualizes the representation of $T$ and $C$. Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable based on the model. Cross Channel Transformer and Encoder Only Multi-Channel Transformer treats $T$ and $C$ as seperate representations. Scibert, SVM and Naive Bayes treats $T$ and $C$ as one joint representation. 
 
 
 Section \ref{table_classification:models} describes the models developed/trained for the input representations of table $T$ and caption $C$. The data collection and labeling for the machine learning models is described in Section \ref{table_classification:data-coll}. The experiment results for different models is described in Section \ref{table_classification:experiement-result}
@@ -65,16 +65,16 @@ Section \ref{table_classification:models} describes the models developed/trained
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-Based on the models developed by \cite{deng2020turl}. A structurally-aware encoder only Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure18} visualises the model and its input representations.
+Based on the models developed by \cite{deng2020turl}. A structurally-aware encoder only Transformer model is adapted to fit the function $f_\theta$. Figure \ref{figure18} visualizes the model and its input representations.
 
 \subsubsection{Input Representation}
 \label{table_classification:models:encoder-model:input-rep}
-Each table $T$ is represented as tuple of $(T_{cell},E_r,E_c)$; where $T_{cell} \in \mathbb{N}^{T_l}$ are the cells of the table represented as a sequence of integer tokens; $E_r$ is the row embedding where embedding $E_{r_{i}}$ represents the row of the cell $T_{cell_{i}}$ as an embedding;  $E_c$ is the column embedding where an embedding $E_{c_{i}}$ represents the column of the cell $T_{cell_{i}}$ as an embedding. The caption $C$ is represented as sequence of integer tokens which will be transformed to embeddings by the Transformer Model. The representations for the table $T$ are inspired from the models created by \cite{deng2020turl}. 
+Each table $T$ is represented as tuple of $(T_{cell},E_r,E_c)$; where $T_{cell} \in \mathbb{N}^{T_l}$ are the cells of the table represented as a sequence of integer tokens; $E_r$ is the row embedding where embedding $E_{r_{i}}$ represents the row of the cell $T_{cell_{i}}$ as an embedding;  $E_c$ is the column embedding where an embedding $E_{c_{i}}$ represents the column of the cell $T_{cell_{i}}$ as an embedding. The caption $C$ is represented as sequence of integer tokens that gets transformed to a sequence of embeddings. The representations for the table $T$ are inspired from the models created by \cite{deng2020turl}. 
 
 The cell sequence tokens $T_{cell}$ and caption $C$ are created using a word-piece tokenizer from the SciBert Model \footnote{https://huggingface.co/allenai/scibert\_scivocab\_uncased}. The tokenizer converts the value of individual cells or the caption into a sequence of integer tokens. These tokens can be used to create embeddings which are passed to the transformer model. 
 
 \subsubsection{Model Description}
-The table cell sequence $T_{cell}$ and the Caption $C$ are first converted to embeddings $X_T, X_C$ respectively. Post creation of the embeddings, the caption embedding  $X_C$ is added with the position embedding $P_C$; The cell embeddings $X_T$ are added with $E_r,E_c$. After the additions of the respective embeddings, differentiable CLS tokens are concatenated to $X_T,X_C$.
+The table cell sequence $T_{cell}$ and the Caption $C$ are first converted to embeddings $X_T, X_C$ respectively. Post creation of the embeddings, the caption embedding  $X_C$ is summed with the position embedding $P_C$; The cell embeddings $X_T$ are summed with $E_r,E_c$. After the summings of the respective embeddings,  differentiable CLS tokens are concatenated to $X_T,X_C$.
 
 These embeddings are passed to individual encoder self-attention transformers. The class tokens from the final layer is pooled and sent for classification using a linear feed forward layer and a cross entropy loss is applied on the predictions. Figure \ref{figure18} visualizes the model. 
 
@@ -96,13 +96,13 @@ The input representations for $T$ and $C$ are the same as given in Section \ref{
 
 
 \subsubsection{Model Description}
-The table cell sequence $T_{cell}$ and the Caption $C$ are first converted to embeddings $X_T, X_C$ respectively. Post creation of the embeddings,  the caption embedding  $X_C$ is added with the position embedding $P_C$; The cell embeddings $X_T$ are added with $E_r,E_c$. After the additions of the respective embeddings, differentiable CLS tokens are concatenated to $X_T,X_C$.
+The table cell sequence $T_{cell}$ and the Caption $C$ are first converted to embeddings $X_T, X_C$ respectively. Post creation of the embeddings,  the caption embedding  $X_C$ is summed with the position embedding $P_C$; The cell embeddings $X_T$ are summed with $E_r,E_c$. After the summings of the respective embeddings, differentiable CLS tokens are concatenated to $X_T,X_C$.
 These embeddings are passed to separate cross channel attention transformer layers \parencite{tsai2019multimodal} after which they are passed to the vanilla transformer encoder attention layers \parencite{vaswani2017attention}. Different strategies are chosen for handling the output of the vanilla tranformer encoder based on the type of task. 
 
 Embeddings at the CLS token position, are pooled from the sequences and concatenated for the table of comparison classification task. Once concatenated, this joint embedding is passed to feed forward layers for classification using Cross Entropy Loss. For the pretaining task, the last vanilla encoder layer’s output will be used for predicting the masked tokens of the input table cells $T_{cell}$ and the caption $C$.
 
 \subsection{Finetuning Scibert Transformer Model}
-\cite{beltagy2019scibert} created a model which was trained on large full text corpus of scientific research containing 1.14M research papers. As this model has been subjected large amounts of pretraining, it is chosen for fine tuning for the same problem as the model may have encountered data of a similar distribution. 
+\cite{beltagy2019scibert} created a model which was trained on large full text corpus of scientific research containing 1.14M research papers. As this model has been subjected large amounts of pretraining, it is chosen for fine-tuning for the same problem as the model may have encountered data of a similar distribution. 
 \subsubsection{Input Representation}
 \label{table_classification:models:sb:input_rep}
 For the finetuning of SciBert, The Table $T$ and caption $C$ are serialized to strings and one concatenated string is created. An example representation is given below: 
@@ -132,7 +132,7 @@ For the finetuning of SciBert, The Table $T$ and caption $C$ are serialized to s
 \end{verbatim}
 
 \subsubsection{Model Description}
-The input representation string is converted to a sequence of integer tokens which are capped to the length of 512 tokens because of SciBert's constraint on maximum sequence length. A class token is added at the start of the sequence; the sequence is then passed to the Scibert Model. The class token is pooled from after the final layer and is passed to a feed forward neural network for binary classification using cross entropy loss. 
+The input representation string is converted to a sequence of integer tokens which are capped to the length of 512 tokens because of SciBert's constraint on maximum sequence length. A class token is appended at the start of the sequence; the sequence is then passed to the Scibert Model. The class token is pooled from after the final layer and is passed to a feed forward neural network for binary classification using cross entropy loss. 
 
 
 \subsubsection{Model Training}
@@ -146,9 +146,9 @@ The input representation for the SVM and the NB model are the same as the string
 
 \subsection{Pretraining Transformers}
 \label{table_classification:models:encoder-model:pre-train}
-Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, the cross-channel transformer model is pretrained with 70K tables from papers from ArXiv. A masked language modeling pretraining objective is used to train the Transformer model given in Figure \ref{figure18}, and \ref{figure19}. The pretraining follows the procedures described by \cite{deng2020turl} where the task is of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the word token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM predictions of the Table and Caption is added and backpropagated. 
+Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, the both transformer models in Section \ref{table_classification:models:cross-channel} and Section \ref{table_classification:models:encoder-model} are first pretrained with 70K tables from papers from ArXiv. The pretraining consists of the task of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM losses of the Table and Caption are summed and backpropagated.
 
-This objective allows training the model with large number of tables instead of using classifiers trained on small amounts of data. The pretraining task is run for 35K steps in 5 epochs. The learning rate is set to 0.0001 for the pretraining task with an AdamW optimizer. Both the transformer models described in Section \ref{table_classification:models:encoder-model}, \ref{table_classification:models:cross-channel} are pretrained using the same MLM objective. 
+This objective allows training the model with large number of tables instead of using classifiers trained on small amounts of data. The pretraining task is run for 35K steps in 5 epochs. The learning rate is set to 0.0001 for the pretraining task with an AdamW \parencite{loshchilov2017decoupled} optimizer. 
 
 \subsection{Finetuning Transformers}
 After the Cross Channel Transformer and the Encoder Only Multi-Channel Transformer undergo the pretrainig task; the models are finetuned on the classification task with a learning rate of 2e-05, scheduled with a linear learning rate scheduler for 20 epochs using the AdamW optimizer. 
@@ -194,14 +194,16 @@ As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) 
 \refstepcounter{tablecounter}
 The following are the experiment and their conditions for ML model training:
 \begin{itemize}
-    \item Cross Channel Transformer: Pretrained with 70K Tables and finetuned on the classification task
-    \item Cross Channel Transformer: Directly trained from scratch on the classification task 
-    \item Encoder Only Multi-Channel Transformer : Pretrained with 70K Tables and finetuned on the classification task
+    \item Cross Channel Transformer: Pretrained with 70K Tables and finetuned on the classification task.
+    \item Cross Channel Transformer: Directly trained from scratch on the classification task.
+    \item Encoder Only Multi-Channel Transformer : Pretrained with 70K Tables and finetuned on the classification task.
     \item SciBert: Finetuned on the classification task.
-    \item Naive Bayes \& SVM
+    \item Naive Bayes \& SVM.
 \end{itemize}
 More details on the hyperparameters for the experiments are found in the Appendix \ref{appendix:toc}. All experiments are conducted on the same frozen test set with evenly balanced samples. Numbers are reported after averaging 4 training runs.
 
 All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. Table \ref{table5} describes the results of the experiments. 
 
-The pretrained models perform substantially better than the baselines. The Cross-Channel Tranformer when pretrained from scratch performs substantially better than the model trained from scratch. The Encoder Only Multi-Channel Transformer performs the best among all the models pretrained on ArXiv Tables. SciBert outperforms all models. The reason for Sci-Bert's better performance can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model, trained on a very large corpus consisting of data from a similar distribution, its performance would be better than the baseline and the developed models. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared to training the model from scratch. 
+The pretrained models perform substantially better than the baselines. The Cross-Channel Tranformer when pretrained performs substantially better than being trained from scratch. 
+
+The Encoder Only Multi-Channel Transformer performs the best among all the models pretrained on ArXiv Tables. SciBert outperforms all models. The reason for Sci-Bert's better performance can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model, trained on a very large corpus consisting of data from a similar distribution, its performance would be better than the baseline and the developed models. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared to training the model from scratch. 

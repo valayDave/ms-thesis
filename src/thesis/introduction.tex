@@ -19,7 +19,7 @@ The growth in the research volume has also led to academic research search engin
 Academic research search engines are different from traditional search engines like Google because they host content specific to scientific literature. 
 Scientific papers generally undergo a process of peer-review. If a paper does not undergo peer review, it may still get cited by other publications/articles. This relational nature of academic research makes it relatively easy to filter credibility based on citations as a metric; Major academic research search engines such as Google Scholar, Microsoft Academic, etc., leverage citations as a metric for ranking documents. Although citations are beneficial, a search query may match many records during the search process. The increase in the number of documents can also result in a sea of noise for a particular search query. In such cases, the researcher gets minimal context information around search matches to infer the usefulness of a search result. 
 
-Researchers also tend to look for information embedded deep inside papers. Many papers contain table/s of results for some experiments or comparisons to techniques/methods from other papers. The methods/techniques that are compared are generally cited; But the access to thier information requires researchers to manually hunt for the information to drive context behind the comparison. This type of tabular information is not easily accessible through normal search engines. It is also not readily available at the time of reading research. A platform like PapersWithCode\footnote{https://paperswithcode.com} hosts/tracks State-of-the-art(SOTA) leaderboards for Machine Learning(ML) along with their papers. The access to information within this platform is constrained to ML and doesn't provide information outside papers in Machine Learning papers. 
+Researchers also tend to look for information embedded deep inside papers. Many papers contain table/s of results for some experiments or comparisons to techniques/methods from other papers. The methods/techniques that are compared are generally cited; But the access to thier information requires researchers to manually hunt for the context behind the comparison. This type of tabular information is not easily accessible through normal search engines. It is also not readily available at the time of reading research. A platform like PapersWithCode\footnote{https://paperswithcode.com} hosts/tracks State-of-the-art(SOTA) leaderboards for Machine Learning(ML) along with their papers. The access to information within this platform is constrained to ML and doesn't provide information outside papers from ML papers. 
 
 The next section aims to provide a motivating example to explain the lack of context in search results displayed by three large proprietary search engines.
 
@@ -75,11 +75,9 @@ But all search results do not consist of context about where the match took plac
 
 \subsection{Sparse Context In Search Results About Where Search Terms Matched Inside A Document}
 
-All search results shown in section \ref{sr-g}, \ref{sr-m}, \ref{sr-s}, do not provide any additional information about where the match took place inside the research document. The interesting characteristic of research documents is that they possess structure and hierarchy. Research documents have well-laid out sections such as “Introduction,” “Related Works,” “Methodology,” “Experiments,” etc. that can provide context about the matched search terms. Such information can provide insights to the researcher about the context around which the search match took place. 
+All search results shown in section \ref{sr-g}, \ref{sr-m}, \ref{sr-s}, do not provide any additional information about where the match took place inside the research document. An interesting characteristic of research documents is that they possess structure and hierarchy. Research documents have well-laid out sections such as “Introduction,” “Related Works,” “Methodology,” “Experiments,” etc. that can provide context about the matched search terms. Such information can provide insights to the researcher about the context around which the keyword was stated in a search result. 
 
-Previous studies by \parencite{kacem2018analysis} have shown that providing more filters to tend to improve precision in search. Access to the structure of the document can help the search engine provide filters to limit search within particular sections of a paper.
-
-\pagebreak
+% \pagebreak
 \subsection{Minimal Access To Information When Reading Research}
 
 \begin{figure}[h]
@@ -92,7 +90,7 @@ Previous studies by \parencite{kacem2018analysis} have shown that providing more
 \refstepcounter{figurecounter}
 Quite a few scientific literature search engines also offer forward citation search features \parencite{gusenbauer2020academic}, but these features are not always accessible outside the search engine’s website. 
 Google Scholar and Semantic Scholar provide browser extensions to help the researchers get more context on a research document, as seen from Figure \ref{figure5}. 
-These extensions lead back to the search engine's proprietary websites for further access to more information surrounding the research. They also do not provide information within the browser when the researcher is reading an article online. 
+These extensions lead back to the search engine's proprietary websites for further access. They also do not provide information within the browser when the researcher is reading an article online. 
 % They also miss out on many essential aspects of research documents, such as tables in the research when surfacing relevant information about the document. 
 \subsection{No Access To More Fine-Grained Information Such as Tables When Reading Research}
 \begin{figure}[h]
@@ -103,7 +101,7 @@ These extensions lead back to the search engine's proprietary websites for furth
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-Many research papers compare methods from other research papers, and such information is not directly accessible to the researcher when reading a research article online. Figure \ref{figure6} is a good example of a table showing comparison of methods. This table is derived from \cite{messina2020transformer}, and it describes comparisons with various methods; One of the method(VSRN) comes from \cite{li2019visual}. As comparisons are on the MS-COCO dataset \parencite{lin2014microsoft}, the user has to manually hunt for VSRN's performance from its original paper to understand variance in the method's performance from what was initially reported. This task of discovering tables with comparisons is a time-consuming task in research which requires a lot of mannual effort by a researcher.  
+Many research papers compare methods from other research papers; such information is not directly accessible to the researcher when reading a research article online. Figure \ref{figure6} is a good example of this type of information. Figure \ref{figure6} describes a table showing comparison of methods. This table is derived from \cite{messina2020transformer}. One of the method(VSRN) in the table comes from \cite{li2019visual}. As comparisons are on the MS-COCO dataset \parencite{lin2014microsoft}, the user has to manually hunt for VSRN's performance from its original paper to understand variance in the method's performance from what was initially reported. This task of discovering tables with comparisons is a time-consuming task in research which requires a lot of mannual effort by a researcher.  
 
 With the recent growth in Machine Learning publications, new platforms such as PapersWithCode\footnote{https://paperswithcode.com} and sotabench\footnote{https://sotabench.com/} help compare State-of-the-art(SOTA) methods from various research papers and link source code to many SOTA ML techniques. Even though these platforms host parsed information from raw research about comparsions with SOTA methods, there is no way to access that information when reading a research paper online. 
 
@@ -111,10 +109,10 @@ With the recent growth in Machine Learning publications, new platforms such as P
 This dissertation focuses on the solutions developed to tackle the missing characteristics described in Section \ref{section:intro:missing_traits}. 
 
 Section \ref{relatedwork:background} provides some preliminary background on inverted-index based search engines, open-source search engines, and state-of-the-art machine learning techniques.
-Section \ref{relatedwork:acad-search-engine} discusses the different studies conducted about academic search engines; Section \ref{relatedwork:acad-lit-mining} discusses the different techniques used for mining academic literature; Section \ref{relatedwork:table-type} will discuss previous research to pertaining to classification of tables. 
+Section \ref{relatedwork:acad-search-engine} discusses the different studies conducted about academic search engines; Section \ref{relatedwork:acad-lit-mining} discusses the different techniques used for mining academic literature; Section \ref{relatedwork:table-type} discusses previous research regarding table type classification. 
 
 Section \ref{method} provides an overview of the proposed solutions i.e., a search engine over CS ArXiv and a browser extension to augment research at the time of reading. 
 
-Section \ref{sci-genie-core} discusses the core components of the search engine and the browser extension;Section \ref{table_classification} discusses the problem, solution and experiments for the machine learning task of classifying table of comparisons.
+Section \ref{sci-genie-core} discusses the core components of the search engine and the browser extension; Section \ref{table_classification} discusses the problem, solution and experiments for the machine learning task of classifying table of comparisons.
 
 Finally, Section \ref{conclusion} will provide some insight to the current shortcomings of Sci-Genie, highlight some future directions of research based on the shortcomings of Sci-Genie. 
