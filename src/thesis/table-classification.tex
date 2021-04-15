@@ -2,7 +2,7 @@
 \label{table_classification}
 A lot of valuable information about comparisons with some baselines and other research is present in the tables of academic research. Researchers tend to spend much valuable time finding the citations and the table of results from those citations. Sci-Genie via Citation Graph and the Machine Learning models filters tables describing comparisons at the time of reading research. 
 
-This chapter will cover classifying tables that describe a comparison of entities and propose approaches to tackle the problem of classifying such types of tables. 
+This chapter will cover the approaches applied to tackle the problem of classifying tables describing comparisons.
 
 \section{Problem Formulation}
 
@@ -48,7 +48,7 @@ Based on this formulation, this dissertation analyzes 4 different types of ML mo
 \end{figure}
 \refstepcounter{figurecounter}
 
-Figure \ref{figure17} visualizes the representation of $T$ and $C$. Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable based on the model. Cross Channel Transformer and Encoder Only Multi-Channel Transformer treats $T$ and $C$ as seperate representations. Scibert, SVM and Naive Bayes treats $T$ and $C$ as one joint representation. 
+Figure \ref{figure17} visualizes the representation of $T$ and $C$. Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable, based on the choice of the model. Cross Channel Transformer and Encoder Only Multi-Channel Transformer treats $T$ and $C$ as separate representations. Scibert, SVM and Naive Bayes treats $T$ and $C$ as one joint representation. 
 
 
 Section \ref{table_classification:models} describes the models developed/trained for the input representations of table $T$ and caption $C$. The data collection and labeling for the machine learning models is described in Section \ref{table_classification:data-coll}. The experiment results for different models is described in Section \ref{table_classification:experiement-result}
@@ -151,7 +151,7 @@ Based on the insights learned from \cite{hernandez2021scaling} on the effectiven
 This objective allows training the model with large number of tables instead of using classifiers trained on small amounts of data. The pretraining task is run for 35K steps in 5 epochs. The learning rate is set to 0.0001 for the pretraining task with an AdamW \parencite{loshchilov2017decoupled} optimizer. 
 
 \subsection{Finetuning Transformers}
-After the Cross Channel Transformer and the Encoder Only Multi-Channel Transformer undergo the pretrainig task; the models are finetuned on the classification task with a learning rate of 2e-05, scheduled with a linear learning rate scheduler for 20 epochs using the AdamW optimizer. 
+After the Cross Channel Transformer and the Encoder Only Multi-Channel Transformer undergo the pretraining task; the transformer layers from the models are extracted; A new linear classifier head is added to these layers and then the models are finetuned on the classification task with a learning rate(LR) of 2e-05, scheduled with a linear LR scheduler for 20 epochs using the AdamW optimizer. 
 
 \section{Data Collection And Labeling}
 \label{table_classification:data-coll}
@@ -164,7 +164,7 @@ After the Cross Channel Transformer and the Encoder Only Multi-Channel Transform
 \end{figure}
 \refstepcounter{figurecounter}
 
-As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) that contains the tables from the research papers, A labeling interface(Figure \ref{figure16}) is designed to annotate tables from 240 research papers. 820 tables are annotated out of which 574 tables are describing a comparison and 246 are not. The labeling interface supports labeling types to tables described by \cite{kim2012scientific} and few more based on the observations from current CS research. More details regarding this subject are discussed in Chapter \ref{conclusion:future-scope:type-class}. 
+As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) that contains the tables from the research papers, A labeling interface (Figure \ref{figure16}) is designed to annotate tables from 240 research papers. 820 tables are annotated out of which 574 tables are describing a comparison and 246 are not. The labeling interface supports labeling types to tables described by \cite{kim2012scientific} and few more based on the observations from current CS research. More details regarding this subject are discussed in Chapter \ref{conclusion:future-scope:type-class}. 
 
 \section{Experiment Results}
 \label{table_classification:experiement-result}
