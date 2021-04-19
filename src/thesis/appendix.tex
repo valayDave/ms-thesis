@@ -114,7 +114,7 @@
     }
   }
 \end{verbatim}
-
+\pagebreak
 \section{Content Parsing Code/Algorithm}
 \label{appendix:content-parsing-code}
 The \textit{ArxivLatexParser} is used to create the parsed content tree from which section based correlation is done. Below is the algorithm and source code in Python programming language.
@@ -563,7 +563,7 @@ class ArxivLatexParser():
       
 
 \end{lstlisting}
-
+\pagebreak
 \section{Heuristic Mapping Values For Serialisation of Research Object}
 \label{appendix:mapping-heuristic}
 \begin{lstlisting}
@@ -629,18 +629,79 @@ STRICT_CHECK_CONSTS = [
 
 \chapter{Table Of Comparison Classification}
 \label{appendix:toc}
-
-\subsection{Hyper Parameters For ML Training}
+\section{Hyper Parameters For ML Training}
 \begin{table}[h]
   \label{table\arabic{tablecounter}}
   \centering
   \begin{tabular}{|p{1.25cm}|p{1.25cm}|p{1.75cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1cm}|p{1cm}|}
   \hline
-      Model Name & Number Of Layers &  Embedding Size & Batchsize & Learning Rate & Number Of Parameters & Size In MB & \# Epoch\\ \hline
-      Table Cross Channel Transformer (31M) & 6 Layers Per Cross Channel, 6 Layers Per Vanilla Encoder & 256 & 8 & 2e-05 & 31M & 140 & 20\\ \hline
-      Table Encoder Style Transformer (25M) & 8 Vanilla Encoder & 256 & 8 & 2e-05 & 25M & 100 & 20\\ \hline
+      Model Name & \#  Layers &  Embedding Size & Batchsize & Learning Rate & \#  Parameters & Size In MB & \# Epoch\\ \hline
+      CCT (31M) & 6 Layers Per Cross Channel, 6 Layers Per Vanilla Encoder & 256 & 8 & 2e-05 & 31M & 140 & 20\\ \hline
+      E-MCT (25M) & 8 Vanilla Encoder & 256 & 8 & 2e-05 & 25M & 100 & 20\\ \hline
+      Caption Only Encoder Transformer (14.5M) & 8 Vanilla Encoder & 256 & 8 & 2e-05 & 14.5M & 58 & 20\\ \hline
       SciBert Finetuned & 12 Vanilla Encoder Layers & 768 & 8 & 2e-05 & 109 M & 440 & 6 \\ \hline
   \end{tabular}
   \caption{\label{tablecounter} Hyper Parameters For Training Table Classification Models. All Learning rates are scheduled using a cosine learning rate scheduler with a warm up of 20 epochs. }
 \end{table}
 \refstepcounter{tablecounter}
+
+
+\section{Table Type Examples}
+\label{appendix:toc:type-exp}
+% Figure \ref{figure}
+The examples of the types of tables labeled during the labeling processs are given in Figure \ref{figure30}, \ref{figure31}, \ref{figure32}, \ref{figure33}, \ref{figure34}, \ref{figure35}. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/type-exp-ds-stat.png}
+    \legend{\emph{Source}: From \cite{dasigi2019quoref}}
+    \caption{Table Type : Dataset Description. }
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/type-exp-ablation.png}
+    \legend{\emph{Source}: From \cite{ma2019exploiting}}
+    \caption{Table Type : Ablation Study. }
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/type-exp-method.png}
+    \legend{\emph{Source}: From \cite{liu2017adversarial}}
+    \caption{Table Type : Method Examples.}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\maxwidth{0.5\textwidth}]{src/images/type-exp-symbolic.png}
+    \legend{\emph{Source}: From \cite{maksai2016players}}
+    \caption{Table Type : Symbolic Parameter Description. }
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/type-exp-hparam.png}
+    \legend{\emph{Source}: From \cite{maksai2016players}}
+    \caption{Table Type : HyperParameter Description.}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/type-exp-param.png}
+    \legend{\emph{Source}: From \cite{zhang2018unreasonable}}
+    \caption{Table Type : Parameter Description.}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
