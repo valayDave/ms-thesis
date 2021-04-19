@@ -1,6 +1,5 @@
-\chapter{Problem Motivation}
+\chapter{Introduction}
 
-\section{Introduction}    
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/Paper-Publishing-Trend.pdf}
@@ -104,6 +103,9 @@ These extensions lead back to the search engine's proprietary websites for furth
 Many research papers compare methods from other research papers; such information is not directly accessible to the researcher when reading a research article online. Figure \ref{figure6} is a good example of this type of information. Figure \ref{figure6} describes a table showing comparison of methods. This table is derived from \cite{messina2020transformer}. One of the method(VSRN) in the table comes from \cite{li2019visual}. As comparisons are on the MS-COCO dataset \parencite{lin2014microsoft}, the user has to manually hunt for VSRN's performance from its original paper to understand variance in the method's performance from what was initially reported. This task of discovering tables with comparisons is a time-consuming task in research which requires a lot of mannual effort by a researcher.  
 
 With the recent growth in Machine Learning publications, new platforms such as PapersWithCode\footnote{https://paperswithcode.com} and sotabench\footnote{https://sotabench.com/} help compare State-of-the-art(SOTA) methods from various research papers and link source code to many SOTA ML techniques. Even though these platforms host parsed information from raw research about comparsions with SOTA methods, there is no way to access that information when reading a research paper online. 
+
+\section{Thesis Contributions}
+The main contributions of this thesis are two parts. This thesis's first contribution is that it proposes a system which collects, parses and stores data about research papers from computer science ArXiv. This system stores the parsed content structure, the tables of a research paper, the citations to and from a paper and uses this data to power various interfaces such as a search interface or a browser extension.  The thesis's second contribution is that it proposes and analyzes various ML models which can be formulated to classify tables describing comparisons using the data collected by the system. The disseration shows how the use of large amounts of data with self-supervised pretraining helps get a better performance for the task of table of comparison classification using the proposed models.
 
 \section{Proposed Approach And Overview}
 This dissertation focuses on the solutions developed to tackle the missing characteristics described in Section \ref{section:intro:missing_traits}. 

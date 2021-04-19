@@ -34,10 +34,10 @@ The problem of classifying a table $T$ as a table describing a comparison can be
 
 Based on this formulation, this dissertation analyzes 4 different types of ML models and the representations they use for the table $T$ and caption $C$ for the problem:
 \begin{itemize}
-    \item Cross Channel Transformers With/Without Pretraining
-    \item Encoder Only Multi-Channel Transformer With Pretraining
+    \item Cross Channel Transformers(CC-T) With/Without Pretraining
+    \item Encoder Only Multi-Channel Transformer(E-MCT) With/Without Pretraining
+    \item Caption only Encoder Transformer With/Without Pretraining (Baseline)
     \item Finetuning Pretrained Scibert
-    \item SVM and Naive Bayes (Baselines)
 \end{itemize}
 
 \begin{figure}[h]
@@ -48,15 +48,14 @@ Based on this formulation, this dissertation analyzes 4 different types of ML mo
 \end{figure}
 \refstepcounter{figurecounter}
 
-Figure \ref{figure17} visualizes the representation of $T$ and $C$. Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable, based on the choice of the model. Cross Channel Transformer and Encoder Only Multi-Channel Transformer treats $T$ and $C$ as separate representations. Scibert, SVM and Naive Bayes treats $T$ and $C$ as one joint representation. 
+Figure \ref{figure17} visualizes the representation of $T$ and $C$. Different models are analyzed because the representations of $T$ and $C$ can be treated as seperate variables or as a single variable, based on the choice of the model. Cross Channel Transformer and Encoder Only Multi-Channel Transformer treats $T$ and $C$ as separate representations. Scibert treats $T$ and $C$ as one joint representation. The caption only transformer only uses the Caption $C$. 
 
-
-Section \ref{table_classification:models} describes the models developed/trained for the input representations of table $T$ and caption $C$. The data collection and labeling for the machine learning models is described in Section \ref{table_classification:data-coll}. The experiment results for different models is described in Section \ref{table_classification:experiement-result}
+Section \ref{table_classification:models} describes the models developed/trained for the input representations of table $T$ and caption $C$. The data collection and labeling for the machine learning models is described in Section \ref{table_classification:data-coll}. The experiment results for different models is described in Section \ref{table_classification:experiment-result}
 
 \section{Classification Models}
 \label{table_classification:models}
 
-\subsection{Encoder Only Multi-Channel Transformer}
+\subsection{Encoder Only Multi-Channel Transformer (E-MCT)}
 \label{table_classification:models:encoder-model}
 \begin{figure}[h]
     \centering
@@ -79,7 +78,7 @@ The table cell sequence $T_{cell}$ and the Caption $C$ are first converted to em
 These embeddings are passed to individual encoder self-attention transformers. The class tokens from the final layer is pooled and sent for classification using a linear feed forward layer and a cross entropy loss is applied on the predictions. Figure \ref{figure18} visualizes the model for classification. 
 
 
-\subsection{Cross Channel Transformer}
+\subsection{Cross Channel Transformer (CCT) }
 \label{table_classification:models:cross-channel}
 \begin{figure}[h]
     \centering
@@ -131,22 +130,24 @@ The input representation string is converted to a sequence of integer tokens whi
 \subsubsection{Model Training}
 The model is trained using the for 6 epochs with a linear learning rate warm up schedule of 20 epochs.
 
-\subsection{Baselines}
-SVM models are used as baselines as when \cite{kim2012scientific} conducted a study for table type classification, deep learning was not as popular. Naive Bayes(NB) model are also chosen as an additional baseline for the classification task. 
+\subsection{Caption only Encoder Transformer (Baseline)}
 
 \subsubsection{Input Representation}
-The input representation for the SVM and the NB model are the same as the string described in Section \ref{table_classification:models:sb:input_rep}. The string undergoes tokenisation and a classifier is trained based on TF/IDF values of the input strings. 
+The input representation for the Caption only Encoder Transformer uses only the Caption $C$ as input. The encoder and the input representations for the transformer is same given in Section \ref{table_classification:models:encoder-model:input-rep} and Figure \ref{figure18}.
 
 \subsection{Pretraining Transformers}
-\label{table_classification:models:encoder-model:pre-train}
-Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, the both transformer models in Section \ref{table_classification:models:cross-channel} and Section \ref{table_classification:models:encoder-model} are first pretrained with 70K tables from papers from ArXiv. The pretraining consists of the task of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM losses of the Table and Caption are summed and backpropagated.
+\label{table_classification:pre-train}
+Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, both transformer models in Section \ref{table_classification:models:cross-channel} and Section \ref{table_classification:models:encoder-model} are first pretrained with 70K tables from papers from ArXiv. The pretraining consists of the task of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM losses of the Table and Caption are summed and backpropagated.
 
-This objective allows training the model with large number of tables instead of using classifiers trained on small amounts of data. The pretraining task is run for 35K steps in 5 epochs. The learning rate is set to 0.0001 for the pretraining task with an AdamW \parencite{loshchilov2017decoupled} optimizer. 
+The pretraining task for the transformer models in Section \ref{table_classification:models:cross-channel} and Section \ref{table_classification:models:encoder-model} is run for 35K steps in 5 epochs. The Caption only transformer is trained with MLM loss for the captions for 5K steps over 5 epochs. The loss of the pretaining for the Caption only transformer can be seen from Figure \ref{figure22}. 
 
-\subsection{Finetuning Transformers}
-After the Cross Channel Transformer and the Encoder Only Multi-Channel Transformer undergo the pretraining task; the transformer layers from the models are extracted; A new linear classifier head is added to these layers and then the models are finetuned on the classification task with a learning rate(LR) of 2e-05, scheduled with a linear LR scheduler for 20 epochs using the AdamW optimizer. 
+The learning rate for all pretraining tasks is set to 0.0001 with an AdamW \parencite{loshchilov2017decoupled} optimizer. 
 
-\section{Data Collection And Labeling}
+\subsection{Training Transformers For Classification}
+\label{table_classification:models:class-task}
+After CCT ,E-MCT and Caption only encoder Transformer undergo the pretraining task, the transformer layers from the models are extracted; A new linear classifier head is added to these layers and then the models are finetuned on the classification task with a learning rate(LR) of 2e-05, scheduled with a linear LR scheduler for 20 epochs using the AdamW optimizer. All models trained for classification undergo same conditions for training. 
+
+\section{Dataset Collection And Labeling}
 \label{table_classification:data-coll}
 
 \begin{figure}[h]
@@ -157,10 +158,83 @@ After the Cross Channel Transformer and the Encoder Only Multi-Channel Transform
 \end{figure}
 \refstepcounter{figurecounter}
 
-As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) that contains the tables from the research papers, A labeling interface (Figure \ref{figure16}) is designed to annotate tables from 240 research papers. 820 tables are annotated out of which 574 tables are describing a comparison and 246 are not. The labeling interface supports labeling types to tables described by \cite{kim2012scientific} and few more based on the observations from current CS research. More details regarding this subject are discussed in Chapter \ref{conclusion:future-scope:type-class}. 
+\subsection{Data Collection}
+\label{table_classification:data-coll:coll}
+All the tables needed for classification are extracted from the latex source via Sci-Genie. Sci-Genie uses arxiv-vanity/engrafo\footnote{https://github.com/arxiv-vanity/engrafo} to convert LaTeX to HTML. The tables are extracted from HTML  using CSS selectors. Once the tables are extracted from the HTML source, they are serialized to pandas DataFrames and stored in the search index. The schema of the stored data is described in Chapter \ref{sci-genie-core:data-layer:table-index}. 
+
+\subsection{Data Labeling}
+\label{table_classification:data-coll:lab}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/labeled_data_distribution.pdf}
+    \caption{Distribution of the different categories of papers the labeled tables belongs to.}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/labeled_intent_distribution.pdf}
+    \caption{Distribution of the labeled types for different tables identified in the labeling process.}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+A labeling interface (Figure \ref{figure16}) is designed to annotate table types. Tables are annotated from 240 research papers. The papers are chosen at random for the labers to label. The topics of the papers from which the tables are derived can be seen in Figure \ref{figure21}. To explicitly discover tables which are \textit{not} describing comparisons, the following types of tables are defined: 
+\begin{itemize}
+    \item Comparative Analysis : The table is describing a comparison between entities based on some metric/metrics. This is the type of table the classifier is supposed to classify.
+    \item Symbolic Parameter Description : The table is describing some symbols which could belong to an equation.
+    \item HyperParameter Description : The table is describing hyper parameters for some experiment.
+    \item Dataset Description : The table is describing statistics/examples from some dataset. 
+    \item Ablation Study : The table is describing ablation study or showing some perturbation analysis.
+    \item Parameter Description: The table is describing parameters or entities which are relevant to describing the experiment. The label is more generalised than HyperParameter Description or Dataset Description or Symbolic Parameter Description. This label is provided when labelers are unable to categorize a table under a HyperParameter Description or Dataset Description or Symbolic Parameter Description. 
+    \item Method Examples : These are tables which are showing input-ouput of some method described in the paper. These types of tables are observed in Machine learning papers where authors show samples various input-output pairs of for an ML model.
+\end{itemize}
+The above defined types are similar to \cite{kim2012scientific} but also help capture some types which are observed distinctly in recent CS literature. The tables which could not be explicitly classified are labeled as \textit{Unknown}. 
+
+The extra associated types also ensure that the collected tables for the ML task have features from more than one type when a table is not describing a comparison. 
+
+3 labelers are tasked to label the data. 820 tables are labeled out of which 574 tables are describing a comparison and 246 are not. Figure \ref{figure22} visualizes the distribution of the labeled types of tables as a pie chart. 
+
+\subsection{Test Set Construction}
+\label{table_classification:data-coll:test}
+The test set consists of 100 tables describing comparisons and 100 tables which are not describing a comparison. 100 random samples are extracted from tables which are labeled "Comparative Analysis". 100 random samples are taken from tables belonging to the other classes. 
+
+\subsection{Training Set Construction}
+The training set consists of the 620 tables which remain after the extraction of the test set. As the dataset has a class imbalance, the classes are rebalanced by duplicating data of non-comparison-tables for the classification training process. 
 
 \section{Experiment Results}
-\label{table_classification:experiement-result}
+\label{table_classification:experiment-result}
+
+\begin{table}[h]
+    \label{table\arabic{tablecounter}}
+    \centering
+    \begin{tabular}{llllr}
+        \toprule
+                         Model Name &                 Loss &             F1 Score &               Accuracy \\
+        \midrule
+          Caption Only without Pretraining &  $ 0.599 \pm 0.017 $ &    $ 0.7134 \pm 0.001 $ &     $ 71.354 \pm 0.01 $ \\
+          Caption Only with Pretraining  &  $ 0.676 \pm 0.036 $ &  $ 0.757 \pm 0.086 $ &   $ 73.438 \pm 8.854 $ \\
+          E-MCT without Pretraining &  $ 0.567 \pm 0.003 $ &  $ 0.809 \pm 0.016 $ &   $ 80.404 \pm 1.765 $ \\
+          \textbf{E-MCT with Pretraining} &  $ \mathbf{0.417 \pm 0.044} $ &  $ \mathbf{0.845 \pm 0.017}$ &  $\mathbf{84.505 \pm 1.722}$ \\
+          CCT without Pretraining &   $ 0.658 \pm 0.13 $ &  $ 0.596 \pm 0.144 $ &  $ 63.281 \pm 14.844 $ \\
+          CCT with Pretraining &  $ 0.505 \pm 0.008 $ &    $ 0.7962 \pm 0.001 $ &     $ 79.688 \pm 0.01 $ \\
+          SciBERT Finetuning &  $ 0.528 \pm 0.013 $ &  $ 0.826 \pm 0.005 $ &   $ 82.292 \pm 0.521 $ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Test set results of the table classification models using SOTA Transformer and baselines. The table represents information after averaging 8 training runs. }
+\end{table}
+\refstepcounter{tablecounter}
+
+The following are the ML models whose results are reported in Table \ref{table5}:
+\begin{itemize}
+    \item Cross Channel Transformer(CCT) With/Without pretraining
+    \item Encoder Only Multi-Channel Transformer(E-MCT) With/Without pretraining
+    \item Caption Only Transformer Encoder With/Without pretraining
+    \item SciBert Finetuned on the classification task (Baseline)
+\end{itemize}
+All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. The models that undergo pretraining follow the pretraining regime given in Section \ref{table_classification:pre-train}. The loss plot for the pretraining phases for the E-MCT ,CCT, Caption only transformer are visualized in Figure \ref{figure23}, \ref{figure24}. 
+
+
 \begin{figure}[h]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/mlm-loss-comparison.pdf}
@@ -169,34 +243,61 @@ As Sci-Genie consists of a Data Layer (Chapter \ref{sci-genie-core:data-layer}) 
 \end{figure}
 \refstepcounter{figurecounter}
 
-\begin{table}[h]
-    \label{table\arabic{tablecounter}}
+\begin{figure}[h]
     \centering
-    \begin{tabular}{|p{4cm}|p{3cm}|p{3cm}|p{3cm}|}
-    \hline
-        \textbf{Model} & \textbf{Accuracy} (\%) & \textbf{F1 Score}  & \textbf{Loss} \\ \hline
-        Naive Bayes & 71.6 & 0.825 & - \\ \hline
-        SVM  & 78.39 & 0.85477 & - \\ \hline
-        Cross Channel Transformer From Scratch (31M) & $73.95 \pm 10.5 $ & $0.739 \pm 0.107$ & $0.53 \pm 0.08$ \\ \hline
-        Encoder Only Multi-Channel Pretained (25M) & $88.33 \pm 0.29$ & $0.8883 \pm 0.002$ & $0.423 \pm 0.007$ \\ \hline
-        Cross Channel Transformer Pretained (31M) & $87.5 \pm 1.8$ & $0.875 \pm 0.018$ & $0.34 \pm 0.016$ \\ \hline
-        SciBert Finetuned (112M) & $92.23 \pm 1.60$ & $0.923 \pm 0.016$ & $0.21 \pm 0.04$ \\ \hline
-    \end{tabular}
-    \caption{\label{tablecounter} Test set results of the table classification models using SOTA Transformer and baselines. Average Results from 4 Training runs is reported. }
-\end{table}
-\refstepcounter{tablecounter}
-The following are the experiment and their conditions for ML model training:
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/mlm-loss-comparison-caption.pdf}
+    \caption{Masked Language Modeling(MLM) Loss For Caption Only Transformer Encoder Model }
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+All model variants except for SciBert are trained for 20 epochs. SciBert is trained for 6 epochs. The training optimization details are provided in Section \ref{table_classification:models:class-task}. The optimization method is kept the same for all classification experiments. 
+
+More details on the hyperparameters for the experiments are found in the Appendix \ref{appendix:toc}. All experiments are conducted on the same frozen test set with evenly balanced samples as described in Section \ref{table_classification:data-coll:test}. Table \ref{table5} describes performance on test set for each model after averaging 8 training runs.
+
+A more detailed view of the test set performance metrics can be seen from Figure \ref{figure27}. Figure \ref{figure27} visualizes the distribution of performance metrics described in Table \ref{table5}. Figure \ref{figure25}, \ref{figure26} visualize the metrics like loss, accuracy and F1 score during the training process for all the models. The value at each training step for the plots in the Figure \ref{figure25} and \ref{figure26} is an average from the 8 experiment runs.
+
+Section \ref{table_classification:experiment-result:result-discussion} discusses the insights inferred from the experiment results. 
+
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/Loss-Distriubiton-Train-Set-1.pdf}
+    \caption{Average Training Loss, Accuracy and F1 Score for the training process for the classification task across 8 runs using caption only Transformer with/without pretraining, and the Multi-Channel Encoder only Transformer with/without pretraining. }
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/Loss-Distriubiton-Train-Set-2.pdf}
+    \caption{Average Training Loss, Accuracy and F1 Score for the training process for the classification task across 8 runs using Cross-Channel Transformer with/without pretraining and Finetuning Sci-Bert.}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=\maxwidth{\textwidth}]{src/images/Metric-Distribution-For-Test-Set.pdf}
+    \caption{Distribution of loss, accuracy and F1 score on the test set for the classification task after 8 training runs for all experiments. The X-axis in each plot represents the metric. The Y-Axis is the number of experiment which resulted in the value of the metric}
+    \label{figure\arabic{figurecounter}}
+\end{figure}
+\refstepcounter{figurecounter}
+
+\subsection{Experiment Result Discussion}
+\label{table_classification:experiment-result:result-discussion}
+There following are some distinct observations after training the models for the classification task:
 \begin{itemize}
-    \item Cross Channel Transformer: Pretrained with 70K Tables and finetuned on the classification task.
-    \item Cross Channel Transformer: Directly trained from scratch on the classification task.
-    \item Encoder Only Multi-Channel Transformer : Pretrained with 70K Tables and finetuned on the classification task.
-    \item SciBert: Finetuned on the classification task.
-    \item Naive Bayes \& SVM.
+    \item Pretraining improves the performance of the model on the task specific optimization. 
+    \item Using caption only encoder transformer for the classification task gives performance which comes at par with SciBert but with high variance. 
 \end{itemize}
-More details on the hyperparameters for the experiments are found in the Appendix \ref{appendix:toc}. All experiments are conducted on the same frozen test set with evenly balanced samples. Numbers are reported after averaging 4 training runs.
 
-All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. Table \ref{table5} describes the results of the experiments. 
+\textit{The pertrained E-MCT model has the best performance on the test set} as seen from Figure \ref{figure27} and Table \ref{table5}. Pretraining improves the performance of all the models including E-MCT, CCT and Caption only transformer compared to training those models from scratch as seen from Figure \ref{figure27}. 
 
-The pretrained models perform substantially better than the baselines. The Cross-Channel Tranformer when pretrained performs substantially better than being trained from scratch. 
+The performance of the pertrained CCT transformer is better than the model trained from scratch because the model trained from scratch has high performance variance in the test set as seen in Figure \ref{figure27}. E-MCT also has a lower loss in the pretraining task compared to the CCT Transformer as seen in Figure \ref{figure23}. This helps infer the reason for the model's better perfomance on the fine-tuning task. 
 
-The Encoder Only Multi-Channel Transformer performs the best among all the models pretrained on ArXiv Tables. SciBert outperforms all models. The reason for Sci-Bert's better performance can be inferred based on the study by \cite{hernandez2021scaling}. As SciBert is a much bigger model, trained on a very large corpus consisting of data from a similar distribution, its performance would be better than the baseline and the developed models. It can also be seen from Table \ref{table5} that pretraining has a direct influence on a better model compared to training the model from scratch. 
+Eventhough SciBert has a better accuracy on the train set than E-MCT as seen in Figure \ref{figure25} and \ref{figure26}, E-MCT generalizes better on the test-set.
+
+It can be argued that the difference in performance between Sci-Bert and E-MCT (only being a few percentage points) can be inferred as negligible due to the size of the test set. But this arguement also sheds light that while E-MCT is a  smaller model, it gives performance at par or better than a larger model like SciBert. 
+
+The pretrained caption only encoder transformer performs as well as the SciBert but with a high variance as seen in Figure \ref{figure27}. Even though this model reaches convergence in the training process as seen in Figure \ref{figure25}, its test set performance has high variance. The results of some iterations perform competitively with SciBert, but others perform much worse. Even the best performing caption only model doesn't outperform E-MCT model. 
