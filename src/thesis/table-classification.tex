@@ -294,8 +294,8 @@ There following are some distinct observations after training the models for the
 
 The performance of the pertrained CCT transformer is better than the model trained from scratch because the model trained from scratch has high performance variance in the test set as seen in Figure \ref{figure27}. CCT model has a higer loss on the pretraining task than the E-MCT model as seen in Figure \ref{figure23}. This helps infer the reason for the E-MCT's better performance on the fine-tuning task compared to CCT. 
 
-Eventhough SciBert (Figure \ref{figure26}) has a better accuracy on the train set than E-MCT (Figure \ref{figure25}), E-MCT generalizes better on the test-set.
+Even though SciBert (Figure \ref{figure26}) has a better accuracy on the train set than E-MCT (Figure \ref{figure25}), E-MCT generalizes better on the test-set.
 
-It can be argued that the difference in performance between Sci-Bert and E-MCT (only being a few percentage points) can be inferred as negligible due to the size of the test set. But this arguement also sheds light that while E-MCT is a  smaller model, it gives performance at par or better than a larger model like SciBert after pretraining. 
+It can be argued that the difference in performance between Sci-Bert and E-MCT models (only a few percentage points) is a negligible difference due to the size of the test set. But this arguement also sheds light that while E-MCT is a smaller model, it gives performance at par or better than a larger model like SciBert after pretraining. 
 
-The pretrained caption only encoder transformer performs as well as the SciBert but with a high variance as seen in Figure \ref{figure27}. Even though this pretrained model reaches convergence in the training process as seen in Figure \ref{figure25}, its test set performance has high variance and the best model doesn't outperform E-MCT. This validates the hypothesis that information about the tables also helps boost test set performance. 
+The pretrained caption only encoder transformer performs as well as the SciBert but with a high variance as seen in Figure \ref{figure27}. Even though this pretrained model reaches convergence in the training process as seen in Figure \ref{figure25}, its test set performance has high variance and the best model doesn't outperform E-MCT. 
