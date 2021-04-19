@@ -137,9 +137,9 @@ The input representation for the Caption only Encoder Transformer uses only the 
 
 \subsection{Pretraining Transformers}
 \label{table_classification:pre-train}
-Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, both transformer models in Section \ref{table_classification:models:cross-channel} and Section \ref{table_classification:models:encoder-model} are first pretrained with 70K tables from papers from ArXiv. The pretraining consists of the task of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM losses of the Table and Caption are summed and backpropagated.
+Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, both transformer models in Section \ref{table_classification:models:cross-channel} and Section \ref{table_classification:models:encoder-model} are first pretrained with 70K tables from papers from ArXiv. The pretraining consists of the task of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM losses of the Table and Caption are summed and backpropagated. The pretraining task for the CCT and E-MCT transformer models is run for 35K steps in 5 epochs.
 
-The pretraining task for the transformer models in Section \ref{table_classification:models:cross-channel} and Section \ref{table_classification:models:encoder-model} is run for 35K steps in 5 epochs. The Caption only transformer is trained with MLM loss for the captions for 5K steps over 5 epochs. The loss of the pretaining for the Caption only transformer can be seen from Figure \ref{figure22}. 
+The caption only transformer is trained with MLM loss on the captions for 6K steps over 5 epochs. It is trained for lesser steps due to larger batch size. The loss of the pretaining for the caption only transformer can be seen from Figure \ref{figure22}. 
 
 The learning rate for all pretraining tasks is set to 0.0001 with an AdamW \parencite{loshchilov2017decoupled} optimizer. 
 
@@ -147,7 +147,7 @@ The learning rate for all pretraining tasks is set to 0.0001 with an AdamW \pare
 \label{table_classification:models:class-task}
 After CCT ,E-MCT and the caption only Transformer undergo the pretraining task, the transformer layers from the models are extracted; A new linear classifier head is added as the last layer and then the models are finetuned on the classification task with a learning rate (LR) of 2e-05, scheduled with a linear LR scheduler for 20 epochs using the AdamW optimizer. All models trained for classification undergo same conditions for training. Even the model trained from scratch on the classification task undergo the same optimization regime for same number of epochs.  
 
-\section{Dataset Collection And Labeling}
+\section{Dataset Collection, Labeling and Construction}
 \label{table_classification:data-coll}
 
 \begin{figure}[h]
@@ -179,7 +179,7 @@ All the tables needed for classification are extracted from the LaTeX source via
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
-A labeling interface (Figure \ref{figure16}) is designed to annotate table types. Tables are annotated from 240 research papers. The papers are chosen at random for the labers to label. The topics of the papers from which the tables are derived can be seen in Figure \ref{figure21}. To explicitly discover tables which are \textit{not} describing comparisons, the following types of tables are defined: 
+A labeling interface (Figure \ref{figure20}) is designed to annotate table types. Tables are annotated from 240 research papers. The papers are chosen at random to label. The topics of the papers from which the tables are derived can be seen in Figure \ref{figure21}. To explicitly discover tables which are \textit{not} describing comparisons, the following types of tables are defined: 
 \begin{itemize}
     \item Comparative Analysis : The table is describing a comparison between entities based on some metric/metrics. This is the type of table the classifier is supposed to classify.
     \item Symbolic Parameter Description : The table is describing some symbols which could belong to an equation.
@@ -189,9 +189,7 @@ A labeling interface (Figure \ref{figure16}) is designed to annotate table types
     \item Parameter Description: The table is describing parameters or entities which are relevant to describing the experiment. The label is more generalised than HyperParameter Description or Dataset Description or Symbolic Parameter Description. This label is provided when labelers are unable to categorize a table under a HyperParameter Description or Dataset Description or Symbolic Parameter Description but do observe a form of parametric description necessary to describe an experiment.  
     \item Method Examples : These are tables which are showing input-ouput of some method described in the paper. These types of tables are observed in Machine learning papers where authors show samples various input-output pairs of for an ML model.
 \end{itemize}
-The above defined types are similar to \cite{kim2012scientific} but also help capture some types which are observed distinctly in recent CS literature. The tables which could not be explicitly classified are labeled as \textit{Unknown}. Examples of all tables are provided in the Appendix \ref{appendix:toc:type-exp}
-
-The extra associated types also ensure that the collected tables for the ML task have features from more than one type when a table is not describing a comparison. 
+The above defined types are similar to \cite{kim2012scientific} but also help capture some types which are observed distinctly in recent CS literature. The tables which could not be explicitly classified are labeled as \textit{Unknown}. Examples of all tables are provided in the Appendix \ref{appendix:toc:type-exp}. The extra types are added during the labeling phase to ensure a solid justification for a label when a labeler chooses to label a table. 
 
 3 labelers are tasked to label the data. 820 tables are labeled out of which 574 tables are describing a comparison and 246 are not. Figure \ref{figure22} visualizes the distribution of the labeled types of tables as a pie chart. 
 
@@ -227,10 +225,10 @@ The training set consists of the 620 tables which remain after the extraction of
 
 The following are the ML models whose results are reported in Table \ref{table5}:
 \begin{itemize}
-    \item Cross Channel Transformer(CCT) With/Without pretraining
-    \item Encoder Only Multi-Channel Transformer(E-MCT) With/Without pretraining
-    \item Caption Only Transformer Encoder With/Without pretraining
-    \item SciBert Finetuned on the classification task (Baseline)
+    \item Cross Channel Transformer (CCT) With/Without pretraining. 
+    \item Encoder Only Multi-Channel Transformer (E-MCT) With/Without pretraining. 
+    \item Caption Only Transformer Encoder With/Without pretraining. 
+    \item SciBert Finetuned on the classification task (Baseline). 
 \end{itemize}
 All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. The models that undergo pretraining follow the pretraining regime given in Section \ref{table_classification:pre-train}. The loss plot for the pretraining phases for the E-MCT ,CCT, Caption only transformer are visualized in Figure \ref{figure23}, \ref{figure24}. 
 
@@ -294,7 +292,7 @@ There following are some distinct observations after training the models for the
 
 \textit{The pertrained E-MCT model has the best performance on the test set} as seen from Figure \ref{figure27} and Table \ref{table5}. Pretraining improves the performance of all the models including E-MCT, CCT and Caption only transformer compared to training those models from scratch as seen from Figure \ref{figure27}. 
 
-The performance of the pertrained CCT transformer is better than the model trained from scratch because the model trained from scratch has high performance variance in the test set as seen in Figure \ref{figure27}. E-MCT also has a lower loss in the pretraining task compared to the CCT Transformer as seen in Figure \ref{figure23}. This helps infer the reason for the E-MCT's better performance on the fine-tuning task. 
+The performance of the pertrained CCT transformer is better than the model trained from scratch because the model trained from scratch has high performance variance in the test set as seen in Figure \ref{figure27}. CCT model has a higer loss on the pretraining task than the E-MCT model as seen in Figure \ref{figure23}. This helps infer the reason for the E-MCT's better performance on the fine-tuning task compared to CCT. 
 
 Eventhough SciBert (Figure \ref{figure26}) has a better accuracy on the train set than E-MCT (Figure \ref{figure25}), E-MCT generalizes better on the test-set.
 
