@@ -136,6 +136,11 @@ The model is trained using the for 6 epochs with a linear learning rate warm up 
 \subsubsection{Input Representation}
 The input representation for the Caption only Encoder Transformer uses only the Caption $C$ as input. The encoder and the input representations for the transformer is same given in Section \ref{table_classification:models:encoder-model:input-rep} and Figure \ref{figure18}.
 
+\subsection{SVM and Naive Bayes}
+SVM models are used as baselines as when \cite{kim2012scientific} conducted a study for table type classification, deep learning was not as popular. Naive Bayes(NB) model are also chosen as an additional baseline for the classification task. 
+
+\subsubsection{Input Representation}
+The input representation for the SVM and the NB model are the same as the string described in Section \ref{table_classification:models:sb:input_rep}. The string undergoes tokenisation and a classifier is trained based on TF/IDF values of the input strings. 
 
 \subsection{Pretraining Transformers}
 \label{table_classification:pre-train}
@@ -201,7 +206,7 @@ The test set consists of 100 tables describing comparisons and 100 tables which 
 
 \subsection{Training Set Construction}
 The training set consists of the 620 tables which remain after the extraction of the test set. As the dataset has a class imbalance, the classes are rebalanced by duplicating data of non-comparison-tables for the classification training process. 
-
+\pagebreak
 \section{Experiment Results}
 \label{table_classification:experiment-result}
 
@@ -235,12 +240,11 @@ The following are the ML models whose results are reported in Table \ref{table5}
     \item SciBert Finetuned on the classification task (Baseline). 
     \item SVM and Naive Bayes (Baseline). 
 \end{itemize}
-All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. The models that undergo pretraining follow the pretraining regime given in Section \ref{table_classification:pre-train}. The loss plot for the pretraining phases for the E-MCT ,CCT, Caption only transformer are visualized in Figure \ref{figure23}, \ref{figure24}. 
 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/mlm-loss-comparison.pdf}
+    \includegraphics[width=0.8\maxwidth{\textwidth}]{src/images/mlm-loss-comparison.pdf}
     \caption{Masked Language Modeling(MLM) Loss For Encoder Style Attention VS Cross Attention. The MLM losses for $T$ and $C$ are summed. }
     \label{figure\arabic{figurecounter}}
 \end{figure}
@@ -248,19 +252,25 @@ All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/mlm-loss-comparison-caption.pdf}
+    \includegraphics[width=0.8\maxwidth{\textwidth}]{src/images/mlm-loss-comparison-caption.pdf}
     \caption{Masked Language Modeling(MLM) Loss For Caption Only Transformer Encoder Model }
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
+\FloatBarrier
+All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. The models that undergo pretraining follow the pretraining regime given in Section \ref{table_classification:pre-train}. The loss plot for the pretraining phases for the E-MCT ,CCT, Caption only transformer are visualized in Figure \ref{figure23}, \ref{figure24}. 
 
-All model variants except for SciBert are trained for 20 epochs. SciBert is trained for 6 epochs. The training optimization details are provided in Section \ref{table_classification:models:class-task}. The optimization method is kept the same for all classification experiments. 
+All model variants except for SciBert are trained for 20 epochs. SciBert is trained for 6 epochs. The training optimization details are provided in Section \ref{table_classification:models:class-task}. 
 
-More details on the hyperparameters for the experiments are found in the Appendix \ref{appendix:toc}. All experiments are conducted on the same frozen test set with evenly balanced samples as described in Section \ref{table_classification:data-coll:test}. Table \ref{table5} describes performance on test set for each model after averaging 8 training runs.
+The optimization method is kept the same for all classification experiments.  More details on the hyperparameters for the experiments are found in the Appendix \ref{appendix:toc}.  
 
-A more detailed view of the test set performance metrics can be seen from Figure \ref{figure27}. Figure \ref{figure27} visualizes the distribution of performance metrics described in Table \ref{table5}. Figure \ref{figure25}, \ref{figure26} visualize the metrics like loss, accuracy and F1 score during the training process for all the models. The metric value at each training step within the plots of Figure \ref{figure25} and \ref{figure26} is an average from the 8 experiment runs.
+All experiments are conducted on the same frozen test set with evenly balanced samples as described in Section \ref{table_classification:data-coll:test}. Table \ref{table5} describes performance on test set for each model after averaging 8 training runs. 
 
-Section \ref{table_classification:experiment-result:result-discussion} discusses the insights inferred from the experiment results. 
+A more detailed view of the test set performance metrics can be seen from Figure \ref{figure27}.  Figure \ref{figure27} visualizes the distribution of performance metrics described in Table \ref{table5}. Figure \ref{figure25}, \ref{figure26} visualize the metrics like loss, accuracy and F1 score during the training process for all the models. 
+
+The metric value at each training step within the plots of Figure \ref{figure25} and \ref{figure26} is an average from the 8 experiment runs. Section \ref{table_classification:experiment-result:result-discussion} discusses the insights inferred from the experiment results. 
+
+\pagebreak
 \begin{figure}[p!]
     \centering
     \includegraphics[width=0.96\maxwidth{\textwidth}]{src/images/Loss-Distriubiton-Train-Set-1.pdf}
