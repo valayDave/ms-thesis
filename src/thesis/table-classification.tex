@@ -38,6 +38,7 @@ Based on this formulation, this dissertation analyzes 4 different types of ML mo
     \item Encoder Only Multi-Channel Transformer(E-MCT) With/Without Pretraining
     \item Caption only Encoder Transformer With/Without Pretraining 
     \item Finetuning Pretrained Scibert (Baseline)
+    \item SVM and Naive Bayes (Baseline)
 \end{itemize}
 
 \begin{figure}[h]
@@ -135,6 +136,7 @@ The model is trained using the for 6 epochs with a linear learning rate warm up 
 \subsubsection{Input Representation}
 The input representation for the Caption only Encoder Transformer uses only the Caption $C$ as input. The encoder and the input representations for the transformer is same given in Section \ref{table_classification:models:encoder-model:input-rep} and Figure \ref{figure18}.
 
+
 \subsection{Pretraining Transformers}
 \label{table_classification:pre-train}
 Based on the insights learned from \cite{hernandez2021scaling} on the effectiveness of pretrained models for downstream tasks, both transformer models in Section \ref{table_classification:models:cross-channel} and Section \ref{table_classification:models:encoder-model} are first pretrained with 70K tables from papers from ArXiv. The pretraining consists of the task of Mask Language Modeling(MLM) for the sequence of cells $T_{cell}$ and the caption $C$. The model is tasked to predict the token where a MASK token is inserted in the table $T$ and caption $C$. A mask is inserted in 80\% of the training samples with 15\% of the sequence being masked. The cross entropy losses from MLM losses of the Table and Caption are summed and backpropagated. The pretraining task for the CCT and E-MCT transformer models is run for 35K steps in 5 epochs.
@@ -217,6 +219,8 @@ The training set consists of the 620 tables which remain after the extraction of
           CCT without Pretraining &   $ 0.658 \pm 0.13 $ &  $ 0.596 \pm 0.144 $ &  $ 63.281 \pm 14.844 $ \\
           CCT with Pretraining &  $ 0.505 \pm 0.008 $ &    $ 0.7962 \pm 0.001 $ &     $ 79.688 \pm 0.01 $ \\
           SciBERT Finetuning &  $ 0.528 \pm 0.013 $ &  $ 0.826 \pm 0.005 $ &   $ 82.292 \pm 0.521 $ \\
+          SVM &  -  &  $ 0.77 \pm 0.007 $ &   $ 74.635 \pm 0.991 $ \\
+          Naive Bayes &  -  &  $ 0.77 \pm 0.007 $ &   $ 73.125 \pm 1.06 $ \\
         \bottomrule
     \end{tabular}
     \caption{Test set results of the table of comparison classification models. The presented statistics are after averaging 8 training runs. }
@@ -229,6 +233,7 @@ The following are the ML models whose results are reported in Table \ref{table5}
     \item Encoder Only Multi-Channel Transformer (E-MCT) With/Without pretraining. 
     \item Caption Only Transformer Encoder With/Without pretraining. 
     \item SciBert Finetuned on the classification task (Baseline). 
+    \item SVM and Naive Bayes (Baseline). 
 \end{itemize}
 All experiments are conducted using Google Colab Notebooks on NVIDIA P100 GPUs. The models that undergo pretraining follow the pretraining regime given in Section \ref{table_classification:pre-train}. The loss plot for the pretraining phases for the E-MCT ,CCT, Caption only transformer are visualized in Figure \ref{figure23}, \ref{figure24}. 
 
@@ -256,17 +261,15 @@ More details on the hyperparameters for the experiments are found in the Appendi
 A more detailed view of the test set performance metrics can be seen from Figure \ref{figure27}. Figure \ref{figure27} visualizes the distribution of performance metrics described in Table \ref{table5}. Figure \ref{figure25}, \ref{figure26} visualize the metrics like loss, accuracy and F1 score during the training process for all the models. The metric value at each training step within the plots of Figure \ref{figure25} and \ref{figure26} is an average from the 8 experiment runs.
 
 Section \ref{table_classification:experiment-result:result-discussion} discusses the insights inferred from the experiment results. 
-
-
-\begin{figure}[p]
+\begin{figure}[p!]
     \centering
-    \includegraphics[width=\maxwidth{\textwidth}]{src/images/Loss-Distriubiton-Train-Set-1.pdf}
-    \caption{Average training loss, accuracy and F1 score during the training process for the classification task across 8 runs using caption only Transformer with/without pretraining, and the E-MCT with/without pretraining. The metric value at each training step within the plots is an average from the 8 experiment runs.}
+    \includegraphics[width=0.96\maxwidth{\textwidth}]{src/images/Loss-Distriubiton-Train-Set-1.pdf}
+    \caption{Average training loss, accuracy and F1 scores during the training process for the classification task across 8 runs using caption only Transformer with/without pretraining, and the E-MCT with/without pretraining. The metric value at each training step within the plots is an average from the 8 experiment runs.}
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
 
-\begin{figure}[p]
+\begin{figure}[p!]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/Loss-Distriubiton-Train-Set-2.pdf}
     \caption{Average training loss, accuracy and F1 Score during the training process for the classification task across 8 runs using CCT with/without pretraining and Finetuning Sci-Bert. The metric value at each training step within the plots is an average from the 8 experiment runs. }
@@ -274,13 +277,15 @@ Section \ref{table_classification:experiment-result:result-discussion} discusses
 \end{figure}
 \refstepcounter{figurecounter}
 
-\begin{figure}[p]
+\begin{figure}[p!]
     \centering
     \includegraphics[width=\maxwidth{\textwidth}]{src/images/Metric-Distribution-For-Test-Set.pdf}
     \caption{Distribution of loss, accuracy and F1 score on the test set for the classification task after 8 training runs for all experiments. The X-axis in each plot represents the metric. The Y-Axis is the number of experiment which resulted in the value of the metric}
     \label{figure\arabic{figurecounter}}
 \end{figure}
 \refstepcounter{figurecounter}
+
+\FloatBarrier
 
 \subsection{Experiment Result Discussion}
 \label{table_classification:experiment-result:result-discussion}
